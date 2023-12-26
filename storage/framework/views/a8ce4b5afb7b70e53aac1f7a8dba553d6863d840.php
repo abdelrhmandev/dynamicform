@@ -9,8 +9,7 @@
                 <span class="menu-title"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('site.home')); ?></a></span>
             </span>
         </div>
-        
-        
+        <?php echo $__env->make('layouts.aside.__tab-contents.includes.user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 </div>
 </div>

@@ -10,7 +10,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Dynamic Forms" />
+		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React" />
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="Metronic" />
 		<link rel="canonical" href="google.com" />
@@ -21,13 +21,14 @@
 				'csrfToken' => csrf_token(),
 			]); ?>;
 		</script>		
-	 
+ 
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&family=Roboto:wght@500&display=swap" rel="stylesheet">
 			<link href="<?php echo e(asset('assets/plugins/global/plugins.bundle.rtl.css')); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo e(asset('assets/css/style.bundle.rtl.css')); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo e(asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css')); ?>" rel="stylesheet"
             type="text/css" />
  
+	</head>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed">
 		<div class="d-flex flex-column flex-root">
 			<div class="page d-flex flex-row flex-column-fluid">

@@ -18,5 +18,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::post('/UpdateStatus', [App\Http\Controllers\BaseController::class, 'UpdateStatus'])->name('UpdateStatus'); 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('forms', App\Http\Controllers\FormController::class)->except('show');
+
+Route::resource('elements', App\Http\Controllers\ElementController::class)->except('show');
