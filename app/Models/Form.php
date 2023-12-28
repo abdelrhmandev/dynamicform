@@ -7,6 +7,6 @@ class Form extends Model
 {
  
     protected $table = 'forms';
-    protected $fillable = ['title','created_at'];
+    protected $fillable = ['title','status'];
     protected $guarded = ['id'];
 }

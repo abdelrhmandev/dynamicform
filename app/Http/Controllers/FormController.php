@@ -19,8 +19,8 @@ class FormController extends Controller
     public function store(ModuleRequest $request)
     {
  
-            $validated = $request->validated();
-            $validated['title'] = isset($request->title);
+            $validated           = $request->validated();
+            $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
             if (MainModel::create($validated)) {

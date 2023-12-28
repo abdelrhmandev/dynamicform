@@ -44,8 +44,7 @@
                                     <div class="fv-row fl">
                                         <label class="required form-label" for="title">{{ __('site.status') }}</label>
                                         <div class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="1" name="status"
-                                                id="status" @if (isset($status) && $status == '1') checked="checked" @endif />
+                                            <input class="form-check-input" type="checkbox" value="1" name="status" id="status" />
                                             <label class="form-check-label" for="status">
                                                 <span>{{ __('site.published') }}</span>
                                             </label>
