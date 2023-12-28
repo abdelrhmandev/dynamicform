@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
+use DataTables;
 use Carbon\Carbon;
+use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Form as MainModel;
@@ -43,15 +45,7 @@ class FormController extends Controller
             $model = MainModel::select('id','title','status','created_at');
             return Datatables::of($model)
                 ->addIndexColumn()
-                ->editColumn('title', function ($row) {
-                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . Str::words($row->title, '20') . '</a>';
-                })
-                ->editColumn('status', function (MainModel $row) {
-                    return '54545454S';//$this->dataTableGetStatus($row);
-                })
-                ->editColumn('created_at', function (MainModel $row) {
-                    return '5454545';//$this->dataTableGetCreatedat($row->created_at);
-                })
+
                 ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
