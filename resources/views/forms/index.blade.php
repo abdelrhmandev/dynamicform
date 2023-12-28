@@ -16,7 +16,6 @@
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
 @stop
 @section('content')
-
 <div class="container-xxl" id="kt_content_container">
   <div class="card">
     <div class="card-header border-0 pt-6">
@@ -28,11 +27,12 @@
               <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
             </svg>
           </span>
-          <input type="text" name="search" id="search" data-kt-table-filter="search" class="form-control form-control-solid w-210px ps-15" placeholder="{{ __('site.search') }} forms ......" />
+          <input type="text" name="search" id="search" data-kt-table-filter="search" class="form-control form-control-solid w-210px ps-15" placeholder="{{ __('site.search') }} {{ __($trans.'.plural') }} ......" />
         </div>
       </div>
       <div class="card-toolbar">
-        <div class="d-flex justify-content-end" data-kt-table-toolbar="base">    
+        <div class="d-flex justify-content-end" data-kt-table-toolbar="base">   
+
           @include('partials.modals._exportlisting')
           <a class="btn btn-primary" href="{{ $createRoute }}">
             <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
@@ -63,18 +63,18 @@
       </div>
     </div>
     <div class="card-body pt-0">
-      <table class="table align-middle table-row-bordered fs-6 gy-5" id="forms">         
+      <table class="table align-middle table-row-bordered fs-6 gy-5" id="{{ __($trans.'.plural') }}">         
         <thead>
           <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
             <th class="w-10px pe-2 noExport">             
               <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#forms .AA" value="1" />
+                <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#{{ __($trans.".plural") }} .AA" value="1" />
               </div>
             </th>            
-            <th>{{ __('role.singular') }}</th>
-            <th>{{ __('site.status') }}</th>                                
-            <th class="text-primary w-100px">{{ __('site.created_at') }}</th>
-            <th class="text-end min-w-100px noExport">{{ __('site.actions') }}</th>  
+            <th>{{ __('site.image') }}</th>  
+            <th>{{ __('site.status') }}</th> 
+            <th class="text-primary">{{ __('site.created_at') }}</th>
+            <th class="text-end min-w-50px noExport">{{ __('site.actions') }}</th>  
           </tr>
         </thead>
         <tbody class="text-gray-600"> 
@@ -83,21 +83,27 @@
     </div>
   </div>
 </div>
+
 @stop
+
+
 @section('scripts')
+<script src="{{ asset('assets/js/custom/pdfMake/pdfmake.min.js')}}"></script> 
+<script src="{{ asset('assets/js/custom/pdfMake/vfs_load_fonts.js')}}"></script>
+<script src="{{ asset('assets/js/custom/pdfMake/pdfhandle.js')}}"></script>
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 @include('datatable.Classicdatatables')
 <script>
 var dynamicColumns = [ //as an array start from 0
 { data: 'id', name: 'id',exportable:false}, 
-{ data: 'title', name: 'title',orderable: false}, 
-{ data: 'status', name: 'status',orderable: false,searchable: false},
+{ data: 'title', name: 'title',orderable: false}, // 2
+{ data: 'status', name: 'status',orderable: false,searchable: true}, // 3
 { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
-  loadDatatable('forms','{{ $listingRoute }}',dynamicColumns,'','1');
+  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
 });
 </script>
-{{-- <script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script>  --}}
+<script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script> 
 @stop

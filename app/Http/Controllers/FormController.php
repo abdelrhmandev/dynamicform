@@ -11,11 +11,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FormDRequest as ModuleRequest;
 class FormController extends Controller
 {
+
+    use Functions;
     public function __construct()
     {
         $this->middleware('auth');
         $this->ROUTE_PREFIX   = 'forms';        
-        $this->trans          = 'form';        
+        $this->TRANS            = 'form';
     }
 
     
@@ -46,18 +48,30 @@ class FormController extends Controller
             return Datatables::of($model)
                 ->addIndexColumn()
 
+                ->addIndexColumn()
+                ->editColumn('translate.title', function (MainModel $row) {
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
+                })
+ 
+                ->editColumn('status', function (MainModel $row) {
+                    return $this->dataTableGetStatus($row);
+                })                
+                ->editColumn('created_at', function (MainModel $row) {
+                    return $this->dataTableGetCreatedat($row->created_at);
+                })
+
                 ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
                 ->editColumn('actions', function ($row) {
-                    return 'njkhjjhkhkjkhk';//$this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
+                    return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
                 ->rawColumns(['title', 'status', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('forms.index')) {
             $compact = [
-                'trans'                 => $this->trans,
+                'trans'                 => $this->TRANS,
                 'createRoute'           => route($this->ROUTE_PREFIX . '.create'),
                 'storeRoute'            => route($this->ROUTE_PREFIX . '.store'),
                 'listingRoute'          => route($this->ROUTE_PREFIX . '.index'),
