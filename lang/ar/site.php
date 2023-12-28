@@ -1,5 +1,6 @@
 <?php
 return [
+    'actions'               =>' الأجراءات',
     'publish'               =>'نشر',
     'published'             =>'منشور',
     'unpublish'             =>'لا تنشر',

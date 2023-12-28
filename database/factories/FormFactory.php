@@ -10,16 +10,10 @@ use Illuminate\Support\Str;
  */
 class FormFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'title'=> $this->faker->name(),
-            'status'=>$this->faker->boolean(),
+            'title' => $this->faker->name(),
         ];
     }
 }
