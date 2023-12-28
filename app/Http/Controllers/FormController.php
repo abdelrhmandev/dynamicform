@@ -6,14 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Form as MainModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormElementRequest as ModuleRequest;
+use App\Http\Requests\FormDRequest as ModuleRequest;
 class FormController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -24,25 +19,16 @@ class FormController extends Controller
     public function store(ModuleRequest $request)
     {
  
-        try {
-            DB::beginTransaction();
             $validated = $request->validated();
-            $validated['title'] = isset($request->form_title);
-            
-            $query = MainModel::create($validated);
+            $validated['title'] = isset($request->title);
+            $validated['status'] = isset($request->status) ? '1' : '0';
 
-
-       
-            if ($query && FormElement::insert($formElements)) {
+            if (MainModel::create($validated)) {
                 $arr = ['msg' => __('site.save_succeeded'), 'status' => true];
+            }else{
+                $arr = ['msg' => __('site.failed'), 'status' => false];
             }
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            $arr = ['msg' => __('site.failed'), 'status' => false];
-        }
-        return response()->json($arr);
+            return response()->json($arr);
     }
 
 

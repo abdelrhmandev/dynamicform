@@ -12,8 +12,8 @@
     </ul>
 @stop
 
-@section('style') 
-<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+@section('style')
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
 @stop
 @section('content')
     <div id="kt_content_container" class="container-xxl">
@@ -32,10 +32,24 @@
                             <div class="row">
                                 <div class="col-xl">
                                     <div class="fv-row fl">
-                                        <label class="required form-label" for="form_title">{{ __('site.form.name') }}</label>
-                                        <input placeholder="{{ __('site.form.name') }}" type="text" id="form_title"
-                                            name="form_title" class="form-control mb-2" required                                            
-                                            data-fv-not-empty___message="{{ __('site.required_field')}}" />
+                                        <label class="required form-label" for="title">{{ __('site.form.name') }}</label>
+                                        <input placeholder="{{ __('site.form.name') }}" type="text" id="title"
+                                            name="title" class="form-control mb-2" required
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="title">{{ __('site.status') }}</label>
+                                        <div class="form-check form-switch form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" value="1" name="status"
+                                                id="status" @if (isset($status) && $status == '1') checked="checked" @endif />
+                                            <label class="form-check-label" for="status">
+                                                <span>{{ __('site.published') }}</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,17 +62,14 @@
     </div>
 @stop
 @section('scripts')
-
-<script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
-<script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
-
-<script>
-
-    KTUtil.onDOMContentLoaded(function() {
-       handleFormubmitFunc('AddForm');
-    });
+    <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
+    <script>
+        KTUtil.onDOMContentLoaded(function() {
+            handleFormSubmitFunc('AddForm');
+        });
     </script>
 @stop

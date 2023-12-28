@@ -3,16 +3,16 @@
 	<head>
 		<title>{{ config('app.name', 'Laravel') }} @yield('title')</title>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-		<meta name="description" content="The most advanced Bootstrap Admin " />
-		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular" />
+		<meta name="description" content="Dynamic Forms APP " />
+		<meta name="keywords" content="Dynamic Forms APP" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React" />
+		<meta property="og:title" content="Dynamic Forms APP" />
 		<meta property="og:url" content="#" />
-		<meta property="og:site_name" content="Metronic" />
+		<meta property="og:site_name" content="DynamicForms" />
 		<link rel="canonical" href="google.com" />
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
 		@yield('style')

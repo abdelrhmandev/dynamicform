@@ -1,5 +1,10 @@
 <?php
 return [
+    'publish'               =>'نشر',
+    'published'             =>'منشور',
+    'unpublish'             =>'لا تنشر',
+    'unpublished'           =>'غير منشور',
+
     'upload_only_docs'      =>'فقط *.pdf, *.docs and *.xls امتدادات الصور المقبوله',
     'upload_only_images'    =>'فقط *.png, *.jpg and *.jpeg امتدادات الوثائق المقبوله',
     'docs'                  =>'ملف وثائق',
