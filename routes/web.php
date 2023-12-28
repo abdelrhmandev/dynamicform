@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('forms', App\Http\Controllers\FormController::class)->except('show');
+Route::resource('forms', FormController::class)->except('show');
 
-Route::resource('elements', App\Http\Controllers\ElementController::class)->except('show');
+// Route::resource('fields', App\Http\Controllers\FieldController::class)->except('show');
+
