@@ -12,14 +12,15 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->ROUTE_PREFIX     = 'forms';        
+        $this->ROUTE_PREFIX   = 'forms';        
+        $this->trans          = 'form';        
     }
 
     
     public function store(ModuleRequest $request)
     {
  
-            $validated           = $request->validated();
+            $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
@@ -39,40 +40,39 @@ class FormController extends Controller
      */
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = MainModel::select('id', 'title','status','created_at');
+            $model = MainModel::select('id','title','status','created_at');
             return Datatables::of($model)
                 ->addIndexColumn()
                 ->editColumn('title', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . Str::words($row->title, '20') . '</a>';
                 })
                 ->editColumn('status', function (MainModel $row) {
-                    return $this->dataTableGetStatus($row);
+                    return '54545454S';//$this->dataTableGetStatus($row);
                 })
                 ->editColumn('created_at', function (MainModel $row) {
-                    return $this->dataTableGetCreatedat($row->created_at);
+                    return '5454545';//$this->dataTableGetCreatedat($row->created_at);
                 })
                 ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
                 ->editColumn('actions', function ($row) {
-                    return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
+                    return 'njkhjjhkhkjkhk';//$this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
                 ->rawColumns(['title', 'status', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('forms.index')) {
             $compact = [
+                'trans'                 => $this->trans,
                 'createRoute'           => route($this->ROUTE_PREFIX . '.create'),
                 'storeRoute'            => route($this->ROUTE_PREFIX . '.store'),
                 'listingRoute'          => route($this->ROUTE_PREFIX . '.index'),
                 'destroyMultipleRoute'  => route($this->ROUTE_PREFIX . '.destroyMultiple'),
-
             ];
             return view('forms.index', $compact);
         }
     }
-    public function create()
-    {
+    public function create(){
         if (view()->exists('forms.create')) {
             $compact = [
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),

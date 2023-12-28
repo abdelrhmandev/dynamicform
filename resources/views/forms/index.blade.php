@@ -11,7 +11,12 @@
         <li class="breadcrumb-item text-dark">{{ __('site.form.add') }}</li>
     </ul>
 @stop
+
+@section('style')
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+@stop
 @section('content')
+
 <div class="container-xxl" id="kt_content_container">
   <div class="card">
     <div class="card-header border-0 pt-6">
@@ -28,7 +33,7 @@
       </div>
       <div class="card-toolbar">
         <div class="d-flex justify-content-end" data-kt-table-toolbar="base">    
-          {{-- @include('partials.modals._exportlisting',['tbl'=>'forms']) --}}
+          @include('partials.modals._exportlisting')
           <a class="btn btn-primary" href="{{ $createRoute }}">
             <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +43,7 @@
                 <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"></path>
               </svg>
             </span>
-            {{ __('forms.add')}}</a>
+            {{ __($trans.'.add')}}</a>
         </div>
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-table-toolbar="selected">
           <div class="fw-bold me-5">
@@ -47,12 +52,12 @@
           data-destroyMultiple-route = "{{ $destroyMultipleRoute }}"
           data-kt-table-select="delete_selected"             
           data-back-list-text="{{ __('site.back_to_list') }}"        
-          data-confirm-message = "{{ __('site.delete_selected') }}"
+          data-confirm-message = "{{ __($trans.'.delete_selected') }}"
           data-confirm-button-text = "{{ __('site.confirmButtonText') }}"
           data-cancel-button-text = "{{ __('site.cancelButtonText') }}"
           data-confirm-button-textGotit = "{{ __('site.confirmButtonTextGotit') }}"
-          data-delete-selected-records-text = "{{ __('site.delete_selected') }}"
-          data-not-deleted-message = "{{ __('site.not_delete_selected') }}"
+          data-delete-selected-records-text = "{{ __($trans.'.delete_selected') }}"
+          data-not-deleted-message = "{{ __($trans.'.not_delete_selected') }}"
           ><i class="fa fa-trash-alt"></i>{{ __('site.delete_selected') }}</button>
         </div>
       </div>
@@ -66,7 +71,7 @@
                 <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#forms .AA" value="1" />
               </div>
             </th>            
-            <th>dsadas</th>  
+            <th>{{ __('role.singular') }}</th>
             <th>{{ __('site.status') }}</th>                                
             <th class="text-primary w-100px">{{ __('site.created_at') }}</th>
             <th class="text-end min-w-100px noExport">{{ __('site.actions') }}</th>  
@@ -91,8 +96,8 @@ var dynamicColumns = [ //as an array start from 0
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
-  loadDatatable('forms','{{ $listingRoute }}',dynamicColumns,'','2');
+  loadDatatable('forms','{{ $listingRoute }}',dynamicColumns,'','1');
 });
 </script>
-<script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script> 
+{{-- <script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script>  --}}
 @stop
