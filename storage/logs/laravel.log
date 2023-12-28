@@ -7226,3 +7226,23 @@
 #11 E:\\xampp\\htdocs\\dynamicforms\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #12 {main}
 "} 
+[2023-12-28 13:40:14] local.ERROR: Cannot declare class CreateFieldsTable, because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot declare class CreateFieldsTable, because the name is already in use at E:\\xampp\\htdocs\\dynamicforms\\database\\migrations\\2014_06_27_140218_create_fields.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-28 13:40:47] local.ERROR: Cannot declare class CreateFieldsTable, because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot declare class CreateFieldsTable, because the name is already in use at E:\\xampp\\htdocs\\dynamicforms\\database\\migrations\\2014_06_27_140218_create_fields.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-28 13:41:33] local.ERROR: Cannot declare class CreateFieldsTable, because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot declare class CreateFieldsTable, because the name is already in use at E:\\xampp\\htdocs\\dynamicforms\\database\\migrations\\2014_06_27_140218_create_fields.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-28 13:42:04] local.ERROR: Cannot declare class CreateFieldsTable, because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot declare class CreateFieldsTable, because the name is already in use at E:\\xampp\\htdocs\\dynamicforms\\database\\migrations\\2014_06_27_140218_create_fields.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-28 13:42:25] local.ERROR: Cannot declare class CreateFieldsTable, because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot declare class CreateFieldsTable, because the name is already in use at E:\\xampp\\htdocs\\dynamicforms\\database\\migrations\\2014_06_27_140218_create_fields.php:5)
+[stacktrace]
+#0 {main}
+"} 
