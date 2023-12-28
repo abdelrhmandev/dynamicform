@@ -18,6 +18,7 @@ class FormController extends Controller
         $this->middleware('auth');
         $this->ROUTE_PREFIX   = 'forms';        
         $this->TRANS            = 'form';
+        $this->Tbl              = 'forms';
     }
 
     
@@ -29,9 +30,9 @@ class FormController extends Controller
             $validated['status'] = isset($request->status) ? '1' : '0';
 
             if (MainModel::create($validated)) {
-                $arr = ['msg' => __('site.save_succeeded'), 'status' => true];
+                $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
             }else{
-                $arr = ['msg' => __('site.failed'), 'status' => false];
+                $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
             }
             return response()->json($arr);
     }
@@ -46,10 +47,10 @@ class FormController extends Controller
         if ($request->ajax()) {
             $model = MainModel::select('id','title','status','created_at');
             return Datatables::of($model)
-                ->addIndexColumn()
 
                 ->addIndexColumn()
-                ->editColumn('translate.title', function (MainModel $row) {
+
+                ->editColumn('title', function (MainModel $row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
  
@@ -83,53 +84,49 @@ class FormController extends Controller
     public function create(){
         if (view()->exists('forms.create')) {
             $compact = [
+                'trans'         => $this->TRANS,
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
             ];
             return view('forms.create', $compact);
         }
     }
-    // public function edit(Request $request, MainModel $MainModel)
-    // {
-    //     if (view()->exists('forms.edit')) {
-    //         $compact = [
-    //             'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $MainModel->id),
-    //             'row'                     => $MainModel,
-    //             'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $MainModel->id),
-    //             'trans'                   => 'site',
-    //             'redirect_after_destroy'  => route($this->ROUTE_PREFIX . '.index'),
-    //         ];
-    //         return view('forms.edit', $compact);
-    //     }
-    // }
+    public function edit(Request $request, MainModel $form)
+    {
+        if (view()->exists('forms.edit')) {
+            $compact = [
+                'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
+                'row'                     => $form,
+                'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
+                'trans'                   => $this->TRANS,
+                'redirect_after_destroy'  => route($this->ROUTE_PREFIX . '.index'),
+            ];
+            return view('forms.edit', $compact);
+        }
+    }
 
-    // public function update(ModuleRequest $request, MainModel $MainModel)
-    // {
-    //     try {
-    //         DB::beginTransaction();
-    //         $validated = $request->validated();
- 
-    //         $validated['status'] = isset($request->status) ? '1' : '0';
-    //         $validated['image'] = $image;
+    public function update(ModuleRequest $request, MainModel $form)
+    {
+            $validated = $request->validated();
+            $validated['title']  = $request->title;
+            $validated['status'] = isset($request->status) ? '1' : '0';
 
-    //         MainModel::findOrFail($MainModel->id)->update($validated);
 
-    //         $arr = ['msg' => __('site.updateMessageSuccess'), 'status' => true];
-    //         DB::commit();
-    //          $arr = ['msg' => __('site.updateMessageSuccess'), 'status' => true];
-    //     } catch (\Exception $e) {
-    //         DB::rollback();
-    //         $arr = ['msg' => __('site.updateMessageError'), 'status' => false];
-    //     }
-    //     return response()->json($arr);
-    // }
-    // public function destroy(MainModel $MainModel)
-    // {
-    //     if ($MainModel->delete()) {
-    //         $arr = ['msg' => __('site.deleteMessageSuccess'), 'status' => true];
-    //     } else {
-    //         $arr = ['msg' => __('site.deleteMessageError'), 'status' => false];
-    //     }
-    //     return response()->json($arr);
-    // }
+            if(MainModel::findOrFail($form->id)->update($validated)){
+                $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
+            }else{
+                $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
+            }
+        
+        return response()->json($arr);
+    }
+    public function destroy(MainModel $form)
+    {
+        if ($form->delete()) {
+            $arr = ['msg' => __($this->TRANS.'.deleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS.'.deleteMessageError'), 'status' => false];
+        }
+        return response()->json($arr);
+    }
 }

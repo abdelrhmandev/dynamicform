@@ -11,7 +11,8 @@ class FormDRequest extends FormRequest
     }
     public function rules()
     {
-        $rules['title']   = 'required|unique:forms,title';
+        $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
+        $rules['title']   = 'required|unique:forms,title'.$id;
         $rules['status']  = 'nullable|in:0,1'; 
         return $rules; 
     } 

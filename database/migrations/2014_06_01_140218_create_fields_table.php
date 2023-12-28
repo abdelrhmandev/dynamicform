@@ -10,6 +10,7 @@ class CreateFieldsTable extends Migration
             $table->string('display');
             $table->string('name',150);
             $table->string('type',100);
+            $table->json('filldata')->nullable();
         });	
     }
     public function down(){

@@ -1,6 +1,18 @@
 <?php
 return [
+    'deletingItemMessage'        =>'حذف العناصر المحدده :item',
+    'confirmButtonText'          =>'نعم, حذف!',
+    'cancelButtonText'           =>'لا, ألغ',
+    'confirmButtonTextGotit'     =>'حسنا',
+    'notdeletedMessage'          =>'لم يتم الحذف',
+    'confirmDeleteMessage'       =>'هل تريد حذف :item',    
+    'confirmMultiDeleteMessage'  =>'هل تريد حذف العناصر المحدده :item',
+    'delete_selected'            =>'حذف العناصر المحدده',
+
+    'status_updated'        =>'تم تغير الحاله بنجاح',
     'actions'               =>' الأجراءات',
+    'empty_records'         =>'لا توجد سجلات',
+    'no_matched_records'    =>'لا توجد سجلات متطابقة',
     'publish'               =>'نشر',
     'published'             =>'منشور',
     'unpublish'             =>'لا تنشر',
@@ -155,7 +167,7 @@ return [
     'agree'                 =>'موافق',
     'wait'                  =>'انتظر ...',
 
-    'required_field' => 'هل الحقل مطلوب',
+    'required_field' => 'الحقل مطلوب',
     'only_english' => 'يكتب باللغه الأنجليزيه فقط',
     'required_fill' => 'مطلوب لابد من ملئ الحقل',
 

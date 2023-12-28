@@ -9,5 +9,5 @@ class Form extends Model
  
     protected $table = 'forms';
     protected $fillable = ['title','status'];
-    // protected $guarded = ['id'];
+    protected $guarded = ['id'];
 }

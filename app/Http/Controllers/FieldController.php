@@ -1,60 +1,40 @@
 <?php
 namespace App\Http\Controllers;
+use DataTables;
 use Carbon\Carbon;
+use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Form as MainModel;
-use App\Models\FormElement;
+use App\Models\Field as MainModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormElementRequest as ModuleRequest;
-class ElementController extends Controller
+use App\Http\Requests\FieldDRequest as ModuleRequest;
+class FieldController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
+    use Functions;
     public function __construct()
     {
         $this->middleware('auth');
-        $this->ROUTE_PREFIX     = 'elements';        
+        $this->ROUTE_PREFIX   = 'fields';        
+        $this->TRANS            = 'field';
+        $this->Tbl              = 'fields';
     }
 
     
     public function store(ModuleRequest $request)
     {
  
-        try {
-            DB::beginTransaction();
             $validated = $request->validated();
-            $validated['title'] = isset($request->form_title);
+            $validated['title']  = $request->title;
+            $validated['status'] = isset($request->status) ? '1' : '0';
 
-            
-
-
-            
-            $query = MainModel::create($validated);
-
-            $formElements = [
-                'form_id'         => $query->id,
-                'display'         =>$validated['element_display'],
-                'name'            =>$validated['element_name'],
-                'type'            =>$validated['element_type'],                
-                'is_required'     =>$validated['element_is_required'],             
-            ];
-
-       
-            if ($query && FormElement::insert($formElements)) {
-                $arr = ['msg' => __('site.save_succeeded'), 'status' => true];
+            if (MainModel::create($validated)) {
+                $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
+            }else{
+                $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
             }
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            $arr = ['msg' => __('site.failed'), 'status' => false];
-        }
-        return response()->json($arr);
+            return response()->json($arr);
     }
 
 
@@ -63,93 +43,89 @@ class ElementController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if ($request->ajax()) {
-            $model = FormElement::select('id', 'image', 'status', 'created_at');
+            $model = MainModel::select('id','title','status','created_at');
             return Datatables::of($model)
+
                 ->addIndexColumn()
-                ->editColumn('translate.title', function (FormElement $row) {
-                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . Str::words($row->translate->title, '20') . '</a>';
+
+                ->editColumn('title', function (MainModel $row) {
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
-                ->editColumn('image', function ($row) {
-                    return $this->dataTableGetImage($row, $this->ROUTE_PREFIX . '.edit');
-                })
-                ->editColumn('status', function (FormElement $row) {
+ 
+                ->editColumn('status', function (MainModel $row) {
                     return $this->dataTableGetStatus($row);
-                })
-                ->editColumn('created_at', function (FormElement $row) {
+                })                
+                ->editColumn('created_at', function (MainModel $row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
+
                 ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['image', 'translate.title', 'status', 'actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['title', 'status', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
-        if (view()->exists('elements.index')) {
+        if (view()->exists('fields.index')) {
             $compact = [
-                'trans'                 => 'site',
+                'trans'                 => $this->TRANS,
                 'createRoute'           => route($this->ROUTE_PREFIX . '.create'),
                 'storeRoute'            => route($this->ROUTE_PREFIX . '.store'),
                 'listingRoute'          => route($this->ROUTE_PREFIX . '.index'),
+                'destroyMultipleRoute'  => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
-            // return view('elements.index', $compact);
+            return view('fields.index', $compact);
         }
     }
-    public function create()
-    {
-        if (view()->exists('elements.create')) {
+    public function create(){
+        if (view()->exists('fields.create')) {
             $compact = [
+                'trans'         => $this->TRANS,
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
             ];
-            return view('elements.create', $compact);
+            return view('fields.create', $compact);
         }
     }
-    public function edit(Request $request, FormElement $formelement)
+    public function edit(Request $request, MainModel $field)
     {
-        if (view()->exists('elements.edit')) {
+        if (view()->exists('fields.edit')) {
             $compact = [
-                'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $formelement->id),
-                'row'                     => $formelement,
-                'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $formelement->id),
-                'trans'                   => 'site',
+                'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $field->id),
+                'row'                     => $field,
+                'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $field->id),
+                'trans'                   => $this->TRANS,
                 'redirect_after_destroy'  => route($this->ROUTE_PREFIX . '.index'),
             ];
-            return view('elements.edit', $compact);
+            return view('fields.edit', $compact);
         }
     }
 
-    public function update(ModuleRequest $request, FormElement $formelement)
+    public function update(ModuleRequest $request, MainModel $field)
     {
-        try {
-            DB::beginTransaction();
             $validated = $request->validated();
- 
+            $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
-            $validated['image'] = $image;
 
-            FormElement::findOrFail($formelement->id)->update($validated);
 
-            $arr = ['msg' => __('site.updateMessageSuccess'), 'status' => true];
-            DB::commit();
-             $arr = ['msg' => __('site.updateMessageSuccess'), 'status' => true];
-        } catch (\Exception $e) {
-            DB::rollback();
-            $arr = ['msg' => __('site.updateMessageError'), 'status' => false];
-        }
+            if(MainModel::findOrFail($field->id)->update($validated)){
+                $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
+            }else{
+                $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
+            }
+        
         return response()->json($arr);
     }
-    public function destroy(FormElement $formelement)
+    public function destroy(MainModel $field)
     {
-        if ($formelement->delete()) {
-            $arr = ['msg' => __('site.deleteMessageSuccess'), 'status' => true];
+        if ($field->delete()) {
+            $arr = ['msg' => __($this->TRANS.'.deleteMessageSuccess'), 'status' => true];
         } else {
-            $arr = ['msg' => __('site.deleteMessageError'), 'status' => false];
+            $arr = ['msg' => __($this->TRANS.'.deleteMessageError'), 'status' => false];
         }
         return response()->json($arr);
     }
