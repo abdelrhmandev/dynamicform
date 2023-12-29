@@ -8,15 +8,15 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class FactoryFactory extends Factory
+class FieldFactory extends Factory
 {
     public function definition()
     {
-        return [
-            'display' => 'الأسم',
-            'name' => 'name',
-            'type' => 'textbox',
-            
-        ];
+        $ss = [
+            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox'],
+            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox'],
+            ];
+
+        return $ss;
     }
 }
