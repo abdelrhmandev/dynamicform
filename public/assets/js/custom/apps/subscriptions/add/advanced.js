@@ -8,7 +8,7 @@ var KTSubscriptionsAdvanced = (function () {
                     o = t.querySelector("td:nth-child(2) input"),
                     i = n.getAttribute("id"),
                     r = o.getAttribute("id");
-                n.setAttribute("name", i + "-" + e), o.setAttribute("name", r + "-" + e);
+                // n.setAttribute("name", i + "-" + e), o.setAttribute("name", r + "-" + e);
             });
         };
     return {

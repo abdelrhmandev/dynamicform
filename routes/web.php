@@ -26,6 +26,6 @@ Route::delete('forms/destroy/all', 'FormController@destroyMultiple')->name('form
 
 
 Route::resource('fields', FieldController::class)->except('show');
-Route::delete('forms/destroy/all', 'FieldController@destroyMultiple')->name('fields.destroyMultiple');
+Route::delete('fields/destroy/all', 'FieldController@destroyMultiple')->name('fields.destroyMultiple');
 
 Route::post('/UpdateStatus', [App\Http\Controllers\BaseController::class, 'UpdateStatus'])->name('UpdateStatus'); 

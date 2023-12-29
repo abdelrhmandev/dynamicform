@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Field as MainModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FieldDRequest as ModuleRequest;
+use App\Http\Requests\FieldRequest as ModuleRequest;
 class FieldController extends Controller
 {
 
@@ -26,9 +26,12 @@ class FieldController extends Controller
     {
  
             $validated = $request->validated();
-            $validated['title']  = $request->title;
-            $validated['status'] = isset($request->status) ? '1' : '0';
+            $validated['display']  = $request->display;
+            $validated['name']  = $request->name;
+            $validated['type']  = $request->type;
 
+            $validated['type']  = $request->type;
+ 
             if (MainModel::create($validated)) {
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
             }else{

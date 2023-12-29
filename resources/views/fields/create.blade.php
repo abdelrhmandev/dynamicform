@@ -31,7 +31,7 @@
                         <div class="d-flex flex-column gap-5">
 
                             <div class="row">
-                                <div class="col-xl-4">
+                                <div class="col-xl-6">
                                     <div class="fv-row fl">
                                         <label class="required form-label" for="display">الأسم الذي سيظر به الحقل</label>
                                         <input placeholder="مثال الأسم , رقم الهويه .... " type="text" id="display"
@@ -39,7 +39,7 @@
                                             data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                     </div>
                                 </div>
-                                <div class="col-xl-4">
+                                <div class="col-xl-6">
                                     <div class="card-body pt-0">
                                         <div>
                                             <div class="fv-row fl">
@@ -57,32 +57,16 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4">
-                                    <div class="card-body pt-0">
-                                        <div>
-                                            <div class="fv-row fl">
-                                                <label class="required form-label" for="name">هل الحقل مطلوب </label>
-                                                <div
-                                                    class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                                    <input class="form-check-input w-45px h-30px" type="checkbox"
-                                                        id="allowmarketing" />
-                                                    <label class="form-check-label" for="allowmarketing"></label>مطلوب لابد
-                                                    من ملئ الحقل
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
 
                             <div class="row">
                                 <div class="card-title">
-                                    <h2 class="fw-bold">{{ __('site.formelements.specify') }}</h2>
+                                    <h2 class="fw-bold">{{ __('field.info') }}</h2>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check" name="element_type" id="textbox"
+                                        <input type="radio" class="btn-check" name="type" id="textbox"
                                             value="textbox" checked="checked">
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
@@ -109,7 +93,7 @@
                                 </div>
                                 <div class="col-xl-3">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check" name="element_type" id="textarea"
+                                        <input type="radio" class="btn-check" name="type" id="textarea"
                                             value="textarea">
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
@@ -136,8 +120,8 @@
                                 </div>
                                 <div class="col-xl-5">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check checkbox" name="element_type"
-                                            value="checkbox" id="checkbox" />
+                                        <input type="radio" class="btn-check checkbox" name="type" value="checkbox"
+                                            id="checkbox" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                                             for="checkbox">
@@ -162,7 +146,7 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check" name="element_type" value="file"
+                                        <input type="radio" class="btn-check" name="type" value="file"
                                             id="file" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
@@ -188,7 +172,7 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check" name="element_type" value="numbers"
+                                        <input type="radio" class="btn-check" name="type" value="numbers"
                                             id="numbers" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
@@ -214,7 +198,7 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check" name="element_type" value="date"
+                                        <input type="radio" class="btn-check" name="type" value="date"
                                             id="date" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
@@ -238,8 +222,8 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check select" name="element_type"
-                                            value="select" id="select" />
+                                        <input type="radio" class="btn-check select" name="type" value="select"
+                                            id="select" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                                             for="select">
@@ -264,7 +248,7 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="pb-10">
-                                        <input type="radio" class="btn-check radio" name="element_type" value="radio"
+                                        <input type="radio" class="btn-check radio" name="type" value="radio"
                                             id="radio" />
                                         <label
                                             class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
@@ -285,7 +269,76 @@
                                 </div>
                             </div>
 
-
+                            <div class="card card-flush pt-3 mb-5 mb-lg-10" id="fillable_div">
+                                <div
+                                    class="notice d-flex bg-light-info rounded border-info border border-dashed rounded-3 p-6">
+                                    <div class="d-flex flex-stack flex-grow-1">
+                                        <div class="fw-semibold">
+                                            <h4 class="text-gray-900 fw-bold">يرجي ملئ الحقل المختار بالبيانات الأوليه</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-5">
+                                    <table id="kt_create_new_custom_fields"
+                                        class="table align-middle table-row-bordered fs-6 gy-5">
+                                        <thead>
+                                            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
+                                                <th class="pt-0">أسم العنصر المراد ملؤه</th>
+                                                <th class="pt-0">قيمه العنصر المراد ملؤه <small
+                                                        class="fs-7 fw-semibold text-danger">({{ __('site.only_english') }})</small>
+                                                </th>
+                                                <th class="pt-0 text-end">حذف</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>    
+                                                    <input type="text" class="form-control" name="fillable_name[]"
+                                                        value="" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="fillable_value[]"
+                                                        value="" />
+                                                </td>
+                                                <td class="text-end">
+                                                    <button type="button"
+                                                        class="btn btn-icon btn-flex btn-active-light-danger w-30px h-30px me-3"
+                                                        data-kt-action="field_remove">
+                                                        <span class="svg-icon svg-icon-3">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                    fill="currentColor" />
+                                                                <path opacity="0.5"
+                                                                    d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                    fill="currentColor" />
+                                                                <path opacity="0.5"
+                                                                    d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a href="#" class="btn btn-light-success me-auto"
+                                        id="kt_create_new_custom_fields_add">
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                    rx="5" fill="currentColor"></rect>
+                                                <rect x="10.8891" y="17.8033" width="12" height="2"
+                                                    rx="1" transform="rotate(-90 10.8891 17.8033)"
+                                                    fill="currentColor"></rect>
+                                                <rect x="6.01041" y="10.9247" width="12" height="2"
+                                                    rx="1" fill="currentColor"></rect>
+                                            </svg>
+                                        </span>أضف ملئ جديد</a>
+                                </div>
+                            </div>
 
 
                         </div>
@@ -301,6 +354,7 @@
     <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}"></script>
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
     <script>
         KTUtil.onDOMContentLoaded(function() {
@@ -310,18 +364,18 @@
         var $class2 = $('.select');
         var $class3 = $('#radio');
         $("#fillable_div").addClass('d-none');
-        $('input[name="element_type"]').click(function() {
-            var e_value = ($("input[type='radio'][name=element_type]:checked", '#AddElement').val());
+        $('input[name="type"]').click(function() {
+            var e_value = ($("input[type='radio'][name=type]:checked", '#Addfield').val());
             arr = ["checkbox", "select", "radio"];
-            $("#upload_extensions_restriction_div").addClass('d-none');
+            // $("#upload_extensions_restriction_div").addClass('d-none');
             if (arr.includes(e_value)) {
                 $("#fillable_div").removeClass('d-none');
             } else {
                 $("#fillable_div").addClass('d-none');
             }
-            if (e_value == 'file') {
-                $("#upload_extensions_restriction_div").removeClass('d-none');
-            }
+            // if (e_value == 'file') {
+            //     $("#upload_extensions_restriction_div").removeClass('d-none');
+            // }
         });
     </script>
 @stop
