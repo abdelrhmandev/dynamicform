@@ -293,7 +293,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>    
-                                                    <input type="text" class="form-control" name="fillable_name[]"
+                                                    <input type="text" class="form-control" name="fillable_display[]"
                                                         value="" />
                                                 </td>
                                                 <td>

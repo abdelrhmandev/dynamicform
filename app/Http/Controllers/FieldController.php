@@ -16,7 +16,7 @@ class FieldController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->ROUTE_PREFIX   = 'fields';        
+        $this->ROUTE_PREFIX     = 'fields';        
         $this->TRANS            = 'field';
         $this->Tbl              = 'fields';
     }
@@ -29,8 +29,25 @@ class FieldController extends Controller
             $validated['display']  = $request->display;
             $validated['name']  = $request->name;
             $validated['type']  = $request->type;
+            $query = MainModel::create($validated);
 
-            $validated['type']  = $request->type;
+            if(!(empty($request->fillable_display)) && (!empty($request->fillable_value))){                
+                $result = array_combine($request->fillable_display,$request->fillable_value);                
+                foreach($result as $k=>$v){
+                    if($k && $v){
+                         $insert[] = [
+                            'field_id'  =>$query->id,
+                            'display'   =>$k,
+                            'value'     =>$v
+                        ];
+                    }
+                }
+                if(DB::table('field_fillable')->insert($insert)){
+                    dd();
+                }
+            }
+
+
  
             if (MainModel::create($validated)) {
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];

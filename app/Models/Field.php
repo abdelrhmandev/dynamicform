@@ -3,10 +3,14 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class FieldElement extends Model
+class Field extends Model
 {
+    use HasFactory;
+
  
     protected $table = 'fields';
-    protected $fillable = ['name','display','type','notices','fillable'];
+    protected $fillable = ['display','name','type'];
     protected $guarded = ['id'];
+    public $timestamps = false;
+
 }
