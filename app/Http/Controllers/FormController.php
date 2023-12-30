@@ -50,14 +50,14 @@ class FormController extends Controller
 
                 ->addIndexColumn()
 
-                ->editColumn('title', function (MainModel $row) {
+                ->editColumn('title', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
  
-                ->editColumn('status', function (MainModel $row) {
+                ->editColumn('status', function ($row) {
                     return $this->dataTableGetStatus($row);
                 })                
-                ->editColumn('created_at', function (MainModel $row) {
+                ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends Model
 {
     use HasFactory;
-    protected $with = ['fillable'];
+    protected $with = ['FieldFillable'];
 
  
     protected $table = 'fields';
@@ -16,8 +16,8 @@ class Field extends Model
     public $timestamps = true;
 
 
-    public function fillable(){
-        return $this->hasMany(FieldFillable::class);
+    public function FieldFillable(){
+        return $this->hasMany(FieldFillable::class,'field_id');
     }
 
 }
