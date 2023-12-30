@@ -24,51 +24,54 @@ class FieldController extends Controller
 
     
     public function store(ModuleRequest $request)
-    {
- 
-            // $validated = $request->validated();
-            // $validated['display']  = $request->display;
-            // $validated['name']  = $request->name;
-            // $validated['type']  = $request->type;
-            // $query = MainModel::create($validated);
-
-            // if(!(empty($request->fillable_display)) && (!empty($request->fillable_value))){                
-            //     $result = array_combine($request->fillable_display,$request->fillable_value);                
-            //     foreach($result as $k=>$v){
-            //         if($k && $v){
-            //              $insert[] = [
-            //                 'field_id'  =>$query->id,
-            //                 'display'   =>$k,
-            //                 'value'     =>$v
-            //             ];
-            //         }
-            //     }
-            //     FieldFillable::insert($insert);
-            // }
- 
-            // if (MainModel::create($validated)) {
-            //     $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
-            // }else{
-            //     $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
-            // }
-            // return response()->json($arr);
+    { 
+            $validated = $request->validated();
+            $validated['display']  = $request->display;
+            $validated['name']  = $request->name;
+            $validated['type']  = $request->type;
+            $query = MainModel::create($validated);
+            if ($query) {
+                if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
+                    $result = array_combine($request->fillable_display,$request->fillable_value);    
+                    $insert = [];
+                    foreach($result as $k=>$v){
+                        if(!empty($k) && !empty($v)){
+                            $insert[] = [
+                                'field_id'  =>$query->id,
+                                'display'   =>$k,
+                                'value'     =>$v
+                            ];
+                        }
+                    }
+                    if(!empty($insert)) {
+                        FieldFillable::insert($insert);
+                    }
+                }
+                $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
+            }else{
+                $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
+            }
+            return response()->json($arr);
     }
 
 
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = MainModel::select('id','title','status','created_at');
+            $model = MainModel::select('id','display','name','type','created_at');
             return Datatables::of($model)
 
                 ->addIndexColumn()
 
-                ->editColumn('title', function (MainModel $row) {
-                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
+                ->editColumn('display', function (MainModel $row) {
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->display . '</a>';
                 })
  
-                ->editColumn('status', function (MainModel $row) {
-                    return $this->dataTableGetStatus($row);
-                })                
+
+                ->editColumn('fillable', function (MainModel $row) {
+                    return 'dasdas';
+                })
+
+
                 ->editColumn('created_at', function (MainModel $row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
@@ -79,8 +82,7 @@ class FieldController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['title', 'status', 'actions', 'created_at', 'created_at.display'])
-                ->make(true);
+                ->rawColumns(['display', 'fillable','actions', 'created_at', 'created_at.display'])                ->make(true);
         }
         if (view()->exists('fields.index')) {
             $compact = [
@@ -120,7 +122,7 @@ class FieldController extends Controller
     public function update(ModuleRequest $request, MainModel $field)
     {
             $validated = $request->validated();
-            $validated['title']  = $request->title;
+            $validated['display']  = $request->display;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
 

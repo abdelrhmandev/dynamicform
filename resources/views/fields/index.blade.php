@@ -71,8 +71,7 @@
                 <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#{{ __($trans.".plural") }} .AA" value="1" />
               </div>
             </th>            
-            <th>{{ __($trans.'.title') }}</th>  
-            <th>{{ __('site.status') }}</th> 
+            <th>{{ __($trans.'.display') }}</th>  
             <th class="text-primary">{{ __('site.created_at') }}</th>
             <th class="text-end min-w-50px noExport">{{ __('site.actions') }}</th>  
           </tr>
@@ -96,13 +95,13 @@
 <script>
 var dynamicColumns = [ //as an array start from 0
 { data: 'id', name: 'id',exportable:false}, 
-{ data: 'title', name: 'title',orderable: false}, // 2
-{ data: 'status', name: 'status',orderable: false,searchable: true}, // 3
+{ data: 'display', name: 'display',orderable: false}, // 2
+{ data: 'fillable', name: 'fillable',orderable: false}, // 2
 { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
-  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
+  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'','1');
 });
 </script>
 <script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script> 
