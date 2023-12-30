@@ -6,6 +6,7 @@ use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Field as MainModel;
+use App\Models\FieldFillable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FieldRequest as ModuleRequest;
@@ -25,43 +26,35 @@ class FieldController extends Controller
     public function store(ModuleRequest $request)
     {
  
-            $validated = $request->validated();
-            $validated['display']  = $request->display;
-            $validated['name']  = $request->name;
-            $validated['type']  = $request->type;
-            $query = MainModel::create($validated);
+            // $validated = $request->validated();
+            // $validated['display']  = $request->display;
+            // $validated['name']  = $request->name;
+            // $validated['type']  = $request->type;
+            // $query = MainModel::create($validated);
 
-            if(!(empty($request->fillable_display)) && (!empty($request->fillable_value))){                
-                $result = array_combine($request->fillable_display,$request->fillable_value);                
-                foreach($result as $k=>$v){
-                    if($k && $v){
-                         $insert[] = [
-                            'field_id'  =>$query->id,
-                            'display'   =>$k,
-                            'value'     =>$v
-                        ];
-                    }
-                }
-                FieldFillable::insert($insert)){
-                    dd();
-            }
-
-
+            // if(!(empty($request->fillable_display)) && (!empty($request->fillable_value))){                
+            //     $result = array_combine($request->fillable_display,$request->fillable_value);                
+            //     foreach($result as $k=>$v){
+            //         if($k && $v){
+            //              $insert[] = [
+            //                 'field_id'  =>$query->id,
+            //                 'display'   =>$k,
+            //                 'value'     =>$v
+            //             ];
+            //         }
+            //     }
+            //     FieldFillable::insert($insert);
+            // }
  
-            if (MainModel::create($validated)) {
-                $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
-            }else{
-                $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
-            }
-            return response()->json($arr);
+            // if (MainModel::create($validated)) {
+            //     $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
+            // }else{
+            //     $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
+            // }
+            // return response()->json($arr);
     }
 
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index(Request $request){
         if ($request->ajax()) {
             $model = MainModel::select('id','title','status','created_at');
