@@ -17,12 +17,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        \App\Models\User::create([     
-            'password'         =>\Hash::make('12345678'),
-            'email'            =>'admin@domain.com',
-            'name'             =>'عبدالرحمن مجدي المنشد',
-        ]);
-
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),

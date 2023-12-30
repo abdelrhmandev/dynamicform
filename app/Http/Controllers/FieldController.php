@@ -42,9 +42,8 @@ class FieldController extends Controller
                         ];
                     }
                 }
-                if(DB::table('field_fillable')->insert($insert)){
+                FieldFillable::insert($insert)){
                     dd();
-                }
             }
 
 

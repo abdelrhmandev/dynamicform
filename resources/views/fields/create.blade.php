@@ -50,8 +50,7 @@
                                                     onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)"
                                                     class="form-control form-control-lg" required
                                                     data-fv-not-empty___message="{{ __('site.required_field') }}" />
-                                                <small class="fs-7 fw-semibold text-danger">يكتب باللغه الأنجليزيه
-                                                    فقط</small>
+                                                <small class="fs-7 fw-semibold text-danger">{{ __('site.only_english') }}</small>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +296,7 @@
                                                         value="" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="fillable_value[]"
+                                                    <input type="text" class="form-control" pattern="^[\u0621-\u064A\u0660-\u0669 ]+$" name="fillable_value[]"
                                                         value="" />
                                                 </td>
                                                 <td class="text-end">
