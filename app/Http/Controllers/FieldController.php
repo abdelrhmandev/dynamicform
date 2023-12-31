@@ -66,18 +66,18 @@ class FieldController extends Controller
                 })
  
 
-                ->editColumn('f_fillable', function ($row) {
-                    $tags = '';
+                ->editColumn('FieldFillable.display', function ($row) {
+                    $fillable = '';
                     if (count($row->FieldFillable)) {
                         foreach ($row->FieldFillable as $value) {
-                            $tags .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+                            $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
                     } else {
-                        $tags = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
+                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
                     }
 
 
-                    return $tags;
+                    return $fillable;
 
                 })
 
@@ -92,7 +92,7 @@ class FieldController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['display', 'f_fillable','actions', 'created_at', 'created_at.display'])                ->make(true);
+                ->rawColumns(['display', 'FieldFillable.display','actions', 'created_at', 'created_at.display'])                ->make(true);
         }
         if (view()->exists('fields.index')) {
             $compact = [

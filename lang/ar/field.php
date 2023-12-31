@@ -11,7 +11,7 @@ return [
 'select'                    => 'أختر الحقل',
 'select_multi'              =>' أختر الحقول',
 'plural'                    => 'الحقول',
-'singular'                  => 'أستمارة',
+'singular'                  => 'حقل',
 'exportMessageSuccess'      => 'تم تصدير الحقول بنجاح',
 'deleteMessageSuccess'      => 'تم حذف الحقل بنجاح',
 'MulideleteMessageSuccess'  => 'تم حذف الحقول بنجاح',
