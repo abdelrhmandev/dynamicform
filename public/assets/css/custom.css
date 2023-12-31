@@ -3,6 +3,11 @@
   }
 
 
+  .fv-plugins-bootstrap .has-danger .fv-plugins-icon {
+    color: #dc3545;
+  }
+  
+
 .my-field-error .fv-plugins-message-container,
 .my-field-error .fv-plugins-icon {
 font-size: 0.925rem;

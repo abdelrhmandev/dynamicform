@@ -15,7 +15,7 @@ class FieldRequest extends FormRequest
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
         $rules['display']       = 'required|unique:fields,display'.$id;
         $rules['name']          = 'required|unique:fields,name'.$id;
-        $rules['type']          = 'required';
+        // $rules['type']          = 'required';
         return $rules; 
     } 
     public function failedValidation(Validator $validator)

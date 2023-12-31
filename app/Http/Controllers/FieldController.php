@@ -4,6 +4,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Traits\Functions;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Field as MainModel;
 use App\Models\FieldFillable;
@@ -132,8 +133,55 @@ class FieldController extends Controller
     public function update(ModuleRequest $request, MainModel $field)
     {
             $validated = $request->validated();
-            $validated['display']  = $request->display;
-            $validated['status'] = isset($request->status) ? '1' : '0';
+ 
+ 
+            #update old fillable 
+            if((count($request->old_fillable_display) > 0) && (count($request->old_fillable_value)>0)) {                 
+                $resultX = array_combine($request->old_fillable_display,$request->old_fillable_value);    
+                $update = [];
+
+                $ids = (array_keys($request->old_fillable_display));
+
+                foreach($resultX as $k=>$v){
+                    if(!empty($k) && !empty($v)){
+                        
+                        $UpdateArr[] = collect([
+                            'display'=>$v,
+                        ]);
+                }
+                }
+
+                // FieldFillable::whereIn('id',$ids)->update([
+                //     'display'   =>$k,
+                //     'value'     =>$v
+                // ]);
+              
+                $X  = $UpdateArr->keys();
+                FieldFillable::whereIn('id',$ids)->update([$X]);
+ 
+                dd('ss');
+               
+            }
+
+            #new fillable added 
+            /*
+            if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
+                $result = array_combine($request->fillable_display,$request->fillable_value);    
+                $insert = [];
+                foreach($result as $k=>$v){
+                    if(!empty($k) && !empty($v)){
+                        $insert[] = [
+                            'field_id'  =>$field->id,
+                            'display'   =>$k,
+                            'value'     =>$v
+                        ];
+                    }
+                } 
+                if(!empty($insert)) {
+                    FieldFillable::insert($insert);
+                }
+            }
+            
 
 
             if(MainModel::findOrFail($field->id)->update($validated)){
@@ -141,8 +189,9 @@ class FieldController extends Controller
             }else{
                 $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
             }
+            */
         
-        return response()->json($arr);
+        // return response()->json($arr);
     }
     public function destroy(MainModel $field)
     {
