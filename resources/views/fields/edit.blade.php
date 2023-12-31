@@ -113,19 +113,19 @@
                                                 <tr>
                                                     <td>
 
-                                                         
+                                                         <input>
 
                                                         <div class="fv-row fl">
                                                             <input type="text" class="form-control form-control-lg"
                                                                 placeholder="أسم العنصر المراد ملؤه"
-                                                                name="old_fillable_display[{{ $value->id }}]" value="{{ $value->display }}" />
+                                                                name="old_fillable_display[]" value="{{ $value->display }}" />
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="fv-row fl">
                                                             <input type="text" class="form-control form-control-lg"
                                                                 placeholder="قيمه العنصر المراد ملؤه"
-                                                                name="old_fillable_value[{{ $value->id }}]" value="{{ $value->value }}" />
+                                                                name="old_fillable_value[]" value="{{ $value->value }}" />
                                                         </div>
                                                     </td>
                                                     <td class="text-end">

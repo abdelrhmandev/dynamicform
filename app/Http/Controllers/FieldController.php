@@ -141,14 +141,18 @@ class FieldController extends Controller
                 $update = [];
 
                 $ids = (array_keys($request->old_fillable_display));
+                DB::table('field_fillable')->whereIn('id', $ids)->update((['display' => $request->old_fillable_display ]));   
 
+                dd();
+
+
+                
                 foreach($resultX as $k=>$v){
                     if(!empty($k) && !empty($v)){
-                        
-                        $UpdateArr[] = collect([
-                            'display'=>$v,
-                        ]);
-                }
+
+                    DB::table('field_fillable')->whereIn('id', $ids)->update((['display' => $request->old_fillable_display ]));   
+
+                    }
                 }
 
                 // FieldFillable::whereIn('id',$ids)->update([
@@ -156,9 +160,7 @@ class FieldController extends Controller
                 //     'value'     =>$v
                 // ]);
               
-                $X  = $UpdateArr->keys();
-                FieldFillable::whereIn('id',$ids)->update([$X]);
- 
+
                 dd('ss');
                
             }
