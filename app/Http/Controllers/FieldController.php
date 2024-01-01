@@ -140,25 +140,27 @@ class FieldController extends Controller
                 $resultX = array_combine($request->old_fillable_display,$request->old_fillable_value);    
                 $update = [];
 
-                $ids = (array_keys($request->old_fillable_display));
-                DB::table('field_fillable')->whereIn('id', $ids)->update((['display' => $request->old_fillable_display ]));   
+                $ids = [];
+                $displays = [];
+                $syncData = [];
 
-                dd();
-
-
-                
-                foreach($resultX as $k=>$v){
-                    if(!empty($k) && !empty($v)){
-
-                    DB::table('field_fillable')->whereIn('id', $ids)->update((['display' => $request->old_fillable_display ]));   
-
+                foreach($request->old_fillable_display as $k=>$v){
+                    if(!empty($k) && !empty($v)){   
+                        $syncData[] =   $v;
                     }
                 }
 
-                // FieldFillable::whereIn('id',$ids)->update([
-                //     'display'   =>$k,
-                //     'value'     =>$v
-                // ]);
+
+                 
+                $query = FieldFillable::whereIn('id',['1','2'])->update(['display'=>$syncData]);
+
+                
+                dd($syncData);
+
+                dd();
+
+                // dd($query);
+
               
 
                 dd('ss');
