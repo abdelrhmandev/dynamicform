@@ -27,6 +27,12 @@ class FormController extends Controller
     public function store(ModuleRequest $request)
     {
  
+
+        dd($request->field_id)
+
+
+        dd();
+
             $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';

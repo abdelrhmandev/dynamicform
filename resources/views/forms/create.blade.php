@@ -11,7 +11,6 @@
         <li class="breadcrumb-item text-dark">{{ __($trans . '.add') }}</li>
     </ul>
 @stop
-
 @section('style')
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
 @stop
@@ -54,8 +53,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="card card-flush pt-3 mb-5 mb-lg-10">
                                 <div
                                     class="notice d-flex bg-light-success rounded border-success border border-dashed rounded-3 p-6">
@@ -69,96 +66,58 @@
                                 <div class="table-responsive mt-5">
                                     <table
                                         class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
-                                        <thead class="thead-dark">
-                                            <tr class="table-primary fs-5 text-gray-900 fw-bold">
-                                                
-                                                <th>
-                                                    أختر الحقل
-                                                </th>
-
-                                                <th>
-                                                    الأسم الذي سيظر به الحقل
-                                                </th>
-
-                                                <th>
-                                                    نوع للحقل
-                                                </th>
-
-                                                <th>
-                                                    الأسم البرمجي للحقل
-                                                </th>
-
-                                                <th>
-                                                    قيمه العنصر الأوليه
-                                                </th>
-
-                                                <th>
-                                                    الحقل مطلوب
-                                                </th>
-
-
+                                        <thead>
+                                            <tr class="table-primary fs-5 text-gray-900 fw-bold">                                                
+                                                <th>الحقل</th>
+                                                {{-- <th>الأسم الذي سيظر به الحقل</th>
+                                                <th>نوع للحقل</th> --}}
+                                                <th class="w-400px">قيمه العنصر الأوليه</th>
+                                                <th>الحقل مطلوب</th>
                                                 <th class="pt-0 text-end">ملاحظات</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($fields as $field)
                                                 <tr>
-
                                                     <td>
-                                                        
-                                                        <div class="form-check form-switch form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="checkbox" value="1" name="status"
-                                                                id="status" />
-                                                             
-                                                        </div>
-                                                    
-                                                    </td>
-                                                    
-                                                    <td>{{ $field->display }}</td>
-                                                        
-                                                    <td>{{ $field->type }}</td>
-                                                    <td>{{ $field->name }}</td>
-                                                    <td>
-                                                        
-{{-- @php
-$fillable = '';
-if (count($field->FieldFillable)) {
-foreach ($field->FieldFillable as $value) {
-$fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
-}
-} else {
-$fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
-}
-return $fillable;
-@endphp --}}
-                                                        
-                                                    </td>
-                                                    <td>
-                                                        
-                                                        <div class="form-check form-switch form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="checkbox" value="1" name="required[]"
-                                                                id="required" />
-                                                            <label class="form-check-label" for="required">
-                                                                <span>نعم</span>
+                                                        <div class="fv-row fl" id="{{ $field->id }}">
+                                                            <label class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
+                                                                    id="field{{ $field->id }}" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
+                                                                <a href="{{ route('fields.edit',$field->id) }}">{{ $field->display }}</a>
                                                             </label>
                                                         </div>
-
-                                                        
+                                                </td>                                                        
+                                                    {{-- <td>{{ $field->type }}</td> --}}
+                                                    {{-- <td>{{ $field->name }}</td> --}}
+                                                    <td>                                                        
+                                                        @php
+                                                        $fillable = '';
+                                                        if (count($field->FieldFillable)) {
+                                                        foreach ($field->FieldFillable as $value) {
+                                                        $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+                                                        }
+                                                        } else {
+                                                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
+                                                        }
+                                                        echo $fillable;
+                                                        @endphp                                                        
                                                     </td>
-                                                    <td class="text-end">ملاحظات ملاحظات</td>
-                                                        
-                                                    
+                                                    <td>
+                                                        <div class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="1" name="required[]"
+                                                            id="required" /><label class="form-check-label" for="required">
+                                                            <span>نعم</span></label></div>
+                                                    </td>
+                                                    <td class="text-end">
+                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[]" class="form-control" /></textarea>
+                                                    </td>                                                       
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

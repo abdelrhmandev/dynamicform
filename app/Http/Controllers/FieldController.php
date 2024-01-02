@@ -72,7 +72,7 @@ class FieldController extends Controller
                     $fillable = '';
                     if (count($row->FieldFillable)) {
                         foreach ($row->FieldFillable as $value) {
-                            $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+                            $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
                     } else {
                         $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
