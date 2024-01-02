@@ -36,8 +36,9 @@ class ComposerStaticInitb5112ca97d840499275c9ee16e37147e
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
+        '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
+        '880d9aa7c2c689853e94e8a3794c8282' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/Common/Helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -121,6 +122,7 @@ class ComposerStaticInitb5112ca97d840499275c9ee16e37147e
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
+            'Mavinoo\\Batch\\' => 14,
         ),
         'L' => 
         array (
@@ -197,11 +199,11 @@ class ComposerStaticInitb5112ca97d840499275c9ee16e37147e
         ),
         'Yajra\\DataTables\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
-            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
             2 => __DIR__ . '/..' . '/yajra/laravel-datatables-fractal/src',
-            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
-            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
+            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'Whoops\\' => 
         array (
@@ -411,6 +413,10 @@ class ComposerStaticInitb5112ca97d840499275c9ee16e37147e
         'Mockery\\' => 
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
+        ),
+        'Mavinoo\\Batch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mavinoo/laravel-batch/src',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -3326,6 +3332,12 @@ class ComposerStaticInitb5112ca97d840499275c9ee16e37147e
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Mavinoo\\Batch\\Batch' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/Batch.php',
+        'Mavinoo\\Batch\\BatchFacade' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/BatchFacade.php',
+        'Mavinoo\\Batch\\BatchInterface' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/BatchInterface.php',
+        'Mavinoo\\Batch\\BatchServiceProvider' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/BatchServiceProvider.php',
+        'Mavinoo\\Batch\\Common\\Common' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/Common/Common.php',
+        'Mavinoo\\Batch\\Traits\\HasBatch' => __DIR__ . '/..' . '/mavinoo/laravel-batch/src/Traits/HasBatch.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

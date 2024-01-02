@@ -23,5 +23,5 @@ return [
 'updateMessageSuccess'      => ' تم تحديث الحقل بنجاح',
 'updateMessageError'        => 'خطأ في حذف الحقل',
 'storeMessageSuccess'       => 'تم أنشاء الحقل بنجاح',
-'storeMessageError'         => 'خطأ في أضافه الحقل',
+'storeMessageError'         => 'خطأ في تحديث الحقل',
 ];

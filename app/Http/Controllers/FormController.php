@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
+use App\Models\Field;
 use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\Form as MainModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormDRequest as ModuleRequest;
+
 class FormController extends Controller
 {
 
@@ -84,6 +86,7 @@ class FormController extends Controller
     public function create(){
         if (view()->exists('forms.create')) {
             $compact = [
+                'fields'        => Field::select('id','display','name','type')->get(),
                 'trans'         => $this->TRANS,
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),

@@ -163,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -178,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
     ],
 
     /*
@@ -194,6 +196,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
 
     'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+    'Batch' => Mavinoo\Batch\BatchFacade::class,
 
     ])->toArray(),
 

@@ -10,6 +10,7 @@ use App\Models\Field as MainModel;
 use App\Models\FieldFillable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\FieldRequest as ModuleRequest;
 class FieldController extends Controller
 {
@@ -130,45 +131,30 @@ class FieldController extends Controller
         }
     }
 
+    
+ 
+
     public function update(ModuleRequest $request, MainModel $field)
     {
-            $validated = $request->validated();
- 
- 
+
+            $validated = $request->validated();  
+            $validated['title']  = $request->title;
+            $updateRecord = [];
+            foreach($request->field_fillable_id as $k=>$v){                            
+                if(!(empty($request->old_fillable_display[$v]) && (!(empty($request->old_fillable_value[$v]))))) {
+                    $updateRecord[$k] =   [
+                        'id'        =>$v,
+                        'display'   =>$request->old_fillable_display[$v],
+                        'value'     =>$request->old_fillable_value[$v],         
+                    ];               
+                }                 
+            }           
             #update old fillable 
-            if((count($request->old_fillable_display) > 0) && (count($request->old_fillable_value)>0)) {                 
-                $resultX = array_combine($request->old_fillable_display,$request->old_fillable_value);    
-                $update = [];
+            $index = 'id';
+            $FieldFillableInstance = new FieldFillable;          
+            \Batch::update($FieldFillableInstance, $updateRecord, $index);
 
-                $ids = [];
-                $displays = [];
-                $syncData = [];
-
-                foreach($request->old_fillable_display as $k=>$v){
-                    if(!empty($k) && !empty($v)){   
-                        $syncData[] =   $v;
-                    }
-                }
-
-
-                 
-                $query = FieldFillable::whereIn('id',['1','2'])->update(['display'=>$syncData]);
-
-                
-                dd($syncData);
-
-                dd();
-
-                // dd($query);
-
-              
-
-                dd('ss');
-               
-            }
-
-            #new fillable added 
-            /*
+            #new fillable added             
             if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
                 $result = array_combine($request->fillable_display,$request->fillable_value);    
                 $insert = [];
@@ -183,19 +169,20 @@ class FieldController extends Controller
                 } 
                 if(!empty($insert)) {
                     FieldFillable::insert($insert);
+                    
                 }
             }
             
-
 
             if(MainModel::findOrFail($field->id)->update($validated)){
                 $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
             }else{
                 $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
             }
-            */
+           
+            
         
-        // return response()->json($arr);
+        return response()->json($arr);
     }
     public function destroy(MainModel $field)
     {

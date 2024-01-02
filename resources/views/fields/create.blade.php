@@ -278,17 +278,17 @@
                                 </div>
                                 <div class="table-responsive mt-5">
                                     <table id="kt_create_new_custom_fields"
-                                        class="table align-middle table-row-bordered fs-6 gy-5">
+                                        class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
                                         <thead>
-                                            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-                                                <th class="pt-0">
+                                            <tr class="fw-semibold fs-6 border-bottom border-gray-200 py-4">
+                                                <th>
                                                     <div class="fv-row fl">
                                                         <label class="required form-label" for="fillable_display">أسم
                                                             العنصر المراد ملؤه </label>
                                                     </div>
 
                                                 </th>
-                                                <th class="pt-0">
+                                                <th>
 
                                                     <div class="fv-row fl">
                                                         <label class="required form-label" for="fillable_value">قيمه

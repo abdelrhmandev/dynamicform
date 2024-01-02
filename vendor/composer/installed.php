@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '85077c4b611c210d72ebe21441f34ce3242d0ebf',
+        'reference' => '80b41d945f127a8647e82bd7de3032c0a1c06e8e',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -415,7 +415,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '85077c4b611c210d72ebe21441f34ce3242d0ebf',
+            'reference' => '80b41d945f127a8647e82bd7de3032c0a1c06e8e',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -524,6 +524,15 @@
             'install_path' => __DIR__ . '/../league/mime-type-detection',
             'aliases' => array(),
             'reference' => 'b6a5854368533df0295c5761a0253656a2e52d9e',
+            'dev_requirement' => false,
+        ),
+        'mavinoo/laravel-batch' => array(
+            'pretty_version' => 'v2.3.6',
+            'version' => '2.3.6.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mavinoo/laravel-batch',
+            'aliases' => array(),
+            'reference' => '3fc44da87d0785f67e1a3eb15a034d6b82e2a58f',
             'dev_requirement' => false,
         ),
         'maximebf/debugbar' => array(
