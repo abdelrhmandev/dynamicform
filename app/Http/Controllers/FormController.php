@@ -26,18 +26,48 @@ class FormController extends Controller
     
     public function store(ModuleRequest $request)
     {
- 
-
-        dd($request->field_id)
 
 
-        dd();
 
+
+         
             $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
-            if (MainModel::create($validated)) {
+            $query = MainModel::create($validated);
+            if ($query) {
+
+                $field_id = [];
+                $required = [];
+                $notices = [];
+        
+                foreach($request->field_id as $field){
+        
+                    
+                    if(!(empty($field))){
+                        $field_id[] = $field;
+                    }
+        
+                    if((!empty($request->required[$field])) ) {
+                        $required[] =  $request->required[$field];
+                    }
+                    
+                    if(!(empty($request->notices[$field]))){
+                        $notices[] =  $request->notices[$field];
+                    }
+                  
+                } 
+        
+                
+                FormField::
+                dd($notices);
+        
+                dd();
+                
+
+
+
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
             }else{
                 $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
@@ -92,7 +122,7 @@ class FormController extends Controller
     public function create(){
         if (view()->exists('forms.create')) {
             $compact = [
-                'fields'        => Field::select('id','display','name','type')->get(),
+                'fields'        => Field::select('id','display','name','notices','type')->get(),
                 'trans'         => $this->TRANS,
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),

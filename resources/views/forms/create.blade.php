@@ -69,11 +69,10 @@
                                         <thead>
                                             <tr class="table-primary fs-5 text-gray-900 fw-bold">                                                
                                                 <th>الحقل</th>
-                                                {{-- <th>الأسم الذي سيظر به الحقل</th>
-                                                <th>نوع للحقل</th> --}}
+                                                <th>نوع للحقل</th>                                                
                                                 <th class="w-400px">قيمه العنصر الأوليه</th>
                                                 <th>الحقل مطلوب</th>
-                                                <th class="pt-0 text-end">ملاحظات</th>
+                                                <th>ملاحظات علي الحقل عند الربط</th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,12 +83,20 @@
                                                             <label class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
                                                                     id="field{{ $field->id }}" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
-                                                                <a href="{{ route('fields.edit',$field->id) }}">{{ $field->display }}</a>
-                                                            </label>
+                                                                <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
+                                                            </label>                                                            
                                                         </div>
-                                                </td>                                                        
-                                                    {{-- <td>{{ $field->type }}</td> --}}
-                                                    {{-- <td>{{ $field->name }}</td> --}}
+                                                        @if($field->notices)
+                                                             <!--begin::Icon-->
+                                                            <i class="ki-duotone ki-notification-bing fs-2hx text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
+                                                                " {{ $field->notices ?? ''}} "                                                        
+                                                        @endif                                                       
+                                                </td>        
+                                                
+                                                 <td>
+                                                           {{ $field->type}}
+                                                    </td> 
+
                                                     <td>                                                        
                                                         @php
                                                         $fillable = '';
@@ -105,13 +112,13 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-check form-switch form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="checkbox" value="1" name="required[]"
+                                                            <input class="form-check-input" type="checkbox" value="1" name="required[{{ $field->id }}]"
                                                             id="required" /><label class="form-check-label" for="required">
                                                             <span>نعم</span></label></div>
                                                     </td>
-                                                    <td class="text-end">
-                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[]" class="form-control" /></textarea>
-                                                    </td>                                                       
+                                                   <td class="text-end">
+                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control" /></textarea>
+                                                    </td>                                                        
                                                 </tr>
                                             @endforeach
                                         </tbody>

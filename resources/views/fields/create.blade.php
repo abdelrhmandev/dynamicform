@@ -31,7 +31,7 @@
                         <div class="d-flex flex-column gap-5">
 
                             <div class="row">
-                                <div class="col-xl-6">
+                                <div class="col-xl-4">
                                     <div class="fv-row fl">
                                         <label class="required form-label" for="display">الأسم الذي سيظر به الحقل</label>
                                         <input placeholder="مثال الأسم , رقم الهويه .... " type="text" id="display"
@@ -39,7 +39,7 @@
                                             data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                     </div>
                                 </div>
-                                <div class="col-xl-6">
+                                <div class="col-xl-4">
                                     <div class="card-body pt-0">
                                         <div>
                                             <div class="fv-row fl">
@@ -52,6 +52,18 @@
                                                     data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                                 <small
                                                     class="fs-7 fw-semibold text-danger">({{ __('site.only_english') }})</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="card-body pt-0">
+                                        <div>
+                                            <div class="fv-row fl">
+                                                <label class="form-label" for="name">ملاحظات
+                                                </label>
+                                                <input placeholder="مثال رقم الهويه يبدأ ب 0500" type="text" id="notices"
+                                                    name="notices" class="form-control form-control-lg"/>
                                             </div>
                                         </div>
                                     </div>

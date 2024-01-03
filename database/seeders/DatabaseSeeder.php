@@ -27,16 +27,16 @@ class DatabaseSeeder extends Seeder
         \App\Models\Form::factory(10)->create();
 
         $items = [
-            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox'],
-            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox'],
-            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox'],
-            ['display' => 'الحالة الاجتماعية','name'=> 'social_status','type'=> 'select'],
-            ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select'],
-            ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select'],
-            ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox'],
-            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date'],
-            ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea'],
-            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file'],
+            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox','notices'=>'يكتب باللغه العربيه'],
+            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox','notices'=>'يبدأ ب 0555'],
+            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox','notices'=>'يبدأ ب 087 و مكون من 10 أرقام'],
+            ['display' => 'الحالة الاجتماعية','name'=> 'social_status','type'=> 'select','notices'=>NULL],
+            ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL],
+            ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>NULL],
+            ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>NULL],
+            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','notices'=>NULL],
+            ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL],
+            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc '],
         ];
         \DB::table('fields')->insert($items);
 

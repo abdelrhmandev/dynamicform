@@ -31,6 +31,9 @@ class FieldController extends Controller
             $validated['display']  = $request->display;
             $validated['name']  = $request->name;
             $validated['type']  = $request->type;
+            $validated['notices']  = $request->notices;
+
+   
             $query = MainModel::create($validated);
             if ($query) {
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
@@ -139,6 +142,7 @@ class FieldController extends Controller
 
             $validated = $request->validated();  
             $validated['title']  = $request->title;
+            $validated['notices']  = $request->notices;
             $updateRecord = [];
             foreach($request->field_fillable_id as $k=>$v){                            
                 if(!(empty($request->old_fillable_display[$v]) && (!(empty($request->old_fillable_value[$v]))))) {
