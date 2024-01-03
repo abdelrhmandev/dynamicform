@@ -80,10 +80,7 @@
                                             @foreach ($fields as $field)
                                                 <tr>
                                                     <td>                                                        
-                                                        <div class="fv-row fl" id="{{ $field->id }}">
-                                                            
-
-                                                        
+                                                        <div class="fv-row fl" id="{{ $field->id }}">                                                        
                                                             <label class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
                                                                     id="field" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        

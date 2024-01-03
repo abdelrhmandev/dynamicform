@@ -64,11 +64,7 @@ class FormController extends Controller
         if ($request->ajax()) {
 
 
-            $model = MainModel::with([
-                'fields' => function ($query) {
-                    $query->select('display','name');
-                },
-            ])->select('id','title','status','created_at');
+            $model = MainModel::withCount('fields')->select('id','title','status','created_at');
 
 
           
@@ -82,13 +78,16 @@ class FormController extends Controller
  
 
 
-                ->editColumn('formfields', function ($row) {
-
-                    $x = '';
-                    foreach($row->fields as $FormField){
-                         dd($FormField);
+                ->editColumn('fields', function ($row) {
+                    $formfields = '';
+                    if(count($row->fields)>0){
+                        foreach($row->fields as $value){
+                            $formfields.= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+                        }
+                    }else{
+                        $formfields = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لم يتم بعد ربط حقول بهذه الأستمارة</span></div>";
                     }
-                    return $x; 
+                    return $formfields; 
                 })
                 
 
@@ -105,7 +104,7 @@ class FormController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['title', 'formfields','status', 'actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['title','fields','status', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('forms.index')) {
@@ -134,6 +133,7 @@ class FormController extends Controller
     {
         if (view()->exists('forms.edit')) {
             $compact = [
+                'fields'                  => Field::select('id','display','name','notices','type')->get(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
