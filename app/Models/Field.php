@@ -11,7 +11,7 @@ class Field extends Model
 
  
     protected $table = 'fields';
-    protected $fillable = ['display','name','type','notices','created_at'];
+    protected $fillable = ['display','name','type','rules','notices','created_at'];
     protected $guarded = ['id'];
     public $timestamps = true;
 

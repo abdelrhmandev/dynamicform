@@ -34,11 +34,46 @@ class DatabaseSeeder extends Seeder
             ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL],
             ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>NULL],
             ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>NULL],
-            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','notices'=>NULL],
+            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي'],
             ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL],
             ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc '],
         ];
         \DB::table('fields')->insert($items);
+
+
+
+        $items = [
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '1','form_id'=>'1'],
+            ['is_required' => '1','notices'=> 'طبقا لنظام المملكه العربيه السعوديه','field_id'=> '2','form_id'=>'1'],
+            ['is_required' => '1','notices'=> 'حسب سجلات المملكه','field_id'=> '3','form_id'=>'1'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=> '4','form_id'=>'1'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '5','form_id'=>'1'],
+ 
+
+
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '1','form_id'=>'3'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> 5,'form_id'=>'3'],
+
+
+
+            ['is_required' => '1','notices'=> NULL,'field_id'=>'4','form_id'=>'4'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'5','form_id'=>'4'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=>'7','form_id'=>'4'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=>'8','form_id'=>'4'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'9','form_id'=>'4'],
+
+            
+
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '4','form_id'=>'7'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=> '5','form_id'=>'7'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '7','form_id'=>'8'],
+
+            ['is_required' => '0','notices'=> NULL,'field_id'=> '8','form_id'=>'8'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '9','form_id'=>'9'],
+
+        ];
+        \DB::table('form_field')->insert($items);
+
 
 
         $items = [

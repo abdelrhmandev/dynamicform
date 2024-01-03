@@ -26,6 +26,7 @@
                             <h2>{{ __($trans . '.info') }}</h2>
                         </div>
                     </div>
+                    @if(count($fields))
                     <div class="card-body pt-5">
                         <div class="d-flex flex-column gap-5">
                             <div class="row">
@@ -42,7 +43,7 @@
                             <div class="row">
                                 <div class="col-xl">
                                     <div class="fv-row fl">
-                                        <label class="required form-label" for="title">{{ __('site.status') }}</label>
+                                        <label class="required form-label" for="status">{{ __('site.status') }}</label>
                                         <div class="form-check form-switch form-check-custom form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="1" name="status"
                                                 id="status" />
@@ -70,7 +71,7 @@
                                             <tr class="table-primary fs-5 text-gray-900 fw-bold">                                                
                                                 <th>الحقل</th>
                                                 <th>نوع للحقل</th>                                                
-                                                <th class="w-400px">قيمه العنصر الأوليه</th>
+                                                <th class="w-400px">قيمه الحقل الأوليه</th>
                                                 <th>الحقل مطلوب</th>
                                                 <th>ملاحظات علي الحقل عند الربط</th>                                                
                                             </tr>
@@ -78,17 +79,20 @@
                                         <tbody>
                                             @foreach ($fields as $field)
                                                 <tr>
-                                                    <td>
+                                                    <td>                                                        
                                                         <div class="fv-row fl" id="{{ $field->id }}">
+                                                            <label class="required form-label" for="{{ $field->id }}">{{ __('site.status') }}</label>
+
+                                                        
                                                             <label class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
-                                                                    id="field{{ $field->id }}" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
+                                                                    id="field" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
                                                                 <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
                                                             </label>                                                            
                                                         </div>
                                                         @if($field->notices)
                                                              <!--begin::Icon-->
-                                                            <i class="ki-duotone ki-notification-bing fs-2hx text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
+                                                            <i class="ki-duotone ki-notification-bing fs-2hx text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
                                                                 " {{ $field->notices ?? ''}} "                                                        
                                                         @endif                                                       
                                                 </td>        
@@ -105,7 +109,7 @@
                                                         $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                                                         }
                                                         } else {
-                                                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
+                                                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
                                                         }
                                                         echo $fillable;
                                                         @endphp                                                        
@@ -117,7 +121,7 @@
                                                             <span>نعم</span></label></div>
                                                     </td>
                                                    <td class="text-end">
-                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control" /></textarea>
+                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control"></textarea>
                                                     </td>                                                        
                                                 </tr>
                                             @endforeach
@@ -127,6 +131,33 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <div class="d-flex flex-column py-10 px-10 px-lg-20 mb-10"> 
+                        <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5 mb-10">
+                            <i class="ki-duotone ki-information-5 fs-2hx text-danger me-4 mb-5 mb-sm-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                            <div class="d-flex flex-column pe-0 pe-sm-10">
+                                <h4 class="fw-semibold">عذرا</h4>
+                                <span>لا توجد حقول متاحه حتي تتمكن من أضافه أستمارة</span>
+                            </div>
+                        </div>                      
+                            <a href="{{ route('fields.create') }}" class="btn btn-light-success me-auto" id="kt_create_new_custom_fields_add">
+                            <span class="svg-icon svg-icon-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                        rx="5" fill="currentColor"></rect>
+                                    <rect x="10.8891" y="17.8033" width="12" height="2"
+                                        rx="1" transform="rotate(-90 10.8891 17.8033)"
+                                        fill="currentColor"></rect>
+                                    <rect x="6.01041" y="10.9247" width="12" height="2"
+                                        rx="1" fill="currentColor"></rect>
+                                </svg>
+                            </span>أضف حقل جديد</a>                                                   
+                            <div class="text-center pb-15 px-5">
+                                <img src="{{ asset('assets/media/illustrations/sigma-1/4.png') }}" alt="" class="mw-100 h-200px h-sm-325px" />
+                            </div>
+                    </div>                    
+                    @endif
                 </div>
                 <x-btns.button />
             </div>

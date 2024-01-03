@@ -28,12 +28,10 @@ class FieldController extends Controller
     public function store(ModuleRequest $request)
     { 
             $validated = $request->validated();
-            $validated['display']  = $request->display;
-            $validated['name']  = $request->name;
-            $validated['type']  = $request->type;
-            $validated['notices']  = $request->notices;
-
-   
+            $validated['display']    = $request->display;
+            $validated['name']       = $request->name;
+            $validated['type']       = $request->type;
+            $validated['notices']    = $request->notices;   
             $query = MainModel::create($validated);
             if ($query) {
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
@@ -78,7 +76,7 @@ class FieldController extends Controller
                             $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
                     } else {
-                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-danger\">&nbsp;" . "<span class=\"text-danger\">لا يوجد</span></div>";
+                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
                     }
 
 

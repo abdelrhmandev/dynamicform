@@ -10,6 +10,9 @@
             </span>
         </div>
         <?php echo $__env->make('layouts.aside.__tab-contents.includes.user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('layouts.aside.__tab-contents.includes.field', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('layouts.aside.__tab-contents.includes.form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('layouts.aside.__tab-contents.includes.building', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 </div>
 </div>

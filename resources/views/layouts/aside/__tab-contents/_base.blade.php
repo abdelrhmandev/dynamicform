@@ -10,6 +10,9 @@
             </span>
         </div>
         @include('layouts.aside.__tab-contents.includes.user')
+        @include('layouts.aside.__tab-contents.includes.field')
+        @include('layouts.aside.__tab-contents.includes.form')
+        @include('layouts.aside.__tab-contents.includes.building')
     </div>
 </div>
 </div>

@@ -14,6 +14,7 @@ class FormDRequest extends FormRequest
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
         $rules['title']   = 'required|unique:forms,title'.$id;
         $rules['status']  = 'nullable|in:0,1'; 
+        $rules['fields']  = 'required|exists:fields,id';   
         return $rules; 
     } 
     public function failedValidation(Validator $validator)

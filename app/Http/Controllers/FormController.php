@@ -26,12 +26,7 @@ class FormController extends Controller
 
     
     public function store(ModuleRequest $request)
-    {
-
-
-
-
-         
+    {         
             $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
@@ -41,32 +36,17 @@ class FormController extends Controller
                 $field_id = [];
                 $required = [];
                 $notices = [];        
-
-                $FormField['form_id'] = $query->id;
-
-                foreach($request->field_id as $field){
-                    if(!(empty($field))){
-                        $FormField[] = ['field_id'=>$field];
+                if(!empty($request->field_id)) {
+                    foreach($request->field_id as $field){
+                        if(!(empty($field))){
+                            $FormField[$field]['is_required']   = !(empty($request->is_required[$field])) ? $request->is_required[$field] : '0';
+                            $FormField[$field]['notices']       = !(empty($request->notices[$field])) ? $request->notices[$field] : NULL; 
+                            $FormField[$field]['field_id']      = $field;
+                            $FormField[$field]['form_id']       = $query->id;                                                             
+                        }
                     }
-                    if((!empty($request->required[$field])) ) {
-                        $required[] =  $request->required[$field];
-                    }if(!(empty($request->notices[$field]))){
-                        $notices[] =  $request->notices[$field];
-                    }                  
+                    FormField::insert($FormField);
                 } 
-        
-             
-
-                dd($FormField);
-
-                FormField::create($FormField);
-                dd($notices);
-        
-                dd();
-                
-
-
-
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
             }else{
                 $arr = ['msg' => __($this->TRANS.'.storeMessageError'), 'status' => false];
@@ -91,6 +71,15 @@ class FormController extends Controller
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
  
+
+
+                ->editColumn('formfields', function ($row) {
+
+                    $g  = count($row->fields);
+                    return $g; 
+                })
+                
+
                 ->editColumn('status', function ($row) {
                     return $this->dataTableGetStatus($row);
                 })                
@@ -104,7 +93,7 @@ class FormController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['title', 'status', 'actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['title', 'formfields','status', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('forms.index')) {

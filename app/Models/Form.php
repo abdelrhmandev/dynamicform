@@ -10,4 +10,13 @@ class Form extends Model
     protected $table = 'forms';
     protected $fillable = ['title','status'];
     protected $guarded = ['id'];
+
+
+    protected $with = ['fields'];
+
+    public function fields(){
+        return $this->belongsToMany(Field::class,'form_field');
+    }
+
+
 }

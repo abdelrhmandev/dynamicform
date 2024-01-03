@@ -71,7 +71,8 @@
                 <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#{{ __($trans.".plural") }} .AA" value="1" />
               </div>
             </th>            
-            <th>{{ __($trans.'.title') }}</th>  
+            <th>{{ __($trans.'.title') }}</th> 
+            <th>الحقول المرتبطه بهذه الأستمارة</th>  
             <th>{{ __('site.status') }}</th> 
             <th class="text-primary">{{ __('site.created_at') }}</th>
             <th class="text-end min-w-50px noExport">{{ __('site.actions') }}</th>  
@@ -97,6 +98,7 @@
 var dynamicColumns = [ //as an array start from 0
 { data: 'id', name: 'id',exportable:false}, 
 { data: 'title', name: 'title',orderable: false}, // 2
+{ data: 'formfields', name: 'formfields',orderable: false}, // 2
 { data: 'status', name: 'status',orderable: false,searchable: true}, // 3
 { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
