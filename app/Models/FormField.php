@@ -3,7 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FormFileld extends Model
+class FormField extends Model
 {
     use HasFactory;
  

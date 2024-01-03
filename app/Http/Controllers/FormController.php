@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Models\Field;
+use App\Models\FormField;
 use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -37,30 +38,28 @@ class FormController extends Controller
 
             $query = MainModel::create($validated);
             if ($query) {
-
                 $field_id = [];
                 $required = [];
-                $notices = [];
-        
+                $notices = [];        
+
+                $FormField['form_id'] = $query->id;
+
                 foreach($request->field_id as $field){
-        
-                    
                     if(!(empty($field))){
-                        $field_id[] = $field;
+                        $FormField[] = ['field_id'=>$field];
                     }
-        
                     if((!empty($request->required[$field])) ) {
                         $required[] =  $request->required[$field];
-                    }
-                    
-                    if(!(empty($request->notices[$field]))){
+                    }if(!(empty($request->notices[$field]))){
                         $notices[] =  $request->notices[$field];
-                    }
-                  
+                    }                  
                 } 
         
-                
-                FormField::
+             
+
+                dd($FormField);
+
+                FormField::create($FormField);
                 dd($notices);
         
                 dd();
