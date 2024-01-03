@@ -62,7 +62,16 @@ class FormController extends Controller
      */
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = MainModel::select('id','title','status','created_at');
+
+
+            $model = MainModel::with([
+                'fields' => function ($query) {
+                    $query->select('display','name');
+                },
+            ])->select('id','title','status','created_at');
+
+
+          
             return Datatables::of($model)
 
                 ->addIndexColumn()
@@ -75,8 +84,11 @@ class FormController extends Controller
 
                 ->editColumn('formfields', function ($row) {
 
-                    $g  = count($row->fields);
-                    return $g; 
+                    $x = '';
+                    foreach($row->fields as $FormField){
+                         dd($FormField);
+                    }
+                    return $x; 
                 })
                 
 

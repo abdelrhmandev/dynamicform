@@ -81,7 +81,7 @@
                                                 <tr>
                                                     <td>                                                        
                                                         <div class="fv-row fl" id="{{ $field->id }}">
-                                                            <label class="required form-label" for="{{ $field->id }}">{{ __('site.status') }}</label>
+                                                            
 
                                                         
                                                             <label class="form-check form-check-inline">
