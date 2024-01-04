@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends Model
 {
     use HasFactory;
-    protected $with = ['FieldFillable'];
+ 
 
  
     protected $table = 'fields';
@@ -16,8 +16,16 @@ class Field extends Model
     public $timestamps = true;
 
 
-    public function FieldFillable(){
+    public function fillables(){
         return $this->hasMany(FieldFillable::class,'field_id');
     }
+
+
+
+    public function forms(){
+        return $this->belongsToMany(Form::class, 'form_field','field_id','form_id')->withPivot('is_required','notices');  
+    }
+
+    
 
 }

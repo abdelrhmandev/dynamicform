@@ -12,11 +12,12 @@ class Form extends Model
     protected $guarded = ['id'];
 
 
-    protected $with = ['fields'];
+ 
 
     public function fields(){
-        return $this->belongsToMany(Field::class,'form_field');
+        return $this->belongsToMany(Field::class, 'form_field','form_id','field_id')->withPivot('is_required','notices');  
     }
+
 
 
 }

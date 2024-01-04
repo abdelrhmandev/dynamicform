@@ -7,10 +7,10 @@ use App\Models\FormField;
 use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Form as MainModel;
+use App\Models\Form;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormDRequest as ModuleRequest;
+use App\Http\Requests\FormDRequest;
 
 class FormController extends Controller
 {
@@ -25,13 +25,13 @@ class FormController extends Controller
     }
 
     
-    public function store(ModuleRequest $request)
+    public function store(FormDRequest $request)
     {         
             $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
-            $query = MainModel::create($validated);
+            $query = Form::create($validated);
             if ($query) {
                 $field_id = [];
                 $required = [];
@@ -64,7 +64,7 @@ class FormController extends Controller
         if ($request->ajax()) {
 
 
-            $model = MainModel::withCount('fields')->select('id','title','status','created_at');
+            $model = Form::withCount('fields')->select('id','title','status','created_at');
 
 
           
@@ -129,11 +129,11 @@ class FormController extends Controller
             return view('forms.create', $compact);
         }
     }
-    public function edit(Request $request, MainModel $form)
+    public function edit(Request $request, Form $form)
     {
         if (view()->exists('forms.edit')) {
             $compact = [
-                'fields'                  => Field::select('id','display','name','notices','type')->get(),
+                'fields'                  => Field::with('forms','fillables')->get(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
@@ -144,14 +144,14 @@ class FormController extends Controller
         }
     }
 
-    public function update(ModuleRequest $request, MainModel $form)
+    public function update(FormDRequest $request, Form $form)
     {
             $validated = $request->validated();
             $validated['title']  = $request->title;
             $validated['status'] = isset($request->status) ? '1' : '0';
 
 
-            if(MainModel::findOrFail($form->id)->update($validated)){
+            if(Form::findOrFail($form->id)->update($validated)){
                 $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
             }else{
                 $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
@@ -159,7 +159,7 @@ class FormController extends Controller
         
         return response()->json($arr);
     }
-    public function destroy(MainModel $form)
+    public function destroy(Form $form)
     {
         if ($form->delete()) {
             $arr = ['msg' => __($this->TRANS.'.deleteMessageSuccess'), 'status' => true];

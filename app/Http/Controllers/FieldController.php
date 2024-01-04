@@ -60,7 +60,7 @@ class FieldController extends Controller
 
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = MainModel::select('id','display','name','type','created_at');
+            $model = MainModel::with('FieldFillable')->select('id','display','name','type','created_at');
             return Datatables::of($model)
 
                 ->addIndexColumn()
@@ -188,6 +188,9 @@ class FieldController extends Controller
     }
     public function destroy(MainModel $field)
     {
+
+        // $field->form_field()->detach();
+
         if ($field->delete()) {
             $arr = ['msg' => __($this->TRANS.'.deleteMessageSuccess'), 'status' => true];
         } else {

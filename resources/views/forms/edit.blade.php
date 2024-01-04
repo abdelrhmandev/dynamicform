@@ -87,10 +87,11 @@
                                         <tbody>
                                             @foreach ($fields as $field)
                                                 <tr>
-                                                    <td>                                                        
+                                                    <td>                                                                                                
                                                         <div class="fv-row fl" id="{{ $field->id }}">                                                        
                                                             <label class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
+                                                                @if(in_array($field->id,$row->fields->pluck('id')->toArray())) checked @endif
                                                                     id="field" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
                                                                 <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
                                                             </label>                                                            
@@ -100,22 +101,17 @@
                                                             <i class="ki-duotone ki-notification-bing fs-2hx text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
                                                                 " {{ $field->notices ?? ''}} "                                                        
                                                         @endif                                                       
-                                                </td>        
-                                                
+                                                </td>                                                        
                                                  <td>
                                                            {{ $field->type}}
                                                     </td> 
-
                                                     <td>                                                        
                                                         @php
                                                         $fillable = '';
-                                                        if (count($field->FieldFillable)) {
-                                                        foreach ($field->FieldFillable as $value) {
+                                                        foreach ($field->fillables as $value) {
                                                         $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                                                         }
-                                                        } else {
-                                                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
-                                                        }
+                                                         
                                                         echo $fillable;
                                                         @endphp                                                        
                                                     </td>
@@ -125,7 +121,15 @@
                                                             id="required" /><label class="form-check-label" for="required">
                                                             <span>نعم</span></label></div>
                                                     </td>
-                                                   <td class="text-end">
+                                                   <td class="text-end">                                                    
+
+                                                    @foreach($field->forms as $vv)
+                                                    {{ $vv->pivot->notices }}
+                                                    <br>
+                                                    {{ $vv->pivot->is_required }}
+                                                    <br>
+                                                    @endforeach
+
                                                             <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control"></textarea>
                                                     </td>                                                        
                                                 </tr>
@@ -135,7 +139,7 @@
                                 </div>
                             </div>
 
-                            /////////////////
+                          
                         </div>
                     </div>
                 </div>
