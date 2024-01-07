@@ -50,19 +50,29 @@ class DatabaseSeeder extends Seeder
             ['is_required' => '1','notices'=> NULL,'field_id'=> '5','form_id'=>'1'],
  
 
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '4','form_id'=>'2'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '6','form_id'=>'2'],
+
+
 
             ['is_required' => '1','notices'=> NULL,'field_id'=> '1','form_id'=>'3'],
-            ['is_required' => '1','notices'=> NULL,'field_id'=> 5,'form_id'=>'3'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '5','form_id'=>'3'],
 
 
 
             ['is_required' => '1','notices'=> NULL,'field_id'=>'4','form_id'=>'4'],
             ['is_required' => '0','notices'=> NULL,'field_id'=>'5','form_id'=>'4'],
             ['is_required' => '1','notices'=> NULL,'field_id'=>'7','form_id'=>'4'],
-            ['is_required' => '1','notices'=> NULL,'field_id'=>'8','form_id'=>'4'],
-            ['is_required' => '0','notices'=> NULL,'field_id'=>'9','form_id'=>'4'],
 
-            
+
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'8','form_id'=>'5'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'9','form_id'=>'5'],
+
+
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'1','form_id'=>'6'],
+            ['is_required' => '0','notices'=> NULL,'field_id'=>'3','form_id'=>'6'],
+
+
 
             ['is_required' => '1','notices'=> NULL,'field_id'=> '4','form_id'=>'7'],
             ['is_required' => '0','notices'=> NULL,'field_id'=> '5','form_id'=>'7'],
@@ -70,6 +80,11 @@ class DatabaseSeeder extends Seeder
 
             ['is_required' => '0','notices'=> NULL,'field_id'=> '8','form_id'=>'8'],
             ['is_required' => '1','notices'=> NULL,'field_id'=> '9','form_id'=>'9'],
+
+
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '1','form_id'=>'10'],
+            ['is_required' => '1','notices'=> NULL,'field_id'=> '4','form_id'=>'10'],
+
 
         ];
         \DB::table('form_field')->insert($items);

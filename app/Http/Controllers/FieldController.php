@@ -6,12 +6,11 @@ use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use App\Models\Field as MainModel;
-use App\Models\FieldFillable;
+use App\Models\Field;
+use App\Models\fillables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\FieldRequest as ModuleRequest;
+use App\Http\Requests\FieldRequest;
 class FieldController extends Controller
 {
 
@@ -25,14 +24,14 @@ class FieldController extends Controller
     }
 
     
-    public function store(ModuleRequest $request)
+    public function store(FieldRequest $request)
     { 
             $validated = $request->validated();
             $validated['display']    = $request->display;
             $validated['name']       = $request->name;
             $validated['type']       = $request->type;
             $validated['notices']    = $request->notices;   
-            $query = MainModel::create($validated);
+            $query = Field::create($validated);
             if ($query) {
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
                     $result = array_combine($request->fillable_display,$request->fillable_value);    
@@ -47,7 +46,7 @@ class FieldController extends Controller
                         }
                     }
                     if(!empty($insert)) {
-                        FieldFillable::insert($insert);
+                        fillables::insert($insert);
                     }
                 }
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
@@ -60,7 +59,7 @@ class FieldController extends Controller
 
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = MainModel::with('FieldFillable')->select('id','display','name','type','created_at');
+            $model = Field::with('fillables')->select('id','display','name','type','created_at');
             return Datatables::of($model)
 
                 ->addIndexColumn()
@@ -69,10 +68,10 @@ class FieldController extends Controller
                 })
  
 
-                ->editColumn('FieldFillable.display', function ($row) {
+                ->editColumn('fillables.display', function ($row) {
                     $fillable = '';
-                    if (count($row->FieldFillable)) {
-                        foreach ($row->FieldFillable as $value) {
+                    if (count($row->fillables)) {
+                        foreach ($row->fillables as $value) {
                             $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
                     } else {
@@ -95,7 +94,7 @@ class FieldController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['display', 'FieldFillable.display','actions', 'created_at', 'created_at.display'])                ->make(true);
+                ->rawColumns(['display', 'fillables.display','actions', 'created_at', 'created_at.display'])                ->make(true);
         }
         if (view()->exists('fields.index')) {
             $compact = [
@@ -118,7 +117,7 @@ class FieldController extends Controller
             return view('fields.create', $compact);
         }
     }
-    public function edit(Request $request, MainModel $field)
+    public function edit(Request $request, Field $field)
     {
         if (view()->exists('fields.edit')) {
             $compact = [
@@ -135,7 +134,7 @@ class FieldController extends Controller
     
  
 
-    public function update(ModuleRequest $request, MainModel $field)
+    public function update(FieldRequest $request, Field $field)
     {
 
             $validated = $request->validated();  
@@ -153,8 +152,8 @@ class FieldController extends Controller
             }           
             #update old fillable 
             $index = 'id';
-            $FieldFillableInstance = new FieldFillable;          
-            \Batch::update($FieldFillableInstance, $updateRecord, $index);
+            $fillablesInstance = new fillables;          
+            \Batch::update($fillablesInstance, $updateRecord, $index);
 
             #new fillable added             
             if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
@@ -170,13 +169,13 @@ class FieldController extends Controller
                     }
                 } 
                 if(!empty($insert)) {
-                    FieldFillable::insert($insert);
+                    fillables::insert($insert);
                     
                 }
             }
             
 
-            if(MainModel::findOrFail($field->id)->update($validated)){
+            if(Field::findOrFail($field->id)->update($validated)){
                 $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
             }else{
                 $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
@@ -186,7 +185,7 @@ class FieldController extends Controller
         
         return response()->json($arr);
     }
-    public function destroy(MainModel $field)
+    public function destroy(Field $field)
     {
 
         // $field->form_field()->detach();

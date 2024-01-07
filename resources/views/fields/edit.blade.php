@@ -78,7 +78,7 @@
 
                             <div class="card card-flush mb-5 mb-lg-10">
                                 <div
-                                    class="notice d-flex bg-light-info rounded border-info border border-dashed rounded-3 p-6">
+                                    class="notice d-flex bg-light-primary rounded border-primary border border-dashed rounded-3 p-6">
                                     <div class="d-flex flex-stack flex-grow-1">
                                         <div class="fw-semibold">
                                             <h4 class="text-gray-900 fw-bold"> البيانات الأوليه للحقل المضافه من قبل</h4>
@@ -108,7 +108,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($row->FieldFillable as $value)
+                                            @foreach ($row->fillables as $value)
                                                 <tr>
                                                     <td>
                                                         <input type="hidden" name="field_fillable_id[]"

@@ -131,9 +131,10 @@ class FormController extends Controller
     }
     public function edit(Request $request, Form $form)
     {
+        $fields = Field::with(['forms','fillables'])->get();
         if (view()->exists('forms.edit')) {
             $compact = [
-                'fields'                  => Field::with('forms','fillables')->get(),
+                'fields'                  => $fields,
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
@@ -144,21 +145,39 @@ class FormController extends Controller
         }
     }
 
-    public function update(FormDRequest $request, Form $form)
+    public function update(Request $request, Form $form)
     {
-            $validated = $request->validated();
-            $validated['title']  = $request->title;
-            $validated['status'] = isset($request->status) ? '1' : '0';
+ 
+        /*
+        $ExtraFields = array(
+            'is_required' => '1',
+            'notices'     => $request->input('notices')[1]
+        );
+        $form->fields()->sync((array) $request->input('field_id'));  
+        dd();
+        $request->notices
+        ($row->fields()->sync($this->mapfields('lslsllsls')));
+        $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
+        $form->fields()->sync((array) $request->input('field_id'));
+        */
+     
+            $form->fields()->sync($this->mapfields($request->input('is_required')));
+ 
 
-
-            if(Form::findOrFail($form->id)->update($validated)){
-                $arr = ['msg' => __($this->TRANS.'.updateMessageSuccess'), 'status' => true];
-            }else{
-                $arr = ['msg' => __($this->TRANS.'.updateMessageError'), 'status' => false];
-            }
-        
-        return response()->json($arr);
+ 
     }
+
+
+        public function mapfields($fields){            
+            return collect($fields)->map(function ($i) {
+                return ['is_required' => $i];
+            });
+          
+
+    }
+
+
+
     public function destroy(Form $form)
     {
         if ($form->delete()) {

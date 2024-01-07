@@ -90,7 +90,7 @@
                                                     <td>                                                                                                
                                                         <div class="fv-row fl" id="{{ $field->id }}">                                                        
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" name="field_id[]" value="{{ $field->id }}"
+                                                                <input class="form-check-input" type="checkbox" value="{{ $field->id }}"
                                                                 @if(in_array($field->id,$row->fields->pluck('id')->toArray())) checked @endif
                                                                     id="field" required data-fv-not-empty___message="فضلا حدد علي الأقل حقل واحد">                                                                                                                        
                                                                 <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
@@ -117,20 +117,21 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-check form-switch form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="checkbox" value="1" name="required[{{ $field->id }}]"
-                                                            id="required" /><label class="form-check-label" for="required">
+                                                            <input class="form-check-input" type="checkbox" value="1" name="required[{{ $field->id }}]" id="required{{ $field->id }}"
+                                                            
+                                                            @foreach($row->fields as $getFormFieldRequired) @if($field->id == $getFormFieldRequired->pivot->field_id && $getFormFieldRequired->pivot->is_required == 1) checked="checked" @endif @endforeach
+
+                                                            /><label class="form-check-label" for="required">
                                                             <span>نعم</span></label></div>
                                                     </td>
-                                                   <td class="text-end">                                                    
-
-                                                    @foreach($field->forms as $vv)
-                                                    {{ $vv->pivot->notices }}
-                                                    <br>
-                                                    {{ $vv->pivot->is_required }}
-                                                    <br>
-                                                    @endforeach
-
-                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control"></textarea>
+                                                   <td class="text-end">                                                
+                                                            @php $notices = ''; @endphp
+                                                            @foreach($row->fields as $getFormFieldNotices)
+                                                                @if($field->id == $getFormFieldNotices->pivot->field_id)
+                                                                    @php $notices.= $getFormFieldNotices->pivot->notices @endphp
+                                                                @endif 
+                                                            @endforeach                                                    
+                                                            <textarea id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control">{{ $notices ?? ''}}</textarea>                                                            
                                                     </td>                                                        
                                                 </tr>
                                             @endforeach
