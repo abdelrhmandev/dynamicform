@@ -155,7 +155,7 @@ class FormController extends Controller
             'notices'     => $request->input('notices')
             ]
         ;
-        $form->fields()->syncWithPivotValues($field_id=>$ExtraFields);
+        $form->fields()->syncWithPivotValues($field_id$ExtraFields);
 
         /*
         dd();
