@@ -117,11 +117,11 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-check form-switch form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="checkbox" value="1" name="required[{{ $field->id }}]" id="required{{ $field->id }}"
+                                                            <input class="form-check-input" type="checkbox" value="1" name="is_required[{{ $field->id }}]" id="required{{ $field->id }}"
                                                             
                                                             @foreach($row->fields as $getFormFieldRequired) @if($field->id == $getFormFieldRequired->pivot->field_id && $getFormFieldRequired->pivot->is_required == 1) checked="checked" @endif @endforeach
 
-                                                            /><label class="form-check-label" for="required">
+                                                            /><label class="form-check-label" for="is_required">
                                                             <span>نعم</span></label></div>
                                                     </td>
                                                    <td class="text-end">                                                

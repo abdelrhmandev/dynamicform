@@ -148,12 +148,16 @@ class FormController extends Controller
     public function update(Request $request, Form $form)
     {
  
+        
+        $field_id = $request->input('field_id');
+        $ExtraFields = [
+            'is_required' => $request->input('is_required'),
+            'notices'     => $request->input('notices')
+            ]
+        ;
+        $form->fields()->syncWithPivotValues($field_id=>$ExtraFields);
+
         /*
-        $ExtraFields = array(
-            'is_required' => '1',
-            'notices'     => $request->input('notices')[1]
-        );
-        $form->fields()->sync((array) $request->input('field_id'));  
         dd();
         $request->notices
         ($row->fields()->sync($this->mapfields('lslsllsls')));
@@ -161,14 +165,14 @@ class FormController extends Controller
         $form->fields()->sync((array) $request->input('field_id'));
         */
      
-            $form->fields()->sync($this->mapfields($request->input('is_required')));
+            // $form->fields()->sync($this->mapfields($request->input('is_required') ?? '0'));
  
 
  
     }
 
 
-        public function mapfields($fields){            
+        public function mapFields($fields){            
             return collect($fields)->map(function ($i) {
                 return ['is_required' => $i];
             });
