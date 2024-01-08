@@ -26,7 +26,7 @@ class FieldController extends Controller
     
     public function store(FieldRequest $request)
     { 
-            $validated = $request->validated();
+            $validated               = $request->validated();
             $validated['display']    = $request->display;
             $validated['name']       = $request->name;
             $validated['type']       = $request->type;

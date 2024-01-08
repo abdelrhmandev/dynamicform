@@ -2,15 +2,16 @@
 namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
+use App\Models\Form;
 use App\Models\Field;
 use App\Models\FormField;
 use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Form;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\FormDRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\FormDUpdateRequest;
 
 class FormController extends Controller
 {
@@ -39,7 +40,7 @@ class FormController extends Controller
                 if(!empty($request->field_id)) {
                     foreach($request->field_id as $field){
                         if(!(empty($field))){
-                            $FormField[$field]['is_required']   = !(empty($request->is_required[$field])) ? $request->is_required[$field] : '0';
+                            // $FormField[$field]['is_required']   = !(empty($request->is_required[$field])) ? $request->is_required[$field] : '0';
                             $FormField[$field]['notices']       = !(empty($request->notices[$field])) ? $request->notices[$field] : NULL; 
                             $FormField[$field]['field_id']      = $field;
                             $FormField[$field]['form_id']       = $query->id;                                                             
@@ -131,10 +132,10 @@ class FormController extends Controller
     }
     public function edit(Request $request, Form $form)
     {
-        $fields = Field::with(['forms','fillables'])->get();
+        
         if (view()->exists('forms.edit')) {
             $compact = [
-                'fields'                  => $fields,
+                'fields'                  => Field::with(['forms','fillables'])->get(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
@@ -145,40 +146,48 @@ class FormController extends Controller
         }
     }
 
-    public function update(Request $request, Form $form)
+
+
+ 
+
+    public function update(FormDUpdateRequest $request, Form $form)
     {
  
         
-        $field_id = $request->input('field_id');
-        $ExtraFields = [
-            'is_required' => $request->input('is_required'),
-            'notices'     => $request->input('notices')
-            ]
-        ;
-        $form->fields()->syncWithPivotValues($field_id$ExtraFields);
 
-        /*
-        dd();
-        $request->notices
-        ($row->fields()->sync($this->mapfields('lslsllsls')));
-        $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
-        $form->fields()->sync((array) $request->input('field_id'));
-        */
+        $validated = $request->validated();
+
+       
+        // $field_id = $request->input('field_id');        
+        // $ExtraFields = [
+        //     'is_required' => $request->input('is_required'),
+        //     'notices'     => $request->input('notices')
+        //     ]
+        // ;
+ 
      
-            // $form->fields()->sync($this->mapfields($request->input('is_required') ?? '0'));
+            // $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
+            // $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
+            // $form->fields()->sync($this->mapfields($is_required));
  
+            $field_id = $request->input('field_id'); 
 
+            $notices     = $request->input('notices');
+            $form->fields()->sync($this->mapFields($field_id,$notices));
+            
  
     }
 
 
-        public function mapFields($fields){            
-            return collect($fields)->map(function ($i) {
-                return ['is_required' => $i];
-            });
-          
+        public function mapFields($field_id,$notices){                
+            return collect($notices)->map(function ($i,$fid) {        
 
-    }
+                    if(!empty($fid)){
+                        return ['notices' => $i ?? NULL];
+                    }
+                
+            });          
+        }
 
 
 
