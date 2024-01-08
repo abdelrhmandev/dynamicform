@@ -173,8 +173,11 @@ class FormController extends Controller
             $field_id = $request->input('field_id'); 
 
             $notices     = $request->input('notices');
-            $form->fields()->sync($this->mapFields($field_id,$notices));
+
             
+
+
+            $form->fields()->sync($this->mapFields($field_id,$notices));
  
     }
 
@@ -182,9 +185,9 @@ class FormController extends Controller
         public function mapFields($field_id,$notices){                
             return collect($notices)->map(function ($i,$fid) {        
 
-                    if(!empty($fid)){
+                   
                         return ['notices' => $i ?? NULL];
-                    }
+                     
                 
             });          
         }

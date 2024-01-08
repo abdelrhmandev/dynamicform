@@ -90,7 +90,7 @@
                                                     <td>                                                                                                
                                                         <div class="fv-row fl" id="{{ $field->id }}">                                                        
                                                             <label class="form-check form-check-inline"><h1>{{ $field->id }}</h1>
-                                                                <input class="form-check-input" type="checkbox" name="field_id[{{ $field->id }}]" value="{{ $field->id }}"
+                                                                <input class="form-check-input" type="checkbox" name="field_id[{{$field->id}}]" value="{{ $field->id }}"
                                                                 @if(in_array($field->id,$row->fields->pluck('id')->toArray())) checked @endif
                                                                     id="field{{ $field->id }}">                                                                                                                        
                                                                 <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
