@@ -130,11 +130,25 @@ class FormController extends Controller
             return view('forms.create', $compact);
         }
     }
-    public function edit(Request $request, Form $form)
+    public function edit(Form $form)
     {
         
+
+        // $form->load('fields');
+
+ 
+        // $ingredients = Field::get()->map(function($ingredient) use ($form) {
+        //     $ingredient->value = data_get($form->ingredients->firstWhere('id', $ingredient->id), 'pivot.notices') ?? 0;
+        //     return $ingredient;
+        // });
+
+
+        // dd();
+        
+
         if (view()->exists('forms.edit')) {
             $compact = [
+                // 'fieldsNew'             => $fields,
                 'fields'                  => Field::with(['forms','fillables'])->get(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
@@ -150,47 +164,48 @@ class FormController extends Controller
 
  
 
-    public function update(FormDUpdateRequest $request, Form $form)
+    public function update(FormDRequest $request, Form $form)
     {
  
-        
-
-        $validated = $request->validated();
-
-       
-        // $field_id = $request->input('field_id');        
-        // $ExtraFields = [
-        //     'is_required' => $request->input('is_required'),
-        //     'notices'     => $request->input('notices')
-        //     ]
-        // ;
- 
-     
-            // $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
-            // $form->fields()->syncWithPivotValues($request->input('field_id'),$ExtraFields);
-            // $form->fields()->sync($this->mapfields($is_required));
- 
-            $field_id = $request->input('field_id'); 
-
-            $notices     = $request->input('notices');
+            $validated = $request->validated();
+            $validated['title']  = $request->title;
+            $validated['status'] = isset($request->status) ? '1' : '0';
 
             
 
+            $field_id    = $request->input('field_id'); 
+            $notices     = $request->input('notices');
+            $is_required = $request->input('is_required');
 
-            $form->fields()->sync($this->mapFields($field_id,$notices));
- 
+            $update = $form->update($validated);
+            $form->fields()->sync($this->mapFields($field_id,$is_required,$notices));
+            if($update){
+                $arr = ['msg' => __('form.updateMessageSuccess'), 'status' => true];
+            }else{
+                $arr = ['msg' => __('form.updateMessageError'), 'status' => true];
+            }
+            return response()->json($arr);
+
     }
 
 
-        public function mapFields($field_id,$notices){                
-            return collect($notices)->map(function ($i,$fid) {        
-
-                   
-                        return ['notices' => $i ?? NULL];
-                     
-                
-            });          
-        }
+       public function mapFields($field_id,$is_required,$notices){                            
+            $MapFieldsArr = [];
+            foreach($field_id as $field){
+                if(!(empty($field))){
+                    $MapFieldsArr[]=[
+                    'field_id'      => $field, 
+                    'is_required'   => $is_required[$field] ?? '0',
+                    'notices'       => $notices[$field] ?? NULL
+                ];
+                }
+            }
+            $Fieldscollection = collect($MapFieldsArr);         
+            $keyed = $Fieldscollection->keyBy(function ($item, $key) {
+                return  ($item['field_id']);
+            });         
+             return $keyed;
+        } 
 
 
 

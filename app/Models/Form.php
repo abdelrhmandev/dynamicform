@@ -15,7 +15,7 @@ class Form extends Model
  
 
     public function fields(){
-        return $this->belongsToMany(Field::class, 'form_field','form_id','field_id')->withPivot('notices');  
+        return $this->belongsToMany(Field::class, 'form_field','form_id','field_id')->withPivot('is_required','notices',);  
     }
 
 

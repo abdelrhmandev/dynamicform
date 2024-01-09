@@ -18,7 +18,7 @@ return [
 'deleteMessageError'        => 'خطأ في حذف الأستمارة',
 'MultideleteMessageError'   => 'خطأ في حذف الأستمارات',
 'updateMessageSuccess'      => ' تم تحديث الأستمارة بنجاح',
-'updateMessageError'        => 'خطأ في حذف الأستمارة',
+'updateMessageError'        => 'خطأ في تحديث الأستمارة',
 'storeMessageSuccess'       => 'تم أنشاء الأستمارة بنجاح',
 'storeMessageError'         => 'خطأ في أضافه الأستمارة',
 ];

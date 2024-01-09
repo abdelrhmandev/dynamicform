@@ -23,9 +23,19 @@ class Field extends Model
 
 
     public function forms(){
-        return $this->belongsToMany(Form::class, 'form_field','field_id','form_id')->withPivot('notices');  
+        return $this->belongsToMany(Form::class, 'form_field','field_id','form_id')->withPivot('is_required','notices');  
     }
 
     
+    public function GetfillablesItems(){
+        // $fillable = '';
+        // foreach ($field->fillables as $value) {
+        // $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+        // }
+         
+        // echo $fillable;
+        
+    }
+
 
 }
