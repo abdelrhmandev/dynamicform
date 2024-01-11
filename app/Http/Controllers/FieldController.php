@@ -66,8 +66,6 @@ class FieldController extends Controller
                 ->editColumn('display', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->display . '</a>';
                 })
- 
-
                 ->editColumn('fillables.display', function ($row) {
                     $fillable = '';
                     if (count($row->fillables)) {
@@ -77,17 +75,11 @@ class FieldController extends Controller
                     } else {
                         $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
                     }
-
-
                     return $fillable;
-
                 })
-
-
                 ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
-
                 ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })

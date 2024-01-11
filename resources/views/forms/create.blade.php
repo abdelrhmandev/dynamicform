@@ -87,10 +87,10 @@
                                                                 <a href="{{ route('fields.edit',$field->id) }}" class="fw-bold">{{ $field->display }}</a>
                                                             </label>                                                            
                                                         </div>
-                                                        @if($field->notices)
+                                                        @if($field->note)
                                                              <!--begin::Icon-->
                                                             <i class="ki-duotone ki-notification-bing fs-2hx text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
-                                                                " {{ $field->notices ?? ''}} "                                                        
+                                                                " {{ $field->note ?? ''}} "                                                        
                                                         @endif                                                       
                                                 </td>        
                                                 
@@ -118,7 +118,7 @@
                                                             <span>نعم</span></label></div>
                                                     </td>
                                                    <td class="text-end">
-                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="notices{{ $field->id }}" name="notices[{{ $field->id }}]" class="form-control"></textarea>
+                                                            <textarea placeholder="أترك ملاحظاتك" style="height: 20px;" cols="20" id="note{{ $field->id }}" name="note[{{ $field->id }}]" class="form-control"></textarea>
                                                     </td>                                                        
                                                 </tr>
                                             @endforeach

@@ -32,7 +32,6 @@ Route::resource('buildings', BuildingController::class)->except('show');
 
 
 
-
-/*
+ 
 Route::post('/UpdateStatus', [App\Http\Controllers\BaseController::class, 'UpdateStatus'])->name('UpdateStatus'); 
-*/
+ 

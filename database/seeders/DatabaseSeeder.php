@@ -14,9 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // THIS RECORD AS A NON RANDOM RECORD !!!
         \App\Models\User::create([     
             'name'               =>'عبدالرحمن مجدي المنشد',
-            'email'              =>'admin@domain.com',
+            'email'              =>'abdelrahman@domain.com',
             'email_verified_at'  => now(),
             'password'           =>\Hash::make('12345678'),
             'remember_token'     => \Str::random(10),
@@ -27,63 +28,64 @@ class DatabaseSeeder extends Seeder
         \App\Models\Form::factory(10)->create();
 
         $items = [
-            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox','notices'=>'يكتب باللغه العربيه'],
-            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox','notices'=>'يبدأ ب 0555'],
-            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox','notices'=>'يبدأ ب 087 و مكون من 10 أرقام'],
-            ['display' => 'الحالة الاجتماعية','name'=> 'social_status','type'=> 'select','notices'=>NULL],
-            ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL],
-            ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>NULL],
-            ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>NULL],
-            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي'],
-            ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL],
-            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc '],
+            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox','notices'=>'يكتب باللغه العربيه','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox','notices'=>'يبدأ ب 0555','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox','notices'=>'يبدأ ب 087 و مكون من 10 أرقام','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'الحالة الاجتماعية','name'=> 'social_status','type'=> 'select','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>'سليم أو مريض أو معاق أو معاق و مريض','rules'=>NULL,'attribute'=>NULL],
+            ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'هل تمتلك أملاك ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>'سيارات - عقارات - مزارع - منحل و خلافه ... ','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>NULL,'attribute'=>NULL],
         ];
         \DB::table('fields')->insert($items);
 
 
 
         $items = [
-            ['notices'=> NULL,'field_id'=> '1','form_id'=>'1'],
-            ['notices'=> 'طبقا لنظام المملكه العربيه السعوديه','field_id'=> '2','form_id'=>'1'],
-            ['notices'=> 'حسب سجلات المملكه','field_id'=> '3','form_id'=>'1'],
-            ['notices'=> NULL,'field_id'=> '4','form_id'=>'1'],
-            ['notices'=> NULL,'field_id'=> '5','form_id'=>'1'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'1','field_id'=> '1','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '2','form_id'=>'1'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '3','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '5','form_id'=>'1'],
  
 
-            ['notices'=> NULL,'field_id'=> '4','form_id'=>'2'],
-            ['notices'=> NULL,'field_id'=> '6','form_id'=>'2'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'2'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '6','form_id'=>'2'],
 
 
 
-            ['notices'=> NULL,'field_id'=> '1','form_id'=>'3'],
-            ['notices'=> NULL,'field_id'=> '5','form_id'=>'3'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '1','form_id'=>'3'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '5','form_id'=>'3'],
 
 
 
-            ['notices'=> NULL,'field_id'=>'4','form_id'=>'4'],
-            ['notices'=> NULL,'field_id'=>'5','form_id'=>'4'],
-            ['notices'=> NULL,'field_id'=>'7','form_id'=>'4'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=>'4','form_id'=>'4'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'0','field_id'=>'5','form_id'=>'4'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=>'7','form_id'=>'4'],
 
 
-            ['notices'=> NULL,'field_id'=>'8','form_id'=>'5'],
-            ['notices'=> NULL,'field_id'=>'9','form_id'=>'5'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=>'8','form_id'=>'5'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=>'9','form_id'=>'5'],
 
 
-            ['notices'=> NULL,'field_id'=>'1','form_id'=>'6'],
-            ['notices'=> NULL,'field_id'=>'3','form_id'=>'6'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'1','field_id'=>'1','form_id'=>'6'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'0','field_id'=>'3','form_id'=>'6'],
 
 
 
-            ['notices'=> NULL,'field_id'=> '4','form_id'=>'7'],
-            ['notices'=> NULL,'field_id'=> '5','form_id'=>'7'],
-            ['notices'=> NULL,'field_id'=> '7','form_id'=>'8'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'7'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'0','field_id'=> '5','form_id'=>'7'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'1','field_id'=> '7','form_id'=>'8'],
 
-            ['notices'=> NULL,'field_id'=> '8','form_id'=>'8'],
-            ['notices'=> NULL,'field_id'=> '9','form_id'=>'9'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'0','field_id'=> '8','form_id'=>'8'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '9','form_id'=>'9'],
 
 
-            ['notices'=> NULL,'field_id'=> '1','form_id'=>'10'],
-            ['notices'=> NULL,'field_id'=> '4','form_id'=>'10'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '1','form_id'=>'10'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'10'],
 
 
         ];

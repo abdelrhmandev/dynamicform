@@ -21,8 +21,8 @@ class FormController extends Controller
     {
         $this->middleware('auth');
         $this->ROUTE_PREFIX   = 'forms';        
-        $this->TRANS            = 'form';
-        $this->Tbl              = 'forms';
+        $this->TRANS          = 'form';
+        $this->Tbl            = 'forms';
     }
 
     
@@ -36,12 +36,11 @@ class FormController extends Controller
             if ($query) {
                 $field_id = [];
                 $required = [];
-                $notices = [];        
+                $note = [];        
                 if(!empty($request->field_id)) {
                     foreach($request->field_id as $field){
                         if(!(empty($field))){
-                            // $FormField[$field]['is_required']   = !(empty($request->is_required[$field])) ? $request->is_required[$field] : '0';
-                            $FormField[$field]['notices']       = !(empty($request->notices[$field])) ? $request->notices[$field] : NULL; 
+                            $FormField[$field]['is_required']   = !(empty($request->is_required[$field])) ? $request->is_required[$field] : '0';
                             $FormField[$field]['field_id']      = $field;
                             $FormField[$field]['form_id']       = $query->id;                                                             
                         }
@@ -130,30 +129,31 @@ class FormController extends Controller
             return view('forms.create', $compact);
         }
     }
-    public function edit(Form $form)
+    public function edit(Request $request ,Form $form)
     {
         
-
-        // $form->load('fields');
-
+            $form_fields = $form->fields;       
+            $fields = Field::get()->map(function($field) use ($form_fields) {
+                $field->is_required = data_get($form_fields->firstWhere('id', $field->id), 'pivot.is_required') ?? 0;
+                $field->is_disabled = data_get($form_fields->firstWhere('id', $field->id), 'pivot.is_disabled') ?? 0;
+                $field->summable    = data_get($form_fields->firstWhere('id', $field->id), 'pivot.summable') ?? 0;
+                return $field;
+            });
  
-        // $ingredients = Field::get()->map(function($ingredient) use ($form) {
-        //     $ingredient->value = data_get($form->ingredients->firstWhere('id', $ingredient->id), 'pivot.notices') ?? 0;
-        //     return $ingredient;
-        // });
+ 
+ 
+ 
 
-
-        // dd();
-        
 
         if (view()->exists('forms.edit')) {
             $compact = [
-                // 'fieldsNew'             => $fields,
-                'fields'                  => Field::with(['forms','fillables'])->get(),
+                'form_fields'             => $fields,
+                'fields'                  => Field::with(['fillables'])->get(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
                 'trans'                   => $this->TRANS,
+                'EditRoute'               => route($this->ROUTE_PREFIX . '.edit', $form->id),
                 'redirect_after_destroy'  => route($this->ROUTE_PREFIX . '.index'),
             ];
             return view('forms.edit', $compact);

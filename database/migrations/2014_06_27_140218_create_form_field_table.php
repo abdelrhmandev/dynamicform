@@ -11,7 +11,8 @@ class CreateFormFieldTable extends Migration
             $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
             $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
             $table->enum('is_required', ['0','1'])->default(0);            
-            $table->string('notices')->nullable();
+            $table->enum('is_disabled', ['0','1'])->default(0);            
+            $table->integer('summable')->unsigned()->default(0);
         });	
     }
     public function down(){
