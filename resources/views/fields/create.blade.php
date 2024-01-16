@@ -71,7 +71,7 @@
                             </div>
                             <div class="row">
                                 <div class="card-title">
-                                    <h2 class="fw-bold">{{ __('field.info') }}</h2>
+                                    <h2 class="fw-bold">الحقول المتاحه</h2>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
@@ -280,14 +280,9 @@
 
 
                             <div class="card card-flush pt-3 mb-5 mb-lg-10" id="fillable_div">
-                                <div
-                                    class="notice d-flex bg-light-info rounded border-info border border-dashed rounded-3 p-6">
-                                    <div class="d-flex flex-stack flex-grow-1">
-                                        <div class="fw-semibold">
-                                            <h4 class="text-gray-900 fw-bold">يرجي ملئ الحقل المختار بالبيانات الأوليه</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                <h4 class="text-gray-900 fw-bold">يرجي ملئ الحقل المختار بالبيانات الأوليه</h4>
+
                                 <div class="table-responsive mt-5">
                                     <table id="kt_create_new_custom_fields"
                                         class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
@@ -295,8 +290,7 @@
                                             <tr class="fw-semibold fs-6 border-bottom border-gray-200 py-4">
                                                 <th>
                                                     <div class="fv-row fl">
-                                                        <label class="required form-label" for="fillable_display">أسم
-                                                            العنصر المراد ملؤه </label>
+                                                        <label class="required form-label" for="fillable_display">الأسم الذي سيظهر للعنصر المراد ملؤه </label>
                                                     </div>
 
                                                 </th>
@@ -317,12 +311,12 @@
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control form-control-lg"
-                                                        placeholder="أسم العنصر المراد ملؤه" name="fillable_display[]" />
+                                                        placeholder="مثال ذكر" name="fillable_display[]" />
 
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-lg"
-                                                        placeholder="قيمه العنصر المراد ملؤه" name="fillable_value[]" />
+                                                        placeholder="مثال male" name="fillable_value[]" />
                                                 </td>
                                                 <td class="text-end">
                                                     <button type="button"
