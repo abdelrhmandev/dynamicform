@@ -31,6 +31,31 @@ class FieldController extends Controller
             $validated['name']       = $request->name;
             $validated['type']       = $request->type;
             $validated['notices']    = $request->notices;   
+            $RulesNumbers = [];
+
+        
+
+            if($request->type == 'text' && !empty($request->attribute)){                
+                $validated['attribute'] = $request->attribute;                 
+                $validated['rules'] =  $request->rules;
+            }
+
+            else if($request->type == 'numbers'){                
+                if(!empty($request->checkboxMinLength)){
+                    $RulesNumbers['minlength'] = $request->NumbersMinLength ?? '';
+                    $RulesNumbers['maxlength'] = $request->NumbersMaxLength ?? '';
+                }
+                if(!empty($request->checkboxPrefix)){
+                    $RulesNumbers['prefix'] = $request->NumbersPrefix ?? '';
+                }
+                $validated['rules'] = json_encode($RulesNumbers,true); 
+            }
+
+            else if($request->type == 'file' && !empty($request->checkFileRules)){                
+                $validated['attribute'] =  $request->checkFileRules;       
+                $validated['rules']     = NULL;                      
+            }
+
             $query = Field::create($validated);
             if ($query) {
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
