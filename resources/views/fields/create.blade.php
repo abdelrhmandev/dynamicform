@@ -307,7 +307,7 @@
                                                 <span
                                                     class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                                     <input class="form-check-input" type="radio" name="checkFileRules"
-                                                        value="document" />
+                                                        value="documents" />
                                                 </span>
                                                 <span class="ms-5">
                                                     <span class="fs-4 fw-bold text-gray-800 d-block">

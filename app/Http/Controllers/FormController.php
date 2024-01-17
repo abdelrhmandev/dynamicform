@@ -64,20 +64,16 @@ class FormController extends Controller
         if ($request->ajax()) {
 
 
-            $model = Form::withCount('fields')->select('id','title','status','created_at');
+            $model = Form::with('fields')->withCount('fields')->select('id','title','status','created_at');
 
 
           
             return Datatables::of($model)
 
                 ->addIndexColumn()
-
                 ->editColumn('title', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
- 
-
-
                 ->editColumn('fields', function ($row) {
                     $formfields = '';
                     if(count($row->fields)>0){
@@ -89,8 +85,6 @@ class FormController extends Controller
                     }
                     return $formfields; 
                 })
-                
-
                 ->editColumn('status', function ($row) {
                     return $this->dataTableGetStatus($row);
                 })                
@@ -121,7 +115,7 @@ class FormController extends Controller
     public function create(){
         if (view()->exists('forms.create')) {
             $compact = [
-                'fields'        => Field::select('id','display','name','notices','type')->get(),
+                'fields'        => Field::with('fillables')->select('id','display','name','rules','notices','type')->get(),
                 'trans'         => $this->TRANS,
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
@@ -132,23 +126,20 @@ class FormController extends Controller
     public function edit(Request $request ,Form $form)
     {
         
-            $form_fields = $form->fields;       
-            $fields = Field::get()->map(function($field) use ($form_fields) {
-                $field->is_required = data_get($form_fields->firstWhere('id', $field->id), 'pivot.is_required') ?? 0;
-                $field->is_disabled = data_get($form_fields->firstWhere('id', $field->id), 'pivot.is_disabled') ?? 0;
-                $field->summable    = data_get($form_fields->firstWhere('id', $field->id), 'pivot.summable') ?? 0;
+            $OldFormfields = $form->fields;      
+
+            $fields = Field::with('fillables')->get()->map(function($field) use ($OldFormfields) {
+                $field->is_required = data_get($OldFormfields->firstWhere('id', $field->id), 'pivot.is_required') ?? 0;
+                // $field->is_disabled = data_get($OldFormfields->firstWhere('id', $field->id), 'pivot.is_disabled') ?? 0;
+                // $field->summable    = data_get($OldFormfields->firstWhere('id', $field->id), 'pivot.summable') ?? 0;
                 return $field;
             });
- 
- 
- 
- 
-
+  
 
         if (view()->exists('forms.edit')) {
             $compact = [
-                'form_fields'             => $fields,
-                'fields'                  => Field::with(['fillables'])->get(),
+                'fields'                  =>$fields,
+                'OldFormfields'           =>$OldFormfields->count(),
                 'updateRoute'             => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                     => $form,
                 'destroyRoute'            => route($this->ROUTE_PREFIX . '.destroy', $form->id),
@@ -174,11 +165,10 @@ class FormController extends Controller
             
 
             $field_id    = $request->input('field_id'); 
-            $notices     = $request->input('notices');
             $is_required = $request->input('is_required');
 
             $update = $form->update($validated);
-            $form->fields()->sync($this->mapFields($field_id,$is_required,$notices));
+            $form->fields()->sync($this->mapFields($field_id,$is_required)); // More Extra Columns
             if($update){
                 $arr = ['msg' => __('form.updateMessageSuccess'), 'status' => true];
             }else{
@@ -189,14 +179,13 @@ class FormController extends Controller
     }
 
 
-       public function mapFields($field_id,$is_required,$notices){                            
+       public function mapFields($field_id,$is_required){                            
             $MapFieldsArr = [];
             foreach($field_id as $field){
                 if(!(empty($field))){
                     $MapFieldsArr[]=[
                     'field_id'      => $field, 
                     'is_required'   => $is_required[$field] ?? '0',
-                    'notices'       => $notices[$field] ?? NULL
                 ];
                 }
             }

@@ -56,21 +56,18 @@
                                     </div>
                                 </div>
                                 <div class="card card-flush pt-3 mb-5 mb-lg-10">
-
-
                                     <h4 class="text-gray-900 fw-bold">يرجي أختيار حقول الأستمارة
                                     </h4>
 
                                     <div class="table-responsive mt-5">
-                                        <table
-                                            class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
+                                        <table class="table table-striped table-rounded border gy-7 gs-7">
                                             <thead>
                                                 <tr class="table-primary fs-5 text-gray-900 fw-bold">
                                                     <th>الحقل</th>
-                                                    <th>نوع للحقل</th>
-                                                    <th class="w-400px">قيمه الحقل الأوليه</th>
+                                                    <th>قيمه الحقل الأوليه</th>
+                                                    <th>قيود علي الحقل</th>
                                                     <th>الحقل مطلوب</th>
-                                                    <th>ملاحظات علي الحقل عند الربط</th>
+                                                    <th>ملاحظات</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -89,13 +86,16 @@
                                                             </div>
 
                                                         </td>
-
+                                                        <td> {!! $field->Getfillables($field->fillables) !!} </td>
                                                         <td>
-                                                            dsdsa
-                                                        </td>
-
-                                                        <td>
-                                                            يسشيسش
+                                                            @if ($field->rules)
+                                                                <div class="badge py-3 px-4 fs-7 badge-light-danger"><span
+                                                                        class="text-danger">{{ $field->rules }}</span>
+                                                                </div>
+                                                            @else
+                                                                <div class="badge py-3 px-4 fs-7 badge-light-warning"><span
+                                                                        class="text-warning">لا يوجد</span></div>
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <div
@@ -108,7 +108,14 @@
                                                             </div>
                                                         </td>
                                                         <td class="text-end">
-                                                            يسشيشس
+                                                            @if ($field->notices)
+                                                                <div class="badge py-3 px-4 fs-7 badge-light-success"><span
+                                                                        class="text-success">{{ $field->notices }}</span>
+                                                                </div>
+                                                            @else
+                                                                <div class="badge py-3 px-4 fs-7 badge-light-warning"><span
+                                                                        class="text-warning">لا يوجد</span></div>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -20,6 +20,19 @@ class Field extends Model
         return $this->hasMany(FieldFillable::class,'field_id');
     }
 
+    public function Getfillables($fillablesObject){
+        $fillable = '';
+        if ($fillablesObject->count()) {
+            foreach ($fillablesObject as $value) {
+                $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
+            }
+        }
+         else {
+            $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
+        }
+        return $fillable;    
+    }
+
 
 
     public function forms(){
@@ -27,15 +40,7 @@ class Field extends Model
     }
 
     
-    public function GetfillablesItems(){
-        // $fillable = '';
-        // foreach ($field->fillables as $value) {
-        // $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
-        // }
-         
-        // echo $fillable;
-        
-    }
+ 
 
 
 }
