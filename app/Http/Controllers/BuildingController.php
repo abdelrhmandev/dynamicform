@@ -36,13 +36,17 @@ class BuildingController extends Controller
     public function create()
     {
 
-        $form = Form::where('id','1')->first();
+        $fields = Form::with([
+            'fields' => function($query) {
+                $query->select('*'); # Many to many
+            },
+        ])->where('id','1')->get();
 
         if (view()->exists('buildings.answer')) {
             $compact = [
                 'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
-                'form'          =>$form
+                'fields'          =>$fields
             ];
             return view('buildings.answer', $compact);
         }
