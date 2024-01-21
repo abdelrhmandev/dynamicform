@@ -30,27 +30,40 @@ class BuildingController extends Controller
     public function store(Request $request)
     {
 
-        
+        $data['form_id'] = 1;
     
         foreach ($request->field_id as $k => $v) {
-
+            // Field Type File Upload
             $F_type = substr($k, strpos($k, '-') + 1);
+            // echo '<h1>'.$F_type.'</h1>'.$v.'<br>';
+            // $Field_id = 0;
+
+
+            // Handle Fillable Pure Data Inserted By user
+            $data['field_fillable_id'] = $v;
+
             $os = array("textbox", "numbers", "date", "textarea","file");
             if (in_array($F_type, $os)) {
-              
-             $fieldId = intval($k);   
-                $data[$fieldId]['form_id'] = 1;
-                $data[$fieldId]['field_id'] = $fieldId;
-                $data[$fieldId]['fill_answer_text'] = $v;
-
-                
+            
+                $data['field_fillable_id'][$k] = $v;
             }
+
+            dd();
+
+
+            /*if ($F_type == 'file') {            
+                $fileNameToStore =  Str::random(25) . "." .$v->getClientOriginalExtension();
+                $database_file = $v->move(public_path('uploads/'.$this->UPLOADFOLDER), $fileNameToStore);            
+                $data[$k] = $database_file;
+            }*/
+            // $k;
+
+                // Handle Fillable With Related Foreign Key form_fillable_id
+
+
         }
 
-
-       
-         DB::table('building_values')->insert($data);
-        
+        dd($data);
     }
 
     public function create()
