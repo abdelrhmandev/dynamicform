@@ -13,7 +13,7 @@ class CreateBuildingValuesTable extends Migration
             $table->string('fill_answer_text');
 
         });	
-    }
+    }w
     public function down(){
         Schema::dropIfExists('building_values');
     }
