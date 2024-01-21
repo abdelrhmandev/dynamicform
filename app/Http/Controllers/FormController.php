@@ -15,11 +15,7 @@ use App\Http\Requests\FormDUpdateRequest;
 
 class FormController extends Controller
 {
-<<<<<<< HEAD
-//  ظظظظظظظظظظظظظ
-=======
  
->>>>>>> 77f67c884753315902ee5385b5bc2213441fbabe
     use Functions;
     public function __construct()
     {
