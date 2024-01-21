@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\File;
 trait Functions
 {
 
-
+ 
+    
     public function dataTableGetStatus($row){
         if($row->status == 1){
             $checked = "checked";

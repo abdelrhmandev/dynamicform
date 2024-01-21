@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Form::factory(10)->create();
 
         $items = [
-            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox','notices'=>'يكتب باللغه العربيه','rules'=>NULL,'attribute'=>NULL],
-            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox','notices'=>'يبدأ ب 0555','rules'=>NULL,'attribute'=>NULL],
-            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox','notices'=>'يبدأ ب 087 و مكون من 10 أرقام','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'الأسم','name'=> 'name','type'=> 'textbox','notices'=>'يكتب باللغه العربيه','rules'=>'قبول لغه عربيه فقط','attribute'=>'^[\u0621-\u064A\u0660-\u0669 ]+$'],
+            ['display' => 'رقم الجوال','name'=> 'mobile','type'=> 'textbox','notices'=>'طبقا لهيئه الأتصال بالمملكه العربيه السعوديه','rules'=>'الحد الأدني من الأرقام 1,الحد الأقصي من الأرقام 10,لابد أن يبدأ ب  0500,','attribute'=>'{"minlength":"1","maxlength":"10","prefix":"0555"}'],
+            ['display' => 'رقم الهويه','name'=> 'id_number','type' => 'textbox','notices'=>' الهوية الوطنية','rules'=>'الحد الأدني من الأرقام 10,الحد الأقصي من الأرقام 20,لابد أن يبدأ ب  09700,','attribute'=>'{"minlength":"10","maxlength":"20","prefix":"09700"}'],
             ['display' => 'الحالة الاجتماعية','name'=> 'social_status','type'=> 'select','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
             ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
             ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>'سليم أو مريض أو معاق أو معاق و مريض','rules'=>NULL,'attribute'=>NULL],
@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
             ['display' => 'هل تمتلك أملاك ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>'سيارات - عقارات - مزارع - منحل و خلافه ... ','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
-            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>"ملف وثائق , فقط *.pdf, *.docs and *.xls امتدادات",'attribute'=>'"document"'],
+            ['display' => 'ملف الصوره الشخصيه','name'=> 'avatar','type'=> 'file','notices'=>'ملف صورة صاحب الأستمارة ','rules'=>"فقط *.png, *.jpg and *.jpeg امتدادات الصور المقبوله",'attribute'=>'"images"'],
         ];
         \DB::table('fields')->insert($items);
 
@@ -122,6 +123,28 @@ class DatabaseSeeder extends Seeder
         ];
 
         \DB::table('field_fillable')->insert($items);
+
+
+
+        $items = [   
+            ['title' => 'روشن'],
+            ['title' => 'عماير الفوزان'],         
+            ['title' => 'السودة'],
+            ['title' => 'السلال الغذائية (اللأسر)'],
+            ['title' => 'نيوم 3 للمسح الاجتماعي والاقتصادي'],
+        ];
+        \DB::table('projects')->insert($items);
+
+
+        $items = [   
+            ['project_id' => '1','form_id'=>'1'],
+            ['project_id' => '2','form_id'=>'2'],         
+            ['project_id' => '3','form_id'=>'3'],
+            ['project_id' => '4','form_id'=>'4'],
+            ['project_id' => '5','form_id'=>'5'],
+        ];
+        \DB::table('project_form')->insert($items);
+
 
 
     }

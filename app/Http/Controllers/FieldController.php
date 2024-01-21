@@ -31,7 +31,51 @@ class FieldController extends Controller
             $validated['name']       = $request->name;
             $validated['type']       = $request->type;
             $validated['notices']    = $request->notices;   
-            $query = Field::create($validated);
+            $Attributes = [];
+            $Rules = '';
+
+         
+            if($request->type == 'numbers'){                
+                if(!empty($request->checkboxMinLength) && !empty($request->NumbersMinLength)){
+                    $Attributes['minlength'] = $request->NumbersMinLength ?? '';
+                    $Rules.= __('field.Validation.minlength').' '.$request->NumbersMinLength.',';
+                }
+                if(!empty($request->checkboxMaxLength) && !empty($request->NumbersMaxLength)){
+                    $Attributes['maxlength'] = $request->NumbersMaxLength ?? '';
+                    $Rules.= __('field.Validation.maxlength').' '.$request->NumbersMaxLength.',';
+                }      
+                if(!empty($request->checkboxPrefix) && !empty($request->NumbersPrefix)){
+                    $Attributes['prefix'] = $request->NumbersPrefix ?? '';
+                    $Rules.= __('field.Validation.prefix').' '.$request->NumbersPrefix.',';
+                }
+            }
+
+            else if($request->type == 'file' && !empty($request->checkFileRules)){    
+               $Attributes =  $request->checkFileRules;   
+                if($request->checkFileRules == 'images') {              
+                    $Rules.= 'فقط *.png, *.jpg and *.jpeg امتدادات الصور المقبوله';                      
+                }
+                else if($request->checkFileRules == 'documents')  {
+                    $Rules.= 'ملف وثائق , فقط *.pdf, *.docs and *.xls امتدادات الملفات ';                      
+                }                    
+            }
+
+            elseif($request->type == 'textbox' && !empty($request->attribute)){                            
+                $Attributes = $request->attribute;                 
+                $Rules.=  $request->rules;
+            }
+
+
+            
+
+            $validated['attribute'] =  json_encode($Attributes,true) ?? NULL;                
+            $validated['rules'] =  $Rules;
+
+            if($validated['attribute'] == '[]') $validated['attribute'] = NULL;            
+            if(empty($validated['rules'])) $validated['rules'] = NULL;
+            
+            $query = Field::create($validated);      
+
             if ($query) {
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
                     $result = array_combine($request->fillable_display,$request->fillable_value);    

@@ -62,8 +62,8 @@
                                             <div class="fv-row fl">
                                                 <label class="form-label" for="name">ملاحظات
                                                 </label>
-                                                <input placeholder="مثال رقم الهويه يبدأ ب 0500" type="text" id="notices"
-                                                    name="notices" class="form-control form-control-lg"/>
+                                                <input type="text" id="notices" name="notices"
+                                                    class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="row">
                                 <div class="card-title">
-                                    <h2 class="fw-bold">{{ __('field.info') }}</h2>
+                                    <h2 class="fw-bold">الحقول المتاحه</h2>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="pb-10">
@@ -279,15 +279,138 @@
                             </div>
 
 
-                            <div class="card card-flush pt-3 mb-5 mb-lg-10" id="fillable_div">
-                                <div
-                                    class="notice d-flex bg-light-info rounded border-info border border-dashed rounded-3 p-6">
-                                    <div class="d-flex flex-stack flex-grow-1">
-                                        <div class="fw-semibold">
-                                            <h4 class="text-gray-900 fw-bold">يرجي ملئ الحقل المختار بالبيانات الأوليه</h4>
+
+
+                            <div id="upload_extensions_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+                                <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل الملف</h4>
+                                <div class="fv-row mb-10">
+                                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-2 g-9"
+                                        data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed active d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="radio" name="checkFileRules"
+                                                        value="images" checked="checked" />
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+                                                        {{ __('site.upload_only_images') }}
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="radio" name="checkFileRules"
+                                                        value="documents" />
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+                                                        {{ __('site.docs') }} , {{ __('site.upload_only_docs') }}</span>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div id="textbox_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+                                <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل النص</h4>
+                                <div class="fv-row mb-10">
+                                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-2 g-9"
+                                        data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed active d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="checkbox" name="attribute"
+                                                        value="^[\u0621-\u064A\u0660-\u0669 ]+$" checked="checked" />
+
+                                                        <input type="hidden" name="rules"
+                                                        value="قبول لغه عربيه فقط" />
+
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+                                                        قبول لغه عربيه فقط
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="number_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+                                <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل الأرقام</h4>
+                                <div class="fv-row mb-10">
+                                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
+                                        data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed active d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxMaxLength"
+                                                        value="1" checked="checked" />
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+                                                        أكبر عدد من الأرقام هو
+                                                        <input type="textbox" id="numbers-minlength" name="NumbersMaxLength"
+                                                            class="form-control w-10">
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed active d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxMinLength"
+                                                        value="1" checked="checked" />
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+                                                        أقل عدد من الأرقام هو
+                                                        <input type="textbox" id="numbers-minlength" name="NumbersMinLength"
+                                                            class="form-control w-10">
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed d-flex text-start p-6"
+                                                data-kt-button="true">
+                                                <span
+                                                    class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxPrefix"/>
+                                                </span>
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">
+
+                                                        الرقم لابد ان يبدأ
+                                                        <input type="textbox" id="NumbersPrefix" name="NumbersPrefix"
+                                                            class="form-control w-10">
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card card-flush pt-3 mb-5 mb-lg-10" id="fillable_div">
+
+                                <h4 class="text-gray-900 fw-bold">يرجي ملئ الحقل المختار بالبيانات الأوليه</h4>
+
                                 <div class="table-responsive mt-5">
                                     <table id="kt_create_new_custom_fields"
                                         class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
@@ -295,8 +418,8 @@
                                             <tr class="fw-semibold fs-6 border-bottom border-gray-200 py-4">
                                                 <th>
                                                     <div class="fv-row fl">
-                                                        <label class="required form-label" for="fillable_display">أسم
-                                                            العنصر المراد ملؤه </label>
+                                                        <label class="required form-label" for="fillable_display">الأسم
+                                                            الذي سيظهر للعنصر المراد ملؤه </label>
                                                     </div>
 
                                                 </th>
@@ -317,16 +440,16 @@
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control form-control-lg"
-                                                        placeholder="أسم العنصر المراد ملؤه" name="fillable_display[]" />
+                                                        placeholder="مثال ذكر" name="fillable_display[]" />
 
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-lg"
-                                                        placeholder="قيمه العنصر المراد ملؤه" name="fillable_value[]" />
+                                                        placeholder="مثال male" name="fillable_value[]" />
                                                 </td>
                                                 <td class="text-end">
                                                     <button type="button"
-                                                        class="btn btn-icon btn-flex btn-active-light-danger w-30px h-30px me-3"
+                                                        class="btn btn-icon btn-flex w-30px h-30px me-3"
                                                         data-kt-action="field_remove">
                                                         <span class="svg-icon svg-icon-3">
                                                             <svg width="24" height="24" viewBox="0 0 24 24"
@@ -389,11 +512,28 @@
         $('input[name="type"]').click(function() {
             var e_value = ($("input[type='radio'][name=type]:checked", '#Addfield').val());
             arr = ["checkbox", "select", "radio"];
+
+
+            $("#upload_extensions_restriction_div").addClass('d-none');
+            $("#textbox_restriction_div").addClass('d-none');
+            $("#number_restriction_div").addClass('d-none');
+
+
             if (arr.includes(e_value)) {
                 $("#fillable_div").removeClass('d-none');
             } else {
                 $("#fillable_div").addClass('d-none');
             }
+
+            if (e_value == 'file') {
+                $("#upload_extensions_restriction_div").removeClass('d-none');
+            } else if (e_value == 'textbox') {
+                $("#textbox_restriction_div").removeClass('d-none');
+            } else if (e_value == 'numbers') {
+                $("#number_restriction_div").removeClass('d-none');
+            }
+
+
         });
     </script>
 @stop
