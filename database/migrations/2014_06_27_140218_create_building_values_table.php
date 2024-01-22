@@ -9,11 +9,11 @@ class CreateBuildingValuesTable extends Migration
             $table->id();  
             $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
             $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
-            $table->foreignId('field_fillable_id');
-            $table->string('fill_answer_text');
+            $table->string('field_fillable_id')->nullable();
+            $table->string('fill_answer_text')->nullable();
 
         });	
-    }w
+    }
     public function down(){
         Schema::dropIfExists('building_values');
     }

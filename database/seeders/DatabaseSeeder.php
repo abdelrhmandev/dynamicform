@@ -35,11 +35,12 @@ class DatabaseSeeder extends Seeder
             ['display' => 'المستوي التعليمي','name'=> 'educational_status','type'=> 'select','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
             ['display' => 'الحاله الصحية','name'=> 'medical_status','type'=> 'select','notices'=>'سليم أو مريض أو معاق أو معاق و مريض','rules'=>NULL,'attribute'=>NULL],
             ['display' => ' هل عليك اقساط ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
-            ['display' => 'هل تمتلك أملاك ؟','name'=> 'did_have_installments','type'=> 'radiobox','notices'=>'سيارات - عقارات - مزارع - منحل و خلافه ... ','rules'=>NULL,'attribute'=>NULL],
+            ['display' => 'هل تمتلك أملاك ؟','name'=> 'did_have_properties','type'=> 'radiobox','notices'=>'سيارات - عقارات - مزارع - منحل و خلافه ... ','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
             ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>"ملف وثائق , فقط *.pdf, *.docs and *.xls امتدادات",'attribute'=>'"document"'],
             ['display' => 'ملف الصوره الشخصيه','name'=> 'avatar','type'=> 'file','notices'=>'ملف صورة صاحب الأستمارة ','rules'=>"فقط *.png, *.jpg and *.jpeg امتدادات الصور المقبوله",'attribute'=>'"images"'],
+            ['display' => 'الهوايات','name'=> 'hobbies','type'=> 'checkbox','notices'=>'هواياتك المفضله','rules'=>NULL,'attribute'=>NULL],
         ];
         \DB::table('fields')->insert($items);
 
@@ -51,7 +52,17 @@ class DatabaseSeeder extends Seeder
             ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '3','form_id'=>'1'],
             ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'1'],
             ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '5','form_id'=>'1'],
- 
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '6','form_id'=>'1'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '7','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '8','form_id'=>'1'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '9','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '10','form_id'=>'1'],
+            ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '11','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '12','form_id'=>'1'],
+            ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '13','form_id'=>'1'],
+
+            
+
 
             ['is_disabled'=> '0','summable'=> '0','is_required'=>'1','field_id'=> '4','form_id'=>'2'],
             ['is_disabled'=> '1','summable'=> '0','is_required'=>'0','field_id'=> '6','form_id'=>'2'],
@@ -119,6 +130,22 @@ class DatabaseSeeder extends Seeder
 
             ['display' => 'نعم','value'=> 'yes','field_id'=> '7'],
             ['display' => 'لا','value'=> 'no','field_id'=> '7'],
+
+
+            ['display' => 'نعم','value'=> 'yes','field_id'=> '8'],
+            ['display' => 'لا','value'=> 'no','field_id'=> '8'],
+
+
+
+            ['display' => 'السباحه','value'=> 'swimming','field_id'=> '13'],
+            ['display' => 'الرمايه','value'=> 'shooting','field_id'=> '13'],
+            ['display' => 'ركوب الخيل','value'=> 'horseback_riding','field_id'=> '13'],
+            ['display' => 'الرسم','value'=> 'drawing','field_id'=> '13'],
+
+            ['display' => 'الجري','value'=> 'running','field_id'=> '13'],
+            ['display' => 'القراءة','value'=> 'reading','field_id'=> '13'],
+            ['display' => 'تسلق الجبال','value'=> 'mountaineering','field_id'=> '13'],
+
 
         ];
 
