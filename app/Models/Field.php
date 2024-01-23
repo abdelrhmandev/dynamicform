@@ -16,6 +16,11 @@ class Field extends Model
     public $timestamps = true;
 
 
+
+    public function values(){
+        return $this->hasOne(BuildingValue::class);  
+    }
+
     public function fillables(){
         return $this->hasMany(FieldFillable::class,'field_id');
     }

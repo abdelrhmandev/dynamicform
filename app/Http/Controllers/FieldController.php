@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Field;
-use App\Models\fillables;
+use App\Models\FieldFillable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FieldRequest;
@@ -90,7 +90,7 @@ class FieldController extends Controller
                         }
                     }
                     if(!empty($insert)) {
-                        fillables::insert($insert);
+                        FieldFillable::insert($insert);
                     }
                 }
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
@@ -188,7 +188,7 @@ class FieldController extends Controller
             }           
             #update old fillable 
             $index = 'id';
-            $fillablesInstance = new fillables;          
+            $fillablesInstance = new FieldFillable;              
             \Batch::update($fillablesInstance, $updateRecord, $index);
 
             #new fillable added             
@@ -205,7 +205,7 @@ class FieldController extends Controller
                     }
                 } 
                 if(!empty($insert)) {
-                    fillables::insert($insert);
+                    FieldFillable::insert($insert);
                     
                 }
             }

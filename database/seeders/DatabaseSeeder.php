@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             ['display' => 'هل تمتلك أملاك ؟','name'=> 'did_have_properties','type'=> 'radiobox','notices'=>'سيارات - عقارات - مزارع - منحل و خلافه ... ','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'تاريخ الميلاد','name'=> 'dob','type'=> 'date','notices'=>'تاريخ ميلادي','rules'=>NULL,'attribute'=>NULL],
             ['display' => 'ملاحظات','name'=> 'notices','type'=> 'textarea','notices'=>NULL,'rules'=>NULL,'attribute'=>NULL],
-            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>"ملف وثائق , فقط *.pdf, *.docs and *.xls امتدادات",'attribute'=>'"document"'],
+            ['display' => 'ملف السيره الذايته','name'=> 'cv','type'=> 'file','notices'=>'ملف PFD ,doc ','rules'=>"ملف وثائق , فقط *.pdf, *.docs and *.xls امتدادات",'attribute'=>'"documents"'],
             ['display' => 'ملف الصوره الشخصيه','name'=> 'avatar','type'=> 'file','notices'=>'ملف صورة صاحب الأستمارة ','rules'=>"فقط *.png, *.jpg and *.jpeg امتدادات الصور المقبوله",'attribute'=>'"images"'],
             ['display' => 'الهوايات','name'=> 'hobbies','type'=> 'checkbox','notices'=>'هواياتك المفضله','rules'=>NULL,'attribute'=>NULL],
         ];
