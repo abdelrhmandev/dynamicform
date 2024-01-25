@@ -14,7 +14,11 @@
     <h1>تعديل بيانات
     </h1>
 
-
+    <h1>
+        أستمارة
+            </h1>
+        {{ $form->title }}
+        
     <div align="center">
     <form enctype="multipart/form-data" action="{{ $updateRoute }}" method="post">
         @csrf

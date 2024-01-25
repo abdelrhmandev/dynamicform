@@ -58,16 +58,22 @@ class BuildingController extends Controller
         }
 
         DB::table('building_values')->insert($data);
+
+        return redirect('/buildings/11/edit');
+
+        // return redirect()->route->name('admin.buildings.edit','11');
     }
 
     public function create()
     {
+        $id = 11;
         $form = Form::with('fields.fillables')
-            ->where('id', 1)
+            ->where('id', $id)
             ->first();
         $fields = $form->fields;
         if (view()->exists('buildings.answer')) {
             $compact = [
+                'form'=>$form,
                 'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
                 'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
                 'fields' => $fields,
@@ -78,6 +84,7 @@ class BuildingController extends Controller
 
     public function edit($id)
     {
+        
         $form = Form::with(['fields.fillables', 'fields.values'])
             ->where('id', $id)
             ->first();
@@ -88,6 +95,7 @@ class BuildingController extends Controller
             $compact = [
                 'updateRoute' => route($this->ROUTE_PREFIX . '.update', $id),
                 'values' => $values,
+                'form'=>$form,
                 'fields' => $fields,
             ];
             return view('buildings.edit', $compact);
@@ -143,6 +151,10 @@ class BuildingController extends Controller
 
         \Batch::update($BuildInstance, $updateRecord, $index);
 
+
+
+         return redirect()->back();
+         
         echo '<pre>';
         // dd($updateRecord);
         echo '<pre>';

@@ -11,6 +11,11 @@
 <form enctype="multipart/form-data" action="{{ $storeRoute }}" method="post">
     @csrf
 
+
+   <h1>
+    أستمارة
+        </h1>
+    {{ $form->title }}
   
 
     @foreach ($fields as $field)
