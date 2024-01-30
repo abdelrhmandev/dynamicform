@@ -7,10 +7,10 @@ class CreateBuildingValuesTable extends Migration
     public function up(){
         Schema::create('building_values', function (Blueprint $table) {                 
             $table->id();  
-            $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
-            $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
-            $table->string('field_fillable_id')->nullable();
-            $table->string('fill_answer_text')->nullable();
+            // $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
+            // $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
+            // $table->string('field_fillable_id')->nullable();
+            // $table->string('fill_answer_text')->nullable();
 
         });	
     }
