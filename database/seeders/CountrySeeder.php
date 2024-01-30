@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
-class CountryTableSeeder extends Seeder {
+class CountrySeeder extends Seeder {
 
 	public function run()
 	{

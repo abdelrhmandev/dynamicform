@@ -28,8 +28,8 @@ class CreateBuildingsTable extends Migration
 
 
 
-            $table->string('building_number')->nullable();
-            $table->string('floors_numbers')->nullable();
+            $table->string('building_number')->nullable()->comment('رقم المبني');
+            $table->string('floors_numbers')->nullable()->comment('عدد الأدوار');;
 
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

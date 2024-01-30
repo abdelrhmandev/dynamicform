@@ -15,7 +15,7 @@ class CreateZonesTable extends Migration {
 			$table->id();
 			$table->string('title');
 			$table->foreignId('district_id')->constrained('districts')->onDelete('cascade');
-			$table->string('block_numbers');			
+			$table->string('block_number')->comment('عدد البلوكات');			
 		});
 	}
 
