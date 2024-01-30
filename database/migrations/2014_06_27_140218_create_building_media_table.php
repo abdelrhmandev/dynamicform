@@ -7,7 +7,7 @@ class CreateBuildingMediaTable extends Migration
     public function up(){
         Schema::create('building_media', function (Blueprint $table) {                 
             $table->id();  
-            $table->string('file')->nullable();
+            $table->string('file');
             $table->foreignId('building_id')->constrained('buildings')->onDelete('cascade');    
         });	
     }
