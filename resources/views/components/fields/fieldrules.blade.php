@@ -1,6 +1,6 @@
-<div id="upload_extensions_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+<div id="upload_extensions_restriction_div" class="card card-flush d-none">
     <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل الملف</h4>
-    <div class="fv-row mb-10">
+    <div class="fv-row">
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-2 g-9"
             data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
             <div class="col">
@@ -35,10 +35,11 @@
         </div>
     </div>
 </div>
-<div id="textbox_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+
+<div id="textbox_restriction_div" class="card card-flush d-none">
     <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل النص</h4>
-    <div class="fv-row mb-10">
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-2 g-9"
+    <div class="fv-row">
+        <div class="row row-cols-1 row-cols-lg-1 row-cols-xl-2 g-9"
             data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
             <div class="col">
                 <label class="btn btn-outline btn-outline-dashed active d-flex text-start p-6"
@@ -63,10 +64,9 @@
         </div>
     </div>
 </div>
-
-<div id="number_restriction_div" class="card card-flush pt-3 mb-5 mb-lg-10 d-none">
+<div id="number_restriction_div" class="card card-flush d-none">
     <h4 class="text-gray-900 fw-bold">وضع قيود علي حقل الأرقام</h4>
-    <div class="fv-row mb-10">
+    <div class="fv-row">
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
             data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
             <div class="col">

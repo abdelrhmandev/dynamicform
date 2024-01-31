@@ -17,23 +17,18 @@
 @stop
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-
         <div id="kt_content_container" class="container-xxl">
-
             <form id="Add{{ $trans }}" data-route-url="{{ $storeRoute }}"
                 class="form d-flex flex-column flex-lg-row"
                 data-form-submit-error-message="{{ __('site.form_submit_error') }}"
                 data-form-agree-label="{{ __('site.agree') }}">
-
+                
                 <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
 
                     <div class="card card-flush py-4">
-
                         <div class="card-body pt-2">
-
                             <div class="d-flex flex-column gap-5 gap-md-7">
-
-                                <div class="fs-3 fw-bold mb-n2">أضافه حقول المباني</div>
+                                <div class="fs-3 fw-bold mb-n2">أضافه حقول المباني</div>  
                                 <div class="d-flex flex-column flex-md-row gap-5">
                                     <div class="fv-row flex-row-fluid fl">
                                         <label class="required form-label" for="display">أسم الحقل الذي سيظر به </label>
@@ -51,14 +46,9 @@
                                             data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                     </div>
                                 </div>
-
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="card card-flush">
                         <div class="card-header">
                             <div class="card-title">
@@ -71,9 +61,7 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="card card-flush">
+                    <div id="restriction_div" class="card card-flush d-none">
                         <div class="card-header">
                             <div class="card-title">
                                 <h2 class="fw-bold">وضع قيود علي الحقل</h2>
@@ -85,8 +73,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="card card-flush">
                         <div class="card-header">
                             <div class="card-title">
@@ -100,29 +86,18 @@
                         </div>
                     </div>
 
-
-
-
-                    <!--end::Order details-->
                     <div class="d-flex justify-content-end">
-                        <!--begin::Button-->
                         <a href="../../demo6/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_edit_order_cancel"
                             class="btn btn-light me-5">Cancel</a>
-                        <!--end::Button-->
-                        <!--begin::Button-->
                         <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
                             <span class="indicator-label">Save Changes</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
-                        <!--end::Button-->
                     </div>
                 </div>
-                <!--end::Main column-->
             </form>
-            <!--end::Form-->
         </div>
-        <!--end::Container-->
     </div>
 @stop
 @section('scripts')
@@ -145,6 +120,7 @@
             arr = ["checkbox", "select", "radio"];
 
 
+            $("#restriction_div").addClass('d-none');
             $("#upload_extensions_restriction_div").addClass('d-none');
             $("#textbox_restriction_div").addClass('d-none');
             $("#number_restriction_div").addClass('d-none');
@@ -157,10 +133,24 @@
             }
 
             if (e_value == 'file') {
-                $("#upload_extensions_restriction_div").removeClass('d-none');
+                $("#restriction_div").removeClass('d-none');
+                $("#upload_extensions_restriction_div").removeClass('d-none');                
             } else if (e_value == 'textbox') {
+                $("#restriction_div").removeClass('d-none');
                 $("#textbox_restriction_div").removeClass('d-none');
+
+                $("#textbox_restriction_div").show("slow").hide("slow", running);
+
+
+ 
+                
+
+
+
+
+
             } else if (e_value == 'numbers') {
+                $("#restriction_div").removeClass('d-none');
                 $("#number_restriction_div").removeClass('d-none');
             }
 
