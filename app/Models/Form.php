@@ -1,14 +1,15 @@
 <?php
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Region;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Form extends Model
 {
     use HasFactory;
  
     protected $table = 'forms';
-    protected $fillable = ['title','status'];
+    protected $fillable = ['title','mobile','id_number','region_id','address_info','gender'];
     protected $guarded = ['id'];
 
 
@@ -19,7 +20,10 @@ class Form extends Model
     }
 
 
-
+ 
+    public function region(){
+        return $this->belongsTo(Region::class,'region_id','id');
+    }
 
 
 }

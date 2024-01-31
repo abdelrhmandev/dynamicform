@@ -9,7 +9,7 @@ class CreateFieldFillableTable extends Migration
             $table->id();              
             $table->string('display',150);
             $table->string('value',100);
-            $table->foreignId('field_id')->constrained('fields')->onDelete('cascade'); 
+            $table->foreignId('field_id'); 
         });	
     }
     public function down(){

@@ -22,21 +22,28 @@ class DatabaseSeeder extends Seeder
             'password'           =>\Hash::make('12345678'),
             'remember_token'     => \Str::random(10),
         ]);
+     
+
+
         $this->call([
             CountrySeeder::class,
             RegionCityDistrictSeeder::class,
-            // TeamSeeder::class,
+            FieldSeeder::class,
             // TypeSeeder::class,
             // EventSeeder::class,
             // GameSeeder::class,
             // QuestionSeeder::class,
             // AnswerSeeder::class,
             // RolesAndPermissionsSeeder::class,
-            // UserSeeder::class,
+            UserSeeder::class,
             // QuestionCorrectAnswerSeeder::class,
-            // UserTeamSeeder::class,
-        ]); 
  
+        ]); 
+
+        
+        \App\Models\User::factory(10)->create();
+        \App\Models\Form::factory(10)->create();
+
 
 
 

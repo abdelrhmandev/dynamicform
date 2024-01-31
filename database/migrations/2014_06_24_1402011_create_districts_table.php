@@ -14,8 +14,7 @@ class CreateDistrictsTable extends Migration {
 		Schema::create('districts', function (Blueprint $table) {
 			$table->id();
 			$table->string('title');
-			$table->foreignId('citie_id')->constrained('cities')->onDelete('cascade');
-			
+			$table->foreignId('city_id');			
 		});
 	}
 
@@ -25,6 +24,6 @@ class CreateDistrictsTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists('cities');
+		Schema::dropIfExists('districts');
 	}
 }

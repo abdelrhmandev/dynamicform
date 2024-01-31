@@ -14,7 +14,7 @@ class CreateZonesTable extends Migration {
 		Schema::create('zones', function (Blueprint $table) {
 			$table->id();
 			$table->string('title');
-			$table->foreignId('district_id')->constrained('districts')->onDelete('cascade');
+			$table->foreignId('district_id');
 			$table->string('block_number')->comment('عدد البلوكات');			
 		});
 	}
@@ -25,6 +25,6 @@ class CreateZonesTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists('cities');
+		Schema::dropIfExists('zones');
 	}
 }

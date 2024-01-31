@@ -8,6 +8,11 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {                 
             $table->id();  
             $table->string('title');
+            $table->string('mobile');
+            $table->string('id_number');
+            $table->foreignId('region_id');
+            $table->string('address_info');
+            $table->enum('gender', ['male','female'])->default('male');
             $table->timestamps();        
         });	
     }

@@ -12,10 +12,6 @@ class CreateFieldsTable extends Migration
             $table->string('type',100);
             $table->string('rules')->nullable();
             $table->string('attribute')->nullable();
-            $table->string('notices')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-
         });	
     }
     public function down(){

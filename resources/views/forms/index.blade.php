@@ -72,8 +72,12 @@
               </div>
             </th>            
             <th>{{ __($trans.'.title') }}</th> 
-            <th>الحقول المرتبطه بهذه الأستمارة</th>  
-            <th>{{ __('site.status') }}</th> 
+            
+            <th>رقم الجوال</th> 
+            <th>رقم الهويه</th> 
+            <th>المنطقه</th> 
+            <th>العنوان</th> 
+            <th>الجنس</th> 
             <th class="text-primary">{{ __('site.created_at') }}</th>
             <th class="text-end min-w-50px noExport">{{ __('site.actions') }}</th>  
           </tr>
@@ -98,8 +102,16 @@
 var dynamicColumns = [ //as an array start from 0
 { data: 'id', name: 'id',exportable:false}, 
 { data: 'title', name: 'title',orderable: false}, // 2
-{ data: 'fields', name: 'fields',orderable: false}, // 2
-{ data: 'status', name: 'status',orderable: false,searchable: true}, // 3
+
+{ data: 'mobile', name: 'mobile',orderable: false,searchable: true}, 
+{ data: 'id_number', name: 'id_number',orderable: false,searchable: true},
+{ data: 'region_id', name: 'region_id',orderable: false,searchable: true},
+
+{ data: 'address_info', name: 'address_info',orderable: false,searchable: true},
+{ data: 'gender', name: 'gender',orderable: false,searchable: true},
+
+// { data: 'fields', name: 'fields',orderable: false}, // 2
+
 { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
