@@ -32,6 +32,16 @@
                         <span class="menu-title">أضف مبني</span>
                     </a>
                 </div> 
+
+                <div class="menu-item">
+                    <a class="menu-link" href="{{ route('buildingtypes.index')}}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">تصنيف المباني</span>
+                    </a>
+                </div> 
+
             </div>
         </div>
     </div>

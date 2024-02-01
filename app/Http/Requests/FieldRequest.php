@@ -15,16 +15,17 @@ class FieldRequest extends FormRequest
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
         $rules['display']       = 'required|unique:fields,display'.$id;
         $rules['name']          = 'required|unique:fields,name'.$id;
-        $rules['type']          = 'required';
-        $rules['notices']       = 'nullable|max:255';
-        $rules['rules']         = 'nullable|max:255';
-        $rules['attribute']     = 'nullable|max:255';
-        
-        
-
-        
+        $rules['type']          = 'required';        
         return $rules; 
     } 
+
+    public function messages(): array
+{
+    return [
+        'type.required' => 'فضلا حدد نوع الحقل',
+    ];
+}
+
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

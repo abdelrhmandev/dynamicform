@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CountrySeeder::class,
-            RegionCityDistrictSeeder::class,
+            RegionCityDistrictSeeder::class,            
             FieldSeeder::class,
             // TypeSeeder::class,
             // EventSeeder::class,
@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
             // RolesAndPermissionsSeeder::class,
             UserSeeder::class,
             // QuestionCorrectAnswerSeeder::class,
+            BuildingTypeSeeder::class,
+            BuildingTypeFormSeeder::class,
  
         ]); 
 
@@ -45,7 +47,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Form::factory(10)->create();
 
 
-
+ 
 
        
 

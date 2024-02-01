@@ -26,11 +26,13 @@ class FieldController extends Controller
     
     public function store(FieldRequest $request)
     { 
+
+      
             $validated               = $request->validated();
             $validated['display']    = $request->display;
             $validated['name']       = $request->name;
             $validated['type']       = $request->type;
-            $validated['notices']    = $request->notices;   
+ 
             $Attributes = [];
             $Rules = '';
 
@@ -72,26 +74,24 @@ class FieldController extends Controller
             $validated['rules'] =  $Rules;
 
             if($validated['attribute'] == '[]') $validated['attribute'] = NULL;            
-            if(empty($validated['rules'])) $validated['rules'] = NULL;
-            
-            $query = Field::create($validated);      
-
-            if ($query) {
+            if(empty($validated['rules'])) $validated['rules'] = NULL;            
+            $query =  Field::insert($validated);  
+            if ($query) {             
                 if((count($request->fillable_display) > 0) && (count($request->fillable_value)>0)) {                 
                     $result = array_combine($request->fillable_display,$request->fillable_value);    
                     $insert = [];
                     foreach($result as $k=>$v){
                         if(!empty($k) && !empty($v)){
                             $insert[] = [
-                                'field_id'  =>$query->id,
+                                'field_id'  => DB::getPdo()->lastInsertId(),
                                 'display'   =>$k,
                                 'value'     =>$v
                             ];
                         }
                     }
-                    if(!empty($insert)) {
+                    if(!empty($insert)) {                  
                         FieldFillable::insert($insert);
-                    }
+                    }                
                 }
                 $arr = ['msg' => __($this->TRANS.'.storeMessageSuccess'), 'status' => true];
             }else{

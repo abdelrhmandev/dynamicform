@@ -8,7 +8,8 @@ class CreateBuildingTypesTable extends Migration
         Schema::create('building_types', function (Blueprint $table) {                 
             $table->id();  
             $table->string('title');
-            $table->timestamps();
+            $table->string('image')->nullable();
+            $table->string('color')->nullable();
         });	
     }
     public function down(){

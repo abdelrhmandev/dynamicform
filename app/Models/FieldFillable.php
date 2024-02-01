@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FieldFillable extends Model
 {
-    use HasFactory;
-
- 
     protected $table = 'field_fillable';
     protected $fillable = ['display','value','field_id'];
     protected $guarded = ['id'];

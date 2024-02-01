@@ -30,6 +30,9 @@ Route::delete('fields/destroy/all', 'FieldController@destroyMultiple')->name('fi
 Route::resource('buildings', BuildingController::class)->except('show');
 
 
+Route::resource('buildingtypes', BuildingTypeController::class)->except('show');
+
+
 
 
  

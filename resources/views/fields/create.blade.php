@@ -22,25 +22,24 @@
                 class="form d-flex flex-column flex-lg-row"
                 data-form-submit-error-message="{{ __('site.form_submit_error') }}"
                 data-form-agree-label="{{ __('site.agree') }}">
-                
+
                 <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
 
                     <div class="card card-flush py-4">
                         <div class="card-body pt-2">
                             <div class="d-flex flex-column gap-5 gap-md-7">
-                                <div class="fs-3 fw-bold mb-n2">أضافه حقول المباني</div>  
+                                <div class="fs-3 fw-bold mb-n2">أضافه حقول المباني</div>
                                 <div class="d-flex flex-column flex-md-row gap-5">
                                     <div class="fv-row flex-row-fluid fl">
                                         <label class="required form-label" for="display">أسم الحقل الذي سيظر به </label>
-                                        <input placeholder="مثال مساحه المبني " type="text" id="display"
-                                            name="display" class="form-control form-control-lg" required
+                                        <input placeholder="مثال مساحه المبني " type="text" id="display" name="display"
+                                            class="form-control form-control-lg" required
                                             data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                     </div>
                                     <div class="fv-row flex-row-fluid fl">
                                         <label class="required form-label" for="name">الأسم البرمجي للحقل
                                         </label>
-                                        <input placeholder="مثال area " type="text" id="name"
-                                            name="name"
+                                        <input placeholder="مثال area " type="text" id="name" name="name"
                                             onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)"
                                             class="form-control form-control-lg" required
                                             data-fv-not-empty___message="{{ __('site.required_field') }}" />
@@ -68,33 +67,25 @@
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <div id="kt_create_new_payment_method">
+                            <div>
                                 <x-fields.fieldrules />
                             </div>
                         </div>
                     </div>
-                    <div class="card card-flush">
+                    <div id="fillable_div" class="card card-flush d-none">
                         <div class="card-header">
                             <div class="card-title">
                                 <h2 class="fw-bold">ملأ الحقل المحدد</h2>
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <div id="kt_create_new_payment_method">
+                            <div>
                                 <x-fields.fieldfillable />
                             </div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <a href="../../demo6/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_edit_order_cancel"
-                            class="btn btn-light me-5">Cancel</a>
-                        <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
-                            <span class="indicator-label">Save Changes</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
+                    <x-btns.button />
                 </div>
             </form>
         </div>
@@ -106,7 +97,7 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/fieldfillable.js') }}"></script>
     <script>
         KTUtil.onDOMContentLoaded(function() {
             handleFormSubmitFunc('Add{{ $trans }}');
@@ -128,30 +119,37 @@
 
             if (arr.includes(e_value)) {
                 $("#fillable_div").removeClass('d-none');
+
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#fillable_div").offset().top
+                }, 2000);
+
             } else {
                 $("#fillable_div").addClass('d-none');
             }
 
             if (e_value == 'file') {
                 $("#restriction_div").removeClass('d-none');
-                $("#upload_extensions_restriction_div").removeClass('d-none');                
+                $("#upload_extensions_restriction_div").removeClass('d-none');
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#upload_extensions_restriction_div").offset().top
+                }, 2000);
+
             } else if (e_value == 'textbox') {
                 $("#restriction_div").removeClass('d-none');
                 $("#textbox_restriction_div").removeClass('d-none');
 
-                $("#textbox_restriction_div").show("slow").hide("slow", running);
-
-
- 
-                
-
-
-
-
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#textbox_restriction_div").offset().top
+                }, 2000);
 
             } else if (e_value == 'numbers') {
                 $("#restriction_div").removeClass('d-none');
                 $("#number_restriction_div").removeClass('d-none');
+
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#number_restriction_div").offset().top
+                }, 2000);
             }
 
 
