@@ -12,6 +12,10 @@ class CreateFieldsTable extends Migration
             $table->string('type',100);
             $table->string('rules')->nullable();
             $table->string('attribute')->nullable();
+
+            // minvalue
+            // maxvalue
+            // maxlength
         });	
     }
     public function down(){
