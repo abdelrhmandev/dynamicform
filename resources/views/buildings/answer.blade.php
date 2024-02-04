@@ -11,7 +11,7 @@
 <form enctype="multipart/form-data" action="{{ $storeRoute }}" method="post">
     @csrf
 
-
+ssssssssssssssssssss
    <h1>
     أستمارة
         </h1>
