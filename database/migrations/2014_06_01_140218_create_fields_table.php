@@ -13,6 +13,7 @@ class CreateFieldsTable extends Migration
             $table->string('rules')->nullable();
             $table->string('attribute')->nullable();
 
+            // https://github.com/form-validation/examples/blob/master/adding-dynamic-field/using-other-library.html
             // class
             //place holder
             // minvalue
