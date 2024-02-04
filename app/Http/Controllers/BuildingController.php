@@ -66,7 +66,7 @@ class BuildingController extends Controller
 
     public function create()
     {
-        $id = 11;
+        $id = 1;
         $form = Form::with('fields.fillables')
             ->where('id', $id)
             ->first();

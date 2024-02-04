@@ -24,7 +24,12 @@ class FieldSeeder extends Seeder
 
             ['display' => 'مسطح المبني التقديري', 'name' => 'surface', 'type' => 'textbox', 'rules' => null, 'attribute' => null],
 
-            ['display' => 'الموقع الجغرافي', 'name' => 'google_map', 'type' => 'textbox', 'rules' => null, 'attribute' => null],
+            ['display' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'textbox', 'rules' => null, 'attribute' => null],
+
+            ['display' => 'عدد الأدوار', 'name' => 'number_floors', 'type' => 'textbox', 'rules' => null, 'attribute' => null],
+
+            ['display' => 'صور المبني', 'name' => 'building_gallery', 'type' => 'file', 'rules' => null, 'attribute' => null],
+
         ];
         \DB::table('fields')->insert($items);
     }
