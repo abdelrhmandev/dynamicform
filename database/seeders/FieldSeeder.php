@@ -31,6 +31,17 @@ class FieldSeeder extends Seeder
             ['display' => 'صور المبني', 'name' => 'building_gallery', 'type' => 'file', 'rules' => null, 'attribute' => null],
 
         ];
+
+/*
+رقم التواصل للمقاول phone
+صورة الفاتورة file
+التمديدات 
+المبلغ المطلوب لإعادة الجدولة؟ number
+مستند المطالبة file
+------------------------------
+datefield --------------- min date , max date
+*/
+
         \DB::table('fields')->insert($items);
     }
 }
