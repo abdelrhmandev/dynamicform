@@ -1,9 +1,10 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Database\Seeder;
+use Database\Seeders\CountrySeeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
             'remember_token'     => \Str::random(10),
         ]);
      
-
+        \App\Models\User::factory(10)->create();
+        
 
         $this->call([
             CountrySeeder::class,
@@ -35,16 +37,17 @@ class DatabaseSeeder extends Seeder
             // QuestionSeeder::class,
             // AnswerSeeder::class,
             // RolesAndPermissionsSeeder::class,
-            UserSeeder::class,
-            // QuestionCorrectAnswerSeeder::class,
-            BuildingTypeSeeder::class,
-            BuildingTypeFormSeeder::class,
  
+            // QuestionCorrectAnswerSeeder::class,
+            // BuildingTypeSeeder::class,
+            // BuildingTypeFormSeeder::class,
+ 
+            FormFieldSeeder::class,
+
         ]); 
 
-        
-        \App\Models\User::factory(10)->create();
         \App\Models\Form::factory(10)->create();
+
 
 
  

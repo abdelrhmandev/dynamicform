@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 use DB;
+use App\Models\City;
 use App\Models\Region;
+use App\Models\District;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -11,14 +13,29 @@ class RegionCityDistrictSeeder extends Seeder
 {
     public function run()
     {
-
+        City::truncate();
+        District::truncate();
         Region::truncate();
 
-        $regions = [['title' => 'القصيم', 'country_id' => '177'], ['title' => 'الباحة', 'country_id' => '177'], ['title' => 'الحدود الشمالية', 'country_id' => '177'], ['title' => 'الرياض', 'country_id' => '177'], ['title' => 'عسير', 'country_id' => '177'], ['title' => 'تبوك', 'country_id' => '177'], ['title' => 'المدينة المنورة', 'country_id' => '177'], ['title' => 'الجوف', 'country_id' => '177'], ['title' => 'نجران', 'country_id' => '177'], ['title' => ' جازان', 'country_id' => '177'], ['title' => 'حائل', 'country_id' => '177'], ['title' => 'المنطقة الشرقية', 'country_id' => '177'], ['title' => 'منطقة مكة المكرمة', 'country_id' => '177']];
+        $regions = [
+            ['title' => 'القصيم', 'country_id' => '177'], 
+            ['title' => 'الباحة', 'country_id' => '177'], 
+            ['title' => 'الحدود الشمالية', 'country_id' => '177'], 
+            ['title' => 'الرياض', 'country_id' => '177'], 
+            ['title' => 'عسير', 'country_id' => '177'], 
+            ['title' => 'تبوك', 'country_id' => '177'], 
+            ['title' => 'المدينة المنورة', 'country_id' => '177'], 
+            ['title' => 'الجوف', 'country_id' => '177'], 
+            ['title' => 'نجران', 'country_id' => '177'], 
+            ['title' => ' جازان', 'country_id' => '177'], 
+            ['title' => 'حائل', 'country_id' => '177'], 
+            ['title' => 'المنطقة الشرقية', 'country_id' => '177'], 
+            ['title' => 'منطقة مكة المكرمة', 'country_id' => '177']
+        ];
 
         DB::table('regions')->insert($regions);
         ///////////////////////////////////////////////////////////////////
-        City::truncate();
+
         $cities = [
             ['title' => 'بريدة', 'region_id' => '1'],
             ['title' => 'الباحة', 'region_id' => '2'],
@@ -248,10 +265,10 @@ class RegionCityDistrictSeeder extends Seeder
             ['title' => 'اخرى', 'region_id' => '5'],
             ['title' => 'مدينة صبياء', 'region_id' => '10'],
         ];
-        DB::table('cities')->insert($cities);
+         DB::table('cities')->insert($cities);
 
         ////////////////////
-
+        
         $districts = [
             ['title'=>'رواق','city_id'=>'1'],
             ['title'=>'المصيف','city_id'=>'3'],

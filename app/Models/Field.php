@@ -11,15 +11,22 @@ class Field extends Model
 
  
     protected $table = 'fields';
-    protected $fillable = ['display','name','type','rules','attribute','notices','created_at'];
+    protected $fillable = ['label','name','type','required','requied_message','validation'];
     protected $guarded = ['id'];
-    public $timestamps = true;
+    public $timestamps = false;
 
-
+    protected $casts = [
+        'validation' => 'json',
+    ];
 
     public function values(){
         return $this->hasOne(BuildingValue::class);  
     }
+
+    public function JsonExtractValidationRules($key){  
+        return $this->validation['validators'][$key];       
+    }
+
 
     public function fillables(){
         return $this->hasMany(FieldFillable::class,'field_id');

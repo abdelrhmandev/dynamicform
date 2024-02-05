@@ -1,13 +1,16 @@
 <?php
 namespace Database\Seeders;
+use DB;
+use App\Models\Country;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use DB;
+
 class CountrySeeder extends Seeder {
 
 	public function run()
 	{
+        Country::truncate();
         $countries = [
             ['title' => 'أندورا','code' => 'ad'],
             ['title' => 'الإمارات العربية المتحدة','code' => 'ae'],

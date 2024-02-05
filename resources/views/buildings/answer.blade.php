@@ -1,76 +1,108 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>أضافه المباني</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
+@extends('layouts.app')
+@section('title', __($trans . '.plural') . ' - ' . __($trans . '.add'))
+@section('breadcrumbs')
+    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">{{ __($trans . '.plural') }}</h1>
+    <span class="h-20px border-gray-200 border-start mx-3"></span>
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+        <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}"
+                class="text-muted text-hover-primary">{{ __('site.home') }}</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-200 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-dark">{{ __($trans . '.add') }}</li>
+    </ul>
+@stop
+@section('style')
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+@stop
+@section('content')
+    <div id="kt_content_container" class="container-xxl">
+        <form id="Add{{ $trans }}" data-route-url="{{ $storeRoute }}" class="form d-flex flex-column flex-lg-row"
+            data-form-submit-error-message="{{ __('site.form_submit_error') }}"
+            data-form-agree-label="{{ __('site.agree') }}" enctype="multipart/form-data">
+            <div class="d-flex flex-column gap-3 gap-lg-7 w-100 mb-2 me-lg-5">
+                <div class="card card-flush py-0">
+                    <div class="card-body pt-5">
+                        <div class="d-flex flex-column gap-5">
+                            @foreach ($fields as $field)
 
-  <body>
-<form enctype="multipart/form-data" action="{{ $storeRoute }}" method="post">
-    @csrf
+                           
+                      
 
-ssssssssssssssssssss
-   <h1>
-    أستمارة
-        </h1>
-    {{ $form->title }}
-  
+                     
 
-    @foreach ($fields as $field)
-        <p><h1>{{ $field->display }}</h1></p>
+                            @if (in_array($field->type, ['textbox','numbers','date']))
+                           {{-- <div class="fv-row fl">
+                                <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                                <input type="text" id="{{ $field->name }}" name="{{ $field->name }}"
+                                    class="form-control mb-2"
+                                    placeholder="{{ $field->label }}" 
+                                    {{ $field->required == 1 ? 'required':'' }}
+                                    pattern="{{ $field->JsonExtractValidationRules('pattern') ?? '' }}"                                    
+                                    data-fv-regexp___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"
+                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}" />
+                            </div> --}}
+                            @endif
 
+                            @endforeach
 
-        @if (in_array($field->type, ['textbox','numbers','date']))
-            <input type="{{ $field->type }}" name="field_id[{{ $field->id }}-{{ $field->type }}]" id="{{ $field->name }}">
-            {{-- <p><small>{{ $field->rules }}</small></p> --}}
+                            <div class="fv-row fl">
+                                <label class="required form-label" for="id_number">الهوية</label>
 
-            @elseif($field->type == 'textarea')
-            <textarea name="field_id[{{ $field->id }}-{{ $field->type }}]"></textarea>
+                             
+                            <input type="text"
+                            name="id_number"
+                            
+                            id="id_number"
+                            class="form-control"
+                            required
+                            data-fv-not-empty___message="رقم الهوية مطلوب"
+                            pattern="^\d{10}$"
+                            data-fv-regexp___message="رقم الهوية يقبل أرقام فقط"
+                            data-fv-string-length="true"
+                            data-fv-string-length___min="10"
+                            data-fv-string-length___max="10"
+                            data-fv-string-length___message="رقم الهوية مكون من 10 أرقام"
+                            data-fv-callback="true"
+                            data-fv-callback___callback="check_valid_id_number"
+                            maxlength="10" minlength="10"
+                     />
+                            </div>
 
+                              
+                        </div>
+                    </div>
+                </div>
+                <x-btns.button />
+            </div>
+             
+        </form>
+    </div>
+@stop
+@section('scripts')
+    <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
+   
+    <script>
 
+function check_valid_id_number(input,start,end) {
+    
+        var value = input.value;
+        if (value.length == 10) {
+           
+            if (parseInt(value) > '2999999999') {
+                return {
+                    valid: false,
+                    message: 'رقم الهوية لابد ان يبدأ (1|2)'
+                }
+            }
+            
+        }
+    }
 
-            @elseif($field->type == 'file')
-            <p>
-                <input type="file" id="{{ $field->name }}" name="field_id[{{ $field->id }}-{{ $field->type }}]">
-            </p>
-        @elseif($field->type == 'radiobox')
-            <p>
-                @foreach ($field->fillables as $fillable)
-                    <input type="radio" id="{{ $field->name }}" value="{{ $fillable->id }}"
-                        name="field_id[{{ $field->id }}-{{ $field->type }}]"> {{ $fillable->display }}
-                @endforeach
-            </p>
- 
-        @elseif($field->type == 'checkbox')
-        <p>
-                @foreach ($field->fillables as $fillable)
-                
-                    <p>{{ $fillable->id }} ------------ <input type="checkbox" id="{{ $field->name }}" value="{{ $fillable->id }}"
-                        name="field_id[{{ $field->id }}-{{ $field->type }}][]"> {{ $fillable->display }}
-                    </p>
-                @endforeach
-        </p>
-
-        @elseif($field->type == 'select')
-            <p>
-                <select id="{{ $field->name }}" name="field_id[{{ $field->id }}-{{ $field->type }}]">
-                    @foreach ($field->fillables as $fillable)
-                        <option value="{{ $fillable->id }}">{{ $fillable->display }}</option>
-                    @endforeach
-                </select>
-            </p>
-        @endif
-    @endforeach
-    <p>
-        <input type="submit" value="Save">
-    </p>
-    <br>
-
-</form>
-
-
- 
-  </body>
-</html>
+        KTUtil.onDOMContentLoaded(function() {
+            handleFormSubmitFunc('Add{{ $trans }}');
+        });
+    </script>
+@stop

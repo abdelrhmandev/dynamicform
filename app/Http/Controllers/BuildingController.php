@@ -26,6 +26,7 @@ class BuildingController extends Controller
         $this->middleware('auth');
         $this->ROUTE_PREFIX = 'buildings';
         $this->UPLOADFOLDER = 'buildings';
+        $this->TRANS  = 'building';
     }
     use UploadAble;
 
@@ -67,16 +68,17 @@ class BuildingController extends Controller
     public function create()
     {
         $id = 1;
-        $form = Form::with('fields.fillables')
+        $form = Form::with('fields')
             ->where('id', $id)
             ->first();
         $fields = $form->fields;
         if (view()->exists('buildings.answer')) {
             $compact = [
                 'form'=>$form,
-                'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
-                'fields' => $fields,
+                'trans'             => $this->TRANS,
+                'listingRoute'      => route($this->ROUTE_PREFIX . '.index'),
+                'storeRoute'        => route($this->ROUTE_PREFIX . '.store'),
+                'fields'            => $fields,
             ];
             return view('buildings.answer', $compact);
         }

@@ -10,8 +10,10 @@ class CreateFieldsTable extends Migration
             $table->string('label');
             $table->string('name',150);
             $table->string('type',100);
-            $table->string('rules')->nullable();
-            $table->string('attribute')->nullable();
+            $table->enum('required', [1,0])->default(1);
+            $table->string('required_msg')->nullable();
+            $table->json('validation')->nullable();
+
 
             // https://github.com/form-validation/examples/blob/master/adding-dynamic-field/using-other-library.html
             // class
