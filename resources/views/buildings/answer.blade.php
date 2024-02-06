@@ -22,6 +22,7 @@
                 <div class="card card-flush py-0">
                     <div class="card-body pt-5">
                         <div class="d-flex flex-column gap-5">
+                            
                             @foreach ($fields as $field)
 
                            
@@ -29,43 +30,74 @@
 
                      
 
-                            @if (in_array($field->type, ['textbox','numbers','date']))
-                           {{-- <div class="fv-row fl">
+                            @if (in_array($field->type, ['textbox','numbers']))
+                             <div class="fv-row fl">
+
+                                
                                 <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
                                 <input type="text" id="{{ $field->name }}" name="{{ $field->name }}"
                                     class="form-control mb-2"
                                     placeholder="{{ $field->label }}" 
                                     {{ $field->required == 1 ? 'required':'' }}
-                                    pattern="{{ $field->JsonExtractValidationRules('pattern') ?? '' }}"                                    
+                                    pattern="{{ $field->JsonExtractValidationRules('pattern') }}"
                                     data-fv-regexp___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"
-                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}" />
+                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
+                                    
+                                    minlength="{{ $field->JsonExtractValidationRules('minlength') }}"
+                                    maxlength="{{ $field->JsonExtractValidationRules('maxlength') }}"                         
+                                    data-fv-string-length___message = "{{ $field->JsonExtractValidationRules('StringLengthMessage') }}"
+                                    
+                                    data-fv-callback="{{ $field->JsonExtractValidationRules('callback') ? 'true':'false' }}"
+                                    data-fv-callback___callback="{{ $field->JsonExtractValidationRules('callback') ? $field->JsonExtractValidationRules('callback') :'' }}"
+
+
+                                    data-fv-greater-than___inclusive="{{ $field->JsonExtractValidationRules('data_fv_greater_than_inclusive') }}"
+                                    data-fv-greater-than___message="{{ $field->JsonExtractValidationRules('data_fv_greater_than_message') }}"
+                                    max="{{ $field->JsonExtractValidationRules('max') }}"
+                                    data-fv-less-than___inclusive="{{ $field->JsonExtractValidationRules('data_fv_less_than_inclusive') }}"
+                                    data-fv-less-than___message="{{ $field->JsonExtractValidationRules('data_fv_less_than_message') }} "
+
+                  
+        
+
+                                    
+                                    
+                                    
+                                    />
+                            </div>  
+                            @elseif (in_array($field->type, ['email']))
+                             <div class="fv-row fl">                                
+                                <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                                <input style="text-align: right" type="email" id="{{ $field->name }}" name="{{ $field->name }}"
+                                    class="form-control mb-2"
+                                    placeholder="{{ $field->label }}" 
+                                    {{ $field->required == 1 ? 'required':'' }}
+                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"                                    
+                                    data-fv-email-address___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"                                    
+                                    />
+                            </div>  
+
+                            @elseif (in_array($field->type, ['file']))
+                            {{-- <div class="form-group fv-row fl">
+                                <label class="col-xs-3 control-label">Avatar</label>
+                                <div class="col-xs-6">
+                                    <input type="file" class="form-control" name="avatar"
+                                        data-fv-notempty="true"
+                                        data-fv-notempty-message="Please select an image"
+                        
+                                        data-fv-file="true"
+                                        data-fv-file-extension="jpeg,jpg,png"
+                                        data-fv-file-type="image/jpeg,image/png"
+                                        data-fv-file-maxsize="2097152"
+                                        data-fv-file-message="The selected file is not valid" />
+                                </div>
                             </div> --}}
+
                             @endif
 
                             @endforeach
 
-                            <div class="fv-row fl">
-                                <label class="required form-label" for="id_number">الهوية</label>
-
-                             
-                            <input type="text"
-                            name="id_number"
-                            
-                            id="id_number"
-                            class="form-control"
-                            required
-                            data-fv-not-empty___message="رقم الهوية مطلوب"
-                            pattern="^\d{10}$"
-                            data-fv-regexp___message="رقم الهوية يقبل أرقام فقط"
-                            data-fv-string-length="true"
-                            data-fv-string-length___min="10"
-                            data-fv-string-length___max="10"
-                            data-fv-string-length___message="رقم الهوية مكون من 10 أرقام"
-                            data-fv-callback="true"
-                            data-fv-callback___callback="check_valid_id_number"
-                            maxlength="10" minlength="10"
-                     />
-                            </div>
+                         
 
                               
                         </div>
@@ -75,6 +107,30 @@
             </div>
              
         </form>
+
+        <form id="fileForm" class="form-horizontal" enctype="multipart/form-data"
+   
+        data-fv-icon-valid="glyphicon glyphicon-ok"
+        data-fv-icon-invalid="glyphicon glyphicon-remove"
+        data-fv-icon-validating="glyphicon glyphicon-refresh">
+    
+        <div class="form-group fv-row fl">
+            <label class="col-xs-3 control-label">Avatar</label>
+            <div class="col-xs-6">
+                <input type="file" class="form-control" name="avatar"
+                    data-fv-notempty="true"
+                    data-fv-notempty-message="Please select an image"
+    
+                    data-fv-file="true"
+                    data-fv-file-extension="jpeg,jpg,png"
+                    data-fv-file-type="image/jpeg,image/png"
+                    data-fv-file-maxsize="2097152"
+                    data-fv-file-message="The selected file is not valid" />
+            </div>
+        </div>
+    </form>
+
+        
     </div>
 @stop
 @section('scripts')
@@ -86,18 +142,27 @@
    
     <script>
 
-function check_valid_id_number(input,start,end) {
-    
+
+$('#fileForm').formValidation();
+ 
+
+function Validate_SA_Id_Number(input) {    
         var value = input.value;
-        if (value.length == 10) {
-           
-            if (parseInt(value) > '2999999999') {
-                return {
-                    valid: false,
-                    message: 'رقم الهوية لابد ان يبدأ (1|2)'
-                }
+        var ValidateMessage  = '';        
+        var IdNumber = parseInt(value);
+        // Validate If Id Number is 10 length at the begining
+        if (value.length == 10) {                       
+            if (IdNumber > '2999999999' || IdNumber < '1000000000') {
+                var ValidateMessage =  'عذرا رقم الهويه لابد ان يبدأ بالأرقام 1 أو 2 فقط';
+                var validC = false;
+            }else{
+                var ValidateMessage =  '';
+                var validC = true;
             }
-            
+            return {
+                    valid: validC,
+                    message: ValidateMessage
+                }
         }
     }
 
