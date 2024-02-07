@@ -25,13 +25,10 @@
                             
                             @foreach ($fields as $field)
 
-                           
-                      
-
-                     
+                        
 
                             @if (in_array($field->type, ['textbox','numbers']))
-                             <div class="fv-row fl">
+                             {{--  <div class="fv-row fl">
 
                                 
                                 <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
@@ -64,9 +61,9 @@
                                     
                                     
                                     />
-                            </div>  
+                            </div>    --}}
                             @elseif (in_array($field->type, ['email']))
-                             <div class="fv-row fl">                                
+                             {{--  <div class="fv-row fl">                                
                                 <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
                                 <input style="text-align: right" type="email" id="{{ $field->name }}" name="{{ $field->name }}"
                                     class="form-control mb-2"
@@ -75,26 +72,79 @@
                                     data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"                                    
                                     data-fv-email-address___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"                                    
                                     />
-                            </div>  
+                            </div>    --}}
 
                             @elseif (in_array($field->type, ['file']))
-                            {{-- <div class="form-group fv-row fl">
-                                <label class="col-xs-3 control-label">Avatar</label>
-                                <div class="col-xs-6">
-                                    <input type="file" class="form-control" name="avatar"
-                                        data-fv-notempty="true"
-                                        data-fv-notempty-message="Please select an image"
-                        
-                                        data-fv-file="true"
-                                        data-fv-file-extension="jpeg,jpg,png"
-                                        data-fv-file-type="image/jpeg,image/png"
-                                        data-fv-file-maxsize="2097152"
-                                        data-fv-file-message="The selected file is not valid" />
+                            {{--  <div class="card card-flush">
+                               
+                                <div class="card-body text-center pt-1 mt-1 fl">
+                                    <style>.image-input-placeholder { 
+                                        background-image: url({{ asset('assets/media/svg/files/blank-image.svg')}}); 
+                                        } [data-theme="dark"] .image-input-placeholder { 
+                                            background-image: url({{ asset('assets/media/svg/files/blank-image.svg')}}); 
+                                        }
+                                        </style>
+                                    @if(isset($image))
+                                    <style>.image-input-placeholder {             
+                                        background-image: url({{ asset($image)}}); 
+                                        } [data-theme="dark"] .image-input-placeholder { 
+                                            background-image: url({{ asset($image)}}); 
+                                        }
+                                        </style>
+                                    @endif
+                                    <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                        <div class="image-input-wrapper w-150px h-150px"></div>
+                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="{{ __('site.change_image')}}">
+                                            <i class="bi bi-pencil-fill fs-7"></i>
+                                            <input class="my-image-selector" type="file" name="image" id="image"
+                                            required
+                                            accept=".png, .jpg, .jpeg"
+                                            data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
+                                            data-fv-file="true" 
+                                            data-fv-file___extension="jpeg,jpg,png" 
+                                            data-fv-file___type="image/jpeg,image/jpg,image/png" 
+                                            data-fv-file___message="{{  __('validation.mimetypes',['attribute'=>'image','values'=>'*.png, *.jpg and *.jpeg']) }}"
+                                            />
+                                            <input type="hidden" name="image_remove" />
+                                        </label>            
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" id="cancel_image" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="{{ __('site.cancel') }}">
+                                            <i class="bi bi-x fs-2"></i>
+                                        </span>
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" id="remove_image" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="{{ __('remove.cancel') }}">
+                                            <i class="bi bi-x fs-2"></i>
+                                        </span>
+                                    </div>
+                                    <div class="text-muted fs-7">{{ __('site.uploadOnlyImages')}}</div>
+                                    @if(isset($image))
+                                    <div class="mt-2 form-check form-check-custom form-check-danger form-check-solid">
+                                        <input class="form-check-input" type="checkbox" name="drop_image_checkBox" value="1" />
+                                        <label class="form-check-label text-danger" for="">
+                                           <i>{{ __('site.remove_image')}}</i>
+                                        </label>
+                                    </div>
+                                    @endif
+                                    @error('image')
+                                    <div class="fv-plugins-message-container invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </div> --}}
+                            </div>  --}}
+                            
+                            @elseif (in_array($field->type, ['date_range']))
+                            <div class="fv-row fl">
+                                <label class="required form-label"
+                                    for="event_date_range">{{ __('event.date_range') }}</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
+                                    <input placeholder="{{ __('event.date_range') }}" 
+                                        type="text" id="event_date_range"
+                                        name="event_date_range"
+                                        class="form-control form-control-solid ps-12 flatpickr-input active"
+                                        readonly="readonly" required
+                                        data-fv-not-empty___message="{{ __('validation.required', ['attribute' => 'event date range' . '&nbsp;']) }}" />
+                                </div>
+                            </div>
 
                             @endif
-
                             @endforeach
 
                          
@@ -108,27 +158,7 @@
              
         </form>
 
-        <form id="fileForm" class="form-horizontal" enctype="multipart/form-data"
-   
-        data-fv-icon-valid="glyphicon glyphicon-ok"
-        data-fv-icon-invalid="glyphicon glyphicon-remove"
-        data-fv-icon-validating="glyphicon glyphicon-refresh">
-    
-        <div class="form-group fv-row fl">
-            <label class="col-xs-3 control-label">Avatar</label>
-            <div class="col-xs-6">
-                <input type="file" class="form-control" name="avatar"
-                    data-fv-notempty="true"
-                    data-fv-notempty-message="Please select an image"
-    
-                    data-fv-file="true"
-                    data-fv-file-extension="jpeg,jpg,png"
-                    data-fv-file-type="image/jpeg,image/png"
-                    data-fv-file-maxsize="2097152"
-                    data-fv-file-message="The selected file is not valid" />
-            </div>
-        </div>
-    </form>
+        
 
         
     </div>
@@ -143,7 +173,13 @@
     <script>
 
 
-$('#fileForm').formValidation();
+            $("#event_date_range").daterangepicker({           
+            minDate:new Date(),
+            separator: " - ",
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+          });
  
 
 function Validate_SA_Id_Number(input) {    

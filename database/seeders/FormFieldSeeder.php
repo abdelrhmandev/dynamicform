@@ -19,14 +19,13 @@ class FormFieldSeeder extends Seeder
             // ['form_id' => '1','field_id' => '2'],
             // ['form_id' => '1','field_id' => '3'],
             // ['form_id' => '1','field_id' => '4'],
-            // ['form_id' => '1','field_id' => '5'],
-            ['form_id' => '1','field_id' => '6'],
+            ['form_id' => '1','field_id' => '5'],
 
 
         ];
 
  
 
-        // \DB::table('form_field')->insert($items);
+        \DB::table('form_field')->insert($items);
     }
 }
