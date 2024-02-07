@@ -24,6 +24,6 @@ class FormFieldSeeder extends Seeder
 
  
 
-        \DB::table('form_field')->insert($items);
+        // \DB::table('form_field')->insert($items);
     }
 }

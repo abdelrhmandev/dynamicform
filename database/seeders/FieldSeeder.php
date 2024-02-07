@@ -18,7 +18,7 @@ class FieldSeeder extends Seeder
             'pattern'     => '^[\u0621-\u064A\u0660-\u0669 ]+$',
         ];
 
-        $owner_id_number['validators'] = [
+        $owner_email['validators'] = [
             'type'      => 'StringLength',
             'message'   => 'asdsadsadsads',
             'min'       => 0,
@@ -32,20 +32,14 @@ class FieldSeeder extends Seeder
         //         'max'=> 30           
         // ];
        
-
-        // $owner_id_number = File::get(public_path("fields/owner_id_number.json"));
-
-        // $ownership_evidence =  File::get(public_path("fields/ownership_evidence.json"));
-        // $google_map =  File::get(public_path("fields/google_map.json"));
-        // $building_gallery =  File::get(public_path("fields/building_gallery.json"));
-        // $legal_disputes_over_building =  File::get(public_path("fields/legal_disputes_over_building.json"));
-
+ 
+  
         $items = [
             ['label' => 'أسم المالك', 'name' => 'owner_name', 'type' => 'textbox', 'required' => '1', 'required_msg' => 'برجاء أدخال أسم المالك', 'validation' => json_encode($owner_name)],
 
-            // ['label' => 'البريد الألكتروني للمالك', 'name' => 'owner_email', 'type' => 'email','required'=>'1', 'validation' => json_encode($owner_email)],
+            ['label' => 'البريد الألكتروني للمالك', 'name' => 'owner_email', 'type' => 'email','required'=>'1', 'validation' => json_encode($owner_email)],
 
-            ['label' => 'رقم هويه المالك', 'name' => 'owner_id_number', 'type' => 'textbox','required'=>'1', 'validation' => json_encode($owner_id_number)],
+            // ['label' => 'رقم هويه المالك', 'name' => 'owner_id_number', 'type' => 'textbox','required'=>'1', 'validation' => json_encode($owner_id_number)],
 
             // ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select','required'=>'1', 'validation' => $ownership_evidence],
 
@@ -70,6 +64,6 @@ paragraph
 
 */
 
-        \DB::table('fields')->insert($items);
+        // \DB::table('fields')->insert($items);
     }
 }
