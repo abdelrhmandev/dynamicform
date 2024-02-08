@@ -25,31 +25,66 @@ class FormController extends Controller
         $this->Tbl = 'forms';
     }
 
-    public function store(FormDRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-        $validated['title'] = $request->title;
 
-        $query = Form::create($validated);
-        if ($query) {
-            $field_id = [];
-            $required = [];
-            $note = [];
-            if (!empty($request->field_id)) {
-                foreach ($request->field_id as $field) {
-                    if (!empty($field)) {
-                        $FormField[$field]['is_required'] = !empty($request->is_required[$field]) ? $request->is_required[$field] : '0';
-                        $FormField[$field]['field_id'] = $field;
-                        $FormField[$field]['form_id'] = $query->id;
-                    }
-                }
-                FormField::insert($FormField);
-            }
-            $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
-        } else {
-            $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];
-        }
-        return response()->json($arr);
+        $query = FormField::insert([
+            'form_id'=>'1',
+            'field_id'=>$request->field_id,
+            'order'=>NULL,
+        ]);
+        dd();
+
+        $model = FormField::where('form_id','1')->get();
+        $output = '';
+        $output .= '  
+        <h3>Order Details</h3>  
+        <div class="table-responsive">  
+             <table class="table table-bordered">  
+                  <tr>  
+                       <th width="40%">Item Name</th>  
+                       <th width="20%">Action</th>  
+                  </tr>  
+   ';  
+   foreach($model as $keys => $values)  {  
+        $output .= '  
+             <tr>  
+                  <td>'.$values["field_id"].'.<a href="#" class="remove_field" id="'.$values["field_id"]. '"><span class="text-danger">Remove</span></a></td>  
+             </tr>  
+        ';  
+   }  
+   $output .= '          
+   </table>  
+   ';  
+   return response()->json($output);
+ 
+
+
+
+    
+        // $validated = $request->validated();
+        // $validated['title'] = $request->title;
+
+        // $query = Form::create($validated);
+        // if ($query) {
+        //     $field_id = [];
+        //     $required = [];
+        //     $note = [];
+        //     if (!empty($request->field_id)) {
+        //         foreach ($request->field_id as $field) {
+        //             if (!empty($field)) {
+        //                 $FormField[$field]['is_required'] = !empty($request->is_required[$field]) ? $request->is_required[$field] : '0';
+        //                 $FormField[$field]['field_id'] = $field;
+        //                 $FormField[$field]['form_id'] = $query->id;
+        //             }
+        //         }
+        //         FormField::insert($FormField);
+        //     }
+        //     $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
+        // } else {
+        //     $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];
+        // }
+        
     }
 
     /**
@@ -57,6 +92,15 @@ class FormController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function GetFields($Form_id){
+
+        
+      $model = FormField::where('form_id',$Form_id)->get();
+
+
+    }
+
+     
     public function index(Request $request)
     {
         if ($request->ajax()) {

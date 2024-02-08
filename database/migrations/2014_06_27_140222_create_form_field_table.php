@@ -10,6 +10,7 @@ class CreateFormFieldTable extends Migration
             $table->unique(['form_id','field_id']);  
             $table->foreignId('form_id');
             $table->foreignId('field_id');
+            $table->tinyInteger('order')->nullable();
         });	
     }
     public function down(){

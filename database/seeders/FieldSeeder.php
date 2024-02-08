@@ -58,11 +58,19 @@ class FieldSeeder extends Seeder
         ];
 
         $sale_period['validators'] = [
-            'date_start'=>'1-20-2024', 
-            'date_end'=>'1-30-2024',
+            'date_start'=>'2024-2-12', 
+            'date_end'=>'2024-2-25',
         ];
        
         
+        $building_gallery_images['validators'] = [
+            'accept'=>'.png, .jpg, .jpeg',
+            'data_file'=>'true', 
+            'data_file_extension'=>'jpeg,jpg,png', 
+            'data_file_type'=>'image/jpeg,image/jpg,image/png', 
+            'data_file_message'=>__('validation.mimetypes',['attribute'=>'image','values'=>'*.png, *.jpg and *.jpeg'])
+        ];
+
   
         $items = [
             ['label' => 'أسم المالك', 'name' => 'name', 'type' => 'textbox', 'required' => '1', 'required_msg' => 'برجاء أدخال أسم المالك', 'validation' => json_encode($owner_name)],
@@ -83,9 +91,14 @@ class FieldSeeder extends Seeder
 
             // ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select','required'=>'1', 'validation' => $ownership_evidence],
 
-            // ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'textbox','required'=>'1', 'validation' => $google_map],
+            // ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'googel_map','required'=>'1', 'validation' => $google_map],
 
             ['label' => 'صوره المبني الرئيسيه', 'name' => 'building_main_image', 'type' => 'file','required'=>'1','required_msg'=>'برجاء تحديد صورة المبني الرئيسيه', 'validation' => json_encode($building_main_image)],
+
+            ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery','required'=>'0','required_msg'=>NULL, 'validation' => json_encode($building_gallery_images)],
+
+            ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature','required'=>'1','required_msg'=>'add yr signtttttrree', 'validation' => NULL],
+
 
             // ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => ' legal_disputes_over_building', 'type' => 'radio','required'=>'0', 'validation' => $legal_disputes_over_building],
         ];

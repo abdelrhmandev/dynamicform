@@ -11,7 +11,17 @@
     </ul>
 @stop
 @section('style')
+<link rel="stylesheet" href="http://szimek.github.io/signature_pad/css/signature-pad.css">
+<style>
+    #signature{
+        width: 100%;
+        height: auto;
+        border: 1px solid black;
+    }
+</style>
+
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/custom/file-upload/image-uploader.min.css') }}">
 @stop
 @section('content')
     <div id="kt_content_container" class="container-xxl">
@@ -130,21 +140,64 @@
                             </div>  --}}
                             
                             @elseif (in_array($field->type, ['date_range']))
-                            <div class="fv-row fl">
+          
+                            {{-- <div class="fv-row fl">
                                 <label class="required form-label"
-                                    for="event_date_range">{{ __('event.date_range') }}</label>
+                                    for="{{ $field->name }}">{{ $field->name }}</label>
                                 <div class="position-relative d-flex align-items-center">
                                     <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
-                                    <input placeholder="{{ __('event.date_range') }}" 
-                                        type="text" id="event_date_range"
-                                        name="event_date_range"
-                                        class="form-control form-control-solid ps-12 flatpickr-input active"
+                                    <input placeholder="{{ $field->name }}" 
+                                        data-datestart = "{{ $field->JsonExtractValidationRules('date_start') }}"
+                                        data-dateend = "{{ $field->JsonExtractValidationRules('date_end') }}"
+                                        type="text" id="{{ $field->name }}"
+                                        name="{{ $field->name }}"
+                                        class="dateRange form-control form-control-solid ps-12 flatpickr-input active"
                                         readonly="readonly" required
-                                        data-fv-not-empty___message="{{ __('validation.required', ['attribute' => 'event date range' . '&nbsp;']) }}" />
+                                        data-fv-not-empty___message="dasdsdsadsads" />
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            @endif
+
+
+                            @elseif (in_array($field->type, ['file_gallery']))
+                            {{-- Gallery Images
+                            ---------------------
+                            <div class="card card-flush py-4"> --}}
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <h2>{{ __('site.gallery') }}</h2>
+                                        <small class="p-2">XXXXsYou can only upload 5 files <b>'.jpg', '.jpeg', '.png', '.gif', '.svg' </b> <i>Max File Size 200 KB</i></small>
+                                    </div>
+                                </div>
+                            
+                                <div class="card-body pt-0">
+                                    <div class="input-field">
+                                        <div class="gallery" style="padding-top: .5rem;"></div>
+                                        <div class="uppy uppy-Informer" id="galleryMessageJsResponse"></div>            
+                                    </div>
+                                    
+                                </div>
+                             </div>
+                            
+                             <div id="galleryAjaxJsResponse"></div> 
+                           
+                            
+                            
+                             @elseif (in_array($field->type, ['signature']))
+                       
+                             <p style="color: red;">Draw your signature in the first container and click the button</p>
+        
+                             <!-- Signature area -->
+                             <div id="signature"></div><br/>
+                             
+                             <input type="button" id="click" value="click">
+                             <textarea id="output"></textarea><br/>
+                     
+                             <!-- Preview image -->
+                             <img src="" id="sign_prev" style="display: none;" />
+ 
+
+                             @endif
                             @endforeach
 
                          
@@ -169,18 +222,49 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/file-upload/image-uploader.min.js') }}"></script>
    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jSignature/2.1.3/jSignature.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+
     <script>
+                    $(document).ready(function() {
 
+// Initialize jSignature
+var $sigdiv = $("#signature").jSignature({'UndoButton':true});
 
-            $("#event_date_range").daterangepicker({           
-            minDate:new Date(),
+$('#click').click(function(){
+    // Get response of type image
+    var data = $sigdiv.jSignature('getData', 'image');
+
+    // Storing in textarea
+    $('#output').val(data);
+    
+    // Alter image source
+    $('#sign_prev').attr('src',"data:"+data);
+    $('#sign_prev').show();
+});
+});
+
+            $(".dateRange").daterangepicker({                      
+            minDate: $('.dateRange').data('datestart'),
+            maxDate: $('.dateRange').data('dateend'),
             separator: " - ",
             locale: {
                 format: 'YYYY-MM-DD'
             }
           });
  
+            $('.gallery').imageUploader({
+            label: 'Drag & Drosssssssssssssssp files here or click to browse',
+            imagesInputName: 'gallery',
+            preloadedInputName: 'old',
+            extensions: ['.jpg', '.jpeg', '.png', '.gif', '.svg'],
+            mimes: ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'],
+            maxSize: 1 * 1024 * 1024, // 1 Mega
+            maxFiles: 5
+});
 
 function Validate_SA_Id_Number(input) {    
         var value = input.value;
@@ -189,11 +273,11 @@ function Validate_SA_Id_Number(input) {
         // Validate If Id Number is 10 length at the begining
         if (value.length == 10) {                       
             if (IdNumber > '2999999999' || IdNumber < '1000000000') {
-                var ValidateMessage =  'عذرا رقم الهويه لابد ان يبدأ بالأرقام 1 أو 2 فقط';
-                var validC = false;
+                  ValidateMessage =  'عذرا رقم الهويه لابد ان يبدأ بالأرقام 1 أو 2 فقط';
+                  validC = false;
             }else{
-                var ValidateMessage =  '';
-                var validC = true;
+                  ValidateMessage =  '';
+                  validC = true;
             }
             return {
                     valid: validC,
