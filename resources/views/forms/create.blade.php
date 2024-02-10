@@ -12,21 +12,7 @@
     </ul>
 @stop
 @section('style')
-<style>  
-    .product_drag_area{  
-         width:600px;  
-         height:200px;  
-         border:2px dashed #ccc;  
-         color:#ccc;  
-         line-height:200px;  
-         text-align:center;  
-         font-size:24px;  
-    }  
-    .product_drag_over{  
-         color:#000;  
-         border-color:#000;  
-    }  
-    </style>
+ 
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.css') }}" rel="stylesheet" type="text/css" />
 @stop
@@ -40,22 +26,9 @@
             data-form-agree-label="{{ __('site.agree') }}">
             <div class="d-flex flex-column gap-3 gap-lg-7 w-100 mb-2 me-lg-5">
                 <div class="card card-flush py-0">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h2>{{ __($trans . '.info') }}</h2>
-                        </div>
-                    </div>
+               <div id="kt_docs_jkanban_color"></div>
  
-                    /////////////////////
-                 
-
-
-                    <div id="kt_docs_jkanban_color"></div>
-
-
-
-
-                </div>
+           </div>
                 <x-btns.button />
             </div>
         </form>
@@ -81,59 +54,70 @@
 
 
     <script>
-        
-
-
-        "use strict";
-
-// Class definition
-var KTJKanbanDemoColor = function() {
-    // Private functions
-    var exampleColor = function() {
-        var kanban = new jKanban({
-            element: '#kt_docs_jkanban_color',
-            gutter: '0',
-            widthBoard: '250px',
-            boards: [{
-                    'id': '_inprocess',
-                    'title': 'In Process',
-                    'class': 'primary',
-                    'item': [{
-                            'title': '<span class="field_drag" data-fieldid="1">name</span>',
-                            'class': 'light-primary',
-                        },
-                        {
-                            'title': '<span class="field_drag" data-fieldid="2">emai</span>',
-                            'class': 'light-primary',
-                        }
-                    ]
-                }, {
-                    'id': '_working',
-                    'title': 'Working',
-                    'class': 'success',
-                   
-                } 
-            ]
-        });
-    }
-
-    return {
-        // Public Functions
-        init: function() {
-            exampleColor();
-        }
-    };
-}();
-
+        var KanbanTest = new jKanban({
+          element: "#kt_docs_jkanban_color",
+          gutter: "10px",
+          widthBoard: "450px",
+          itemHandleOptions:{
+            enabled: true,
+          },
+          click: function(el) {
+            console.log("Trigger on all items click!");
+          },
+          context: function(el, e) {
+            console.log("Trigger on all items right-click!");
+          },
+          dropEl: function(el, target, source, sibling){
+            console.log(target.parentElement.getAttribute('data-id'));
+            console.log(el, target, source, sibling)
+          },
  
-
-
-
-
-        // On document ready
-        KTUtil.onDOMContentLoaded(function() {
-            handleFormSubmitFunc('Add{{ $trans }}');
-            KTJKanbanDemoColor.init();
+           
+          boards: [
+            {
+              id: "_fields",
+              title: "Fields",
+              class: "info,good",
+              dragTo: ["_dragTo"],
+              item: [
+                {
+                  id: "1",
+                  title: "Name",
+ 
+                  drop: function(el) {
+                    console.log("DROPPED: " + el.dataset.eid);
+                  }
+                },
+                {
+                  id: "2",
+                  title: "Email",
+                  drop: function(el) {
+                    console.log("DROPPED: " + el.dataset.eid);
+                  }
+ 
+                }
+              ]
+            },
+            {
+              id: "_dragTo",
+              title: "Gragged Fields",
+              class: "warning",
+              item: [
+ 
+              ]
+            },
+ 
+          ]
         });
-    </script>
+  
+ 
+ 
+ 
+   
+  
+        var allEle = KanbanTest.getBoardElements("_fields");
+        allEle.forEach(function(item, index) {
+          //console.log(item);
+        });
+      </script>
 @stop

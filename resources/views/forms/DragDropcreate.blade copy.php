@@ -13,19 +13,19 @@
 @stop
 @section('style')
 <style>  
-    .field_drag_area{  
-         width:600px;  
-         height:200px;  
-         border:2px dashed #ccc;  
-         color:#ccc;  
-         line-height:200px;  
-         text-align:center;  
-         font-size:24px;  
-    }  
-    .field_drag_over{  
-         color:#000;  
-         border-color:#000;  
-    }  
+        .field_drag_area{  
+            width:600px;  
+            height:200px;  
+            border:2px dashed #ccc;  
+            color:#ccc;  
+            line-height:200px;  
+            text-align:center;  
+            font-size:24px;  
+        }  
+        .field_drag_over{  
+            color:#000;  
+            border-color:#000;  
+        }  
     </style>  
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     {{-- <link href="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}

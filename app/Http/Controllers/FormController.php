@@ -28,6 +28,8 @@ class FormController extends Controller
     public function store(Request $request)
     {
 
+        
+        dd($request);
         $query = FormField::insert([
             'form_id'=>'1',
             'field_id'=>$request->field_id,
