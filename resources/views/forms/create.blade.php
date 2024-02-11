@@ -55,69 +55,104 @@
 
     <script>
         var KanbanTest = new jKanban({
-          element: "#kt_docs_jkanban_color",
-          gutter: "10px",
-          widthBoard: "450px",
-          itemHandleOptions:{
-            enabled: true,
+        element: "#kt_docs_jkanban_color",
+        gutter: "10px",
+        widthBoard: "450px",
+        itemHandleOptions:{
+          enabled: true,
+        },
+ 
+        dropEl: function(el, target, source, sibling){
+
+          // var Fieldid  = console.log(el.dataset.eid);
+          // var case = console.log(target.parentElement.getAttribute('data-id'));
+         
+          
+
+          
+        },
+         
+        itemAddOptions: {
+          enabled: true,
+          content: '+ Add New Card',
+          class: 'custom-button',
+          footer: true
+        },
+        boards: [
+          {
+            id: "_todo",
+            title: "To Do (Can drop item only in working)",
+            class: "info,good",
+            dragTo: ["_working"],
+            item: [
+              {
+                id: "1",
+                title: "Name",           
+              }, 
+              {
+                id: "2",
+                title: "Email",           
+              }, 
+            ]
           },
-          click: function(el) {
-            console.log("Trigger on all items click!");
-          },
-          context: function(el, e) {
-            console.log("Trigger on all items right-click!");
-          },
-          dropEl: function(el, target, source, sibling){
-            console.log(target.parentElement.getAttribute('data-id'));
-            console.log(el, target, source, sibling)
+          {
+            id: "_working",
+            title: "Working (Try drag me too)",
+            class: "warning",
+ 
           },
  
-           
-          boards: [
-            {
-              id: "_fields",
-              title: "Fields",
-              class: "info,good",
-              dragTo: ["_dragTo"],
-              item: [
-                {
-                  id: "1",
-                  title: "Name",
- 
-                  drop: function(el) {
-                    console.log("DROPPED: " + el.dataset.eid);
-                  }
-                },
-                {
-                  id: "2",
-                  title: "Email",
-                  drop: function(el) {
-                    console.log("DROPPED: " + el.dataset.eid);
-                  }
- 
-                }
-              ]
-            },
-            {
-              id: "_dragTo",
-              title: "Gragged Fields",
-              class: "warning",
-              item: [
- 
-              ]
-            },
- 
-          ]
+        ]
+      });
+
+      var toDoButton = document.getElementById("addToDo");
+      toDoButton.addEventListener("click", function() {
+        KanbanTest.addElement("_todo", {
+          title: "Test Add"
         });
-  
- 
- 
- 
-   
-  
-        var allEle = KanbanTest.getBoardElements("_fields");
-        allEle.forEach(function(item, index) {
-          //console.log(item);
-        });
+      });
+
+      var toDoButtonAtPosition = document.getElementById("addToDoAtPosition");
+      toDoButtonAtPosition.addEventListener("click", function() {
+        KanbanTest.addElement("_todo", {
+          title: "Test Add at Pos"
+        }, 1);
+      });
+
+      var addBoardDefault = document.getElementById("addDefault");
+      addBoardDefault.addEventListener("click", function() {
+        KanbanTest.addBoards([
+          {
+            id: "_default",
+            title: "Kanban Default",
+            item: [
+              {
+                title: "Default Item"
+              },
+              {
+                title: "Default Item 2"
+              },
+              {
+                title: "Default Item 3"
+              }
+            ]
+          }
+        ]);
+      });
+
+      var removeBoard = document.getElementById("removeBoard");
+      removeBoard.addEventListener("click", function() {
+        KanbanTest.removeBoard("_done");
+      });
+
+      var removeElement = document.getElementById("removeElement");
+      removeElement.addEventListener("click", function() {
+        KanbanTest.removeElement("_test_delete");
+      });
+
+      var allEle = KanbanTest.getBoardElements("_todo");
+      allEle.forEach(function(item, index) {
+        //console.log(item);
+      });
       </script>
 @stop

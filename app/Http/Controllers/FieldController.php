@@ -168,8 +168,17 @@ class FieldController extends Controller
     }
 
     
+    public function loadFieldInfo(Request $request){
+        
+        if($request->type){
+            $contents = \View::make('components.fields.'.$request->type);      
+            return $contents;
+        }
+    }
+
  
 
+    
     public function update(FieldRequest $request, Field $field)
     {
 
