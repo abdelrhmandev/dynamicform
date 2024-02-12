@@ -1,4 +1,3 @@
-"use strict";
 var KTCreateField = (function () {
     var e,
         t,
@@ -35,7 +34,7 @@ var KTCreateField = (function () {
                                       "Valid" == t
                                           ? (e.goNext(), KTUtil.scrollTop())
                                           : Swal.fire({
-                                                text: "Sorry, looks like there are some errors detected, please try again.",
+                                                text: "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                                 icon: "error",
                                                 buttonsStyling: !1,
                                                 confirmButtonText: "Ok, got it!",
@@ -58,9 +57,8 @@ var KTCreateField = (function () {
                     s.push(
                         FormValidation.formValidation(i, {
                             fields: {
-                                field_team_size: { validators: { notEmpty: { message: "Time size is required" } } },
-                                field_name: { validators: { notEmpty: { message: "Account name is required" } } },
-                                field_plan: { validators: { notEmpty: { message: "Account plan is required" } } },
+                                 label: { validators: { notEmpty: { message: "برجاء تحديد الأسم الذي سيظر به الحقل" } } },
+                                 name: { validators: { notEmpty: { message: "برجاء تحديد أسم الحقل" } } },
                             },
                             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                         })
@@ -109,18 +107,29 @@ var KTCreateField = (function () {
                                       });
                         });
                     }),
-                    $(i.querySelector('[name="card_expiry_month"]')).on("change", function () {
-                        s[3].revalidateField("card_expiry_month");
-                    }),
-                    $(i.querySelector('[name="card_expiry_year"]')).on("change", function () {
-                        s[3].revalidateField("card_expiry_year");
-                    }),
+ 
+           
                     $(i.querySelector('[name="business_type"]')).on("change", function () {
                         s[2].revalidateField("business_type");
                     }));
         },
     };
 })();
+/////////////////////////////////////////////////////////////////////////////////////////
+var KTSubscriptionsAdvanced = (function () {
+    var tx,
+        ex;
+ 
+    return {
+        init: function () {
+            alert('dasdas');
+        },
+    };
+})();
+/////////////////////////////////////////////////////////////////////////////////////////  
+
+
 KTUtil.onDOMContentLoaded(function () {
     KTCreateField.init();
+    KTSubscriptionsAdvanced.init();
 });

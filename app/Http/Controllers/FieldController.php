@@ -170,10 +170,17 @@ class FieldController extends Controller
     
     public function loadFieldInfo(Request $request){
         
+
+        
         if($request->type){
-            $contents = \View::make('components.fields.'.$request->type);      
-            return $contents;
+            $contents  = '';
+            $os = array("textbox","textarea", "date_range","checkbox","radio", "date", "signature","file","gallery");
+            if (in_array($request->type, $os)) {
+                $contents = \View::make('components.fields.'.$request->type);                      
+            }
         }
+
+        return $contents;
     }
 
  

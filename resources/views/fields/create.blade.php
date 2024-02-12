@@ -30,7 +30,7 @@
                     <!--begin::Nav-->
                     <div class="stepper-nav">
                         <!--begin::Step 1-->
-                        <div class="stepper-item current" data-kt-stepper-element="nav">
+                        <div class="stepper-item " data-kt-stepper-element="nav">
                             <!--begin::Wrapper-->
                             <div class="stepper-wrapper">
                                 <!--begin::Icon-->
@@ -53,7 +53,7 @@
                         </div>
                         <!--end::Step 1-->
                         <!--begin::Step 2-->
-                        <div class="stepper-item" data-kt-stepper-element="nav">
+                        <div class="stepper-item current" data-kt-stepper-element="nav">
                             <!--begin::Wrapper-->
                             <div class="stepper-wrapper">
                                 <!--begin::Icon-->
@@ -152,29 +152,31 @@
                 <!--begin::Form-->
                 <form class="card-body py-20 w-100 mw-xl-700px px-9" novalidate="novalidate" id="kt_create_field_form">
                     <!--begin::Step 1-->
-                    <div class="current" data-kt-stepper-element="content">
+                    <div  data-kt-stepper-element="content">
                         <!--begin::Wrapper-->
                         <div class="w-100">
                             <!--begin::Heading-->
-                            <div class="pb-10 pb-lg-15">
+                            <div class="pb-2 pb-lg-5">
                                 <!--begin::Title-->
-                                <h2 class="fw-bold d-flex align-items-center text-dark">حدد نوع الحقل
-                                </h2>
-                                <!--end::Title-->
-                                <!--begin::Notice-->
-                                <div class="text-muted fw-semibold fs-6">أختر من مجموعه الحقول المتاحه</div>
+                                <h3 class="d-flex text-gray-900 fs-1hx fw-bold letter-spacing">
+                                    <span class="ms-3 d-inline-flex position-relative">
+                                        <span class="px-1 fw-bold text-success">حدد نوع الحقل </span>
+                                        <img class="w-100 position-absolute bottom-0 mb-n2"
+                                            src= "{{ asset('assets/media/misc/hero-home-title-underline.svg') }}"
+                                            alt=""> </span>
+                                </h3>
                                 <!--end::Notice-->
                             </div>
                             <!--end::Heading-->
                             <!--begin::Input group-->
                             <div class="fv-row">
                                 <!--begin::Row-->
-                               
-                                    <!--begin::Col-->
-                                    <x-fields.select />
-                                     
-                                    <!--end::Col-->
-                                
+
+                                <!--begin::Col-->
+                                <x-fields.select />
+
+                                <!--end::Col-->
+
                                 <!--end::Row-->
                             </div>
                             <!--end::Input group-->
@@ -183,23 +185,84 @@
                     </div>
                     <!--end::Step 1-->
                     <!--begin::Step 2-->
-                    <div data-kt-stepper-element="content">
-                        <!--begin::Wrapper-->
+                    <div class="current" data-kt-stepper-element="content">
                         <div class="w-100">
-                            <!--begin::Heading-->
-                            <div class="pb-10 pb-lg-15">
-                                <!--begin::Title-->
-                                <h2 class="fw-bold text-dark">خصائص الحقل</h2>
-                                <!--end::Title-->
-                                <!--begin::Notice-->
-                                <div class="text-muted fw-semibold fs-6">حدد خصائص الحقل من حيث من حيث الألزاميه
-                                </div>
-                                <!--end::Notice-->
-                            </div>
-                            <!--end::Heading-->
-                            <!--begin::Input group-->
-                            <div class="mb-10 fv-row" id="ResponseFieldInfo"></div>
+                            <div class="pb-2 pb-lg-5">
 
+                                <h3 class="d-flex text-gray-900 fs-1hx fw-bold letter-spacing">
+                                    <span class="ms-3 d-inline-flex position-relative">
+                                        <span class="px-1 fw-bold text-success"> حدد خصائص الحقل </span>
+                                        <img class="w-100 position-absolute bottom-0 mb-n2"
+                                            src= "{{ asset('assets/media/misc/hero-home-title-underline.svg') }}"
+                                            alt=""> </span>
+                                </h3>
+
+
+                            </div>
+
+                            <div class="d-flex flex-column mb-7 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">الأسم الذي سيظر به الحقل</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                        title="الأسم الذي سيظر به الحقل عند عرض الأستمارة"></i>
+                                </label>
+                                <!--end::Label-->
+
+                                <input placeholder="مثال الأسم , رقم الهويه .... " type="text" id="label"
+                                    name="label" pattern="[a-zA-Z]"
+                                    class="form-control form-control-lg form-control-solid" />
+
+                            </div>
+
+                            <div class="d-flex flex-column mb-7 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">الأسم البرمجي للحقل</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                        title="الأسم البرمجي للحقل و لا يظهر عند الأستمارة"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input placeholder="مثال name,id_number .... " type="text" id="name"
+                                    name="name" pattern="[a-zA-Z]"
+                                    class="form-control form-control-lg form-control-solid" />
+                                <small class="fs-7 fw-semibold text-danger">يكتب باللغه الأنجليزيه
+                                    فقط</small>
+                            </div>
+
+
+                            <div class="d-flex flex-column mb-7 fv-row">
+                                <!--begin::Label-->
+                                <div class="me-5">
+                                    <label class="fs-6 fw-semibold form-label">هل الحقل مطلوب ؟</label>
+                                    <div class="fs-7 fw-semibold text-muted">يجب ملأ الحقل عند حفظ البيانات</div>
+                                </div>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1" name="is_required"
+                                        checked="checked" />
+                                    <span class="form-check-label fw-semibold text-muted">نعم</span>
+                                </label>
+                                <!--end::Switch-->
+                            </div>
+
+                            <div class="d-flex flex-column mb-7 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>العرض</span>
+                                </label>
+                                <select name="width" class="form-select form-select-solid" data-control="select2"
+                                    data-hide-search="true">
+                                    <option value="33">33%</option>
+                                    <option value="50">50%</option>
+                                    <option value="66">66%</option>
+                                    <option value="100">100%</option>
+                                </select>
+                            </div>
+
+
+                            <div id="ResponseFieldInfo"></div>
                         </div>
                         <!--end::Wrapper-->
                     </div>
@@ -262,11 +325,7 @@
                                     data-hide-search="true">
                                     <option></option>
                                     <option value="1">S Corporation</option>
-                                    <option value="1">C Corporation</option>
-                                    <option value="2">Sole Proprietorship</option>
-                                    <option value="3">Non-profit</option>
-                                    <option value="4">Limited Liability</option>
-                                    <option value="5">General Partnership</option>
+
                                 </select>
                                 <!--end::Input-->
                             </div>
@@ -364,17 +423,7 @@
                                                 data-control="select2" data-hide-search="true" data-placeholder="Month">
                                                 <option></option>
                                                 <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
+
                                             </select>
                                         </div>
                                         <!--end::Col-->
@@ -384,16 +433,7 @@
                                                 data-control="select2" data-hide-search="true" data-placeholder="Year">
                                                 <option></option>
                                                 <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2025">2025</option>
-                                                <option value="2026">2026</option>
-                                                <option value="2027">2027</option>
-                                                <option value="2028">2028</option>
-                                                <option value="2029">2029</option>
-                                                <option value="2030">2030</option>
-                                                <option value="2031">2031</option>
-                                                <option value="2032">2032</option>
+
                                             </select>
                                         </div>
                                         <!--end::Col-->
@@ -565,9 +605,13 @@
                             <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">التالي
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                 <span class="svg-icon svg-icon-4 me-1">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1"
+                                            fill="currentColor"></rect>
+                                        <path
+                                            d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z"
+                                            fill="currentColor"></path>
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon--></button>
@@ -576,6 +620,9 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+
+             
+                
                 <!--end::Form-->
             </div>
             <!--end::Content-->
@@ -586,18 +633,30 @@
 
 @stop
 @section('scripts')
-    <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
 
+
+<script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
+
+
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/utilities/modals/fields/create-field.js') }}"></script>
+    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
+
+
+
+
+    
+
+
+ 
+   
 
 
     <script>
- 
-
+         
 
 
         function LoadFieldInfo(type) {
@@ -613,5 +672,6 @@
                 }
             });
         }
+        LoadFieldInfo('checkbox');
     </script>
 @stop
