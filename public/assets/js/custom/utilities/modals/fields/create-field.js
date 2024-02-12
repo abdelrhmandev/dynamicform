@@ -118,13 +118,24 @@ var KTCreateField = (function () {
 /////////////////////////////////////////////////////////////////////////////////////////
 var KTSubscriptionsAdvanced = (function () {
     var tx,
-        ex;
+        e,
+        n = function () {
+            tx.querySelectorAll("tbody tr").forEach((tx, e) => {
+          
+            });
+        };
  
-    return {
-        init: function () {
-            alert('dasdas');
-        },
-    };
+        return {
+            init: function () {
+                (tx = document.getElementById("kt_create_new_custom_fields")),
+                    (function () {
+                     
+                     
+                    })(),
+                    n();
+                    
+            },
+        };
 })();
 /////////////////////////////////////////////////////////////////////////////////////////  
 
