@@ -14,9 +14,9 @@ var KTCreateField = (function () {
                     (o = t.querySelector('[data-kt-stepper-action="submit"]')),
                     (a = t.querySelector('[data-kt-stepper-action="next"]')),
                     (r = new KTStepper(t)).on("kt.stepper.changed", function (e) {
-                        4 === r.getCurrentStepIndex()
+                        2 === r.getCurrentStepIndex()
                             ? (o.classList.remove("d-none"), o.classList.add("d-inline-block"), a.classList.add("d-none"))
-                            : 5 === r.getCurrentStepIndex()
+                            : 3 === r.getCurrentStepIndex()
                             ? (o.classList.add("d-none"), a.classList.add("d-none"))
                             : (o.classList.remove("d-inline-block"), o.classList.remove("d-none"), a.classList.remove("d-none"));
                     }),
@@ -50,7 +50,7 @@ var KTCreateField = (function () {
                     }),
                     s.push(
                         FormValidation.formValidation(i, {
-                            fields: { field_type: { validators: { notEmpty: { message: "Account type is required" } } } },
+                            fields: { field_type: { validators: { notEmpty: { message: "برجاء تحديد نوع الحقل" } } } },
                             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                         })
                     ),
@@ -63,31 +63,10 @@ var KTCreateField = (function () {
                             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                         })
                     ),
-                    s.push(
-                        FormValidation.formValidation(i, {
-                            fields: {
-                                business_name: { validators: { notEmpty: { message: "Busines name is required" } } },
-                                business_descriptor: { validators: { notEmpty: { message: "Busines descriptor is required" } } },
-                                business_type: { validators: { notEmpty: { message: "Busines type is required" } } },
-                                business_email: { validators: { notEmpty: { message: "Busines email is required" }, emailAddress: { message: "The value is not a valid email address" } } },
-                            },
-                            plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                        })
-                    ),
-                    s.push(
-                        FormValidation.formValidation(i, {
-                            fields: {
-                                card_name: { validators: { notEmpty: { message: "Name on card is required" } } },
-                                card_number: { validators: { notEmpty: { message: "Card member is required" }, creditCard: { message: "Card number is not valid" } } },
-                                card_expiry_month: { validators: { notEmpty: { message: "Month is required" } } },
-                                card_expiry_year: { validators: { notEmpty: { message: "Year is required" } } },
-                                card_cvv: { validators: { notEmpty: { message: "CVV is required" }, digits: { message: "CVV must contain only digits" }, stringLength: { min: 3, max: 4, message: "CVV must contain 3 to 4 digits only" } } },
-                            },
-                            plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                        })
-                    ),
+                  
+ 
                     o.addEventListener("click", function (e) {
-                        s[3].validate().then(function (t) {
+                        s[1].validate().then(function (t) {
                             console.log("validated!"),
                                 "Valid" == t
                                     ? (e.preventDefault(),
@@ -97,8 +76,8 @@ var KTCreateField = (function () {
                                           o.removeAttribute("data-kt-indicator"), (o.disabled = !1), r.goNext();
                                       }, 2e3))
                                     : Swal.fire({
-                                          text: "Sorry, looks like there are some errors detected, please try again.",
-                                          icon: "error",
+                                        text: "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
+                                        icon: "error",
                                           buttonsStyling: !1,
                                           confirmButtonText: "Ok, got it!",
                                           customClass: { confirmButton: "btn btn-light" },
@@ -106,41 +85,15 @@ var KTCreateField = (function () {
                                           KTUtil.scrollTop();
                                       });
                         });
-                    }),
- 
-           
-                    $(i.querySelector('[name="business_type"]')).on("change", function () {
-                        s[2].revalidateField("business_type");
-                    }));
+                    })
+                    );
         },
     };
 })();
 /////////////////////////////////////////////////////////////////////////////////////////
-var KTSubscriptionsAdvanced = (function () {
-    var tx,
-        e,
-        n = function () {
-            tx.querySelectorAll("tbody tr").forEach((tx, e) => {
-          
-            });
-        };
- 
-        return {
-            init: function () {
-                (tx = document.getElementById("kt_create_new_custom_fields")),
-                    (function () {
-                     
-                     
-                    })(),
-                    n();
-                    
-            },
-        };
-})();
 /////////////////////////////////////////////////////////////////////////////////////////  
 
 
 KTUtil.onDOMContentLoaded(function () {
     KTCreateField.init();
-    KTSubscriptionsAdvanced.init();
 });

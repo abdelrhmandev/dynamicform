@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" id="textbox" value="textbox" checked="checked">
+            <input type="radio" class="btn-check" name="field_type" id="textbox" value="textbox">
             <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
                 for="textbox">
                 <span class="svg-icon svg-icon-4x me-4">
@@ -135,7 +135,7 @@
                     </svg>
                 </span>
                 <span class="d-block fw-semibold text-start">
-                    <span class="text-dark fw-bold d-block fs-3">"Gallery"</span>
+                    <span class="text-dark fw-bold d-block fs-3">"Gallery"</span>Multi Images
 
                 </span>
             </label>
@@ -236,10 +236,10 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="select" id="select" />
+            <input type="radio" class="btn-check select" name="field_type" value="selectmenu" id="selectmenu" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
-                for="select">
+                for="selectmenu">
                 <span class="svg-icon svg-icon-4x me-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -282,4 +282,66 @@
             </label>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="pb-1">
+            <input type="radio" class="btn-check select" name="field_type" value="google_map" id="google_map" />
+            <label
+                class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
+                for="google_map">
+                <span class="svg-icon svg-icon-4x me-4">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z" fill="currentColor"/>
+                        <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="currentColor"/>
+                        </svg>
+                </span>
+                <span class="d-block fw-semibold text-start">
+                    <span class="text-dark fw-bold d-block fs-3">"Google Mmap"</span>
+
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="pb-1">
+            <input type="radio" class="btn-check select" name="field_type" value="id_number" id="id_number" />
+            <label
+                class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
+                for="id_number">
+                <span class="svg-icon svg-icon-4x me-4">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z" fill="currentColor"/>
+                        <path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z" fill="currentColor"/>
+                        </svg>
+                </span>
+                <span class="d-block fw-semibold text-start">
+                    <span class="text-dark fw-bold d-block fs-3">"Id Number"</span>Saudi Arabia Id Format
+                </span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="pb-1">
+            <input type="radio" class="btn-check select" name="field_type" value="phone_number" id="phone_number" />
+            <label
+                class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
+                for="phone_number">
+                <span class="svg-icon svg-icon-4x me-4">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 21C6 21.6 6.4 22 7 22H17C17.6 22 18 21.6 18 21V20H6V21Z" fill="currentColor"/>
+                        <path opacity="0.3" d="M17 2H7C6.4 2 6 2.4 6 3V20H18V3C18 2.4 17.6 2 17 2Z" fill="currentColor"/>
+                        <path d="M12 4C11.4 4 11 3.6 11 3V2H13V3C13 3.6 12.6 4 12 4Z" fill="currentColor"/>
+                        </svg>
+                </span>
+                <span class="d-block fw-semibold text-start">
+                    <span class="text-dark fw-bold d-block fs-3">"Phone Number"</span>Saudi Arabia Id Format
+                </span>
+            </label>
+        </div>
+    </div>
+    
 </div>
