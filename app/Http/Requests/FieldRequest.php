@@ -13,16 +13,16 @@ class FieldRequest extends FormRequest
     {
 
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
-        $rules['display']       = 'required|unique:fields,display'.$id;
+        $rules['label']       = 'required|unique:fields,label'.$id;
         $rules['name']          = 'required|unique:fields,name'.$id;
-        $rules['type']          = 'required';        
+        $rules['field_type']          = 'required';        
         return $rules; 
     } 
 
     public function messages(): array
 {
     return [
-        'type.required' => 'فضلا حدد نوع الحقل',
+        'field_type.required' => 'فضلا حدد نوع الحقل',
     ];
 }
 

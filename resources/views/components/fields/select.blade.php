@@ -338,7 +338,7 @@
                         </svg>
                 </span>
                 <span class="d-block fw-semibold text-start">
-                    <span class="text-dark fw-bold d-block fs-3">"Phone Number"</span>Saudi Arabia Id Format
+                    <span class="text-dark fw-bold d-block fs-3">"Phone Number"</span>Saudi Arabia Phone Number Format
                 </span>
             </label>
         </div>
