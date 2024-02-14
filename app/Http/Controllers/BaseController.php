@@ -16,10 +16,7 @@ use DataTables;
 class BaseController extends Controller
 {
     use Functions;
-
  
- 
-
         public function UpdateStatus(Request $request){                
         return $this->dataTableUpdateStatus($request);
     }

@@ -1,7 +1,18 @@
 <?php
 namespace App\Http\Controllers;
-
+use DataTables;
+use Carbon\Carbon;
+use App\Models\Form;
+use App\Models\Region;
+use App\Models\Field;
+use App\Models\FormField;
+use App\Traits\Functions;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\FormDRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\FormDUpdateRequest;
 
 class FieldController extends Controller
 {
@@ -14,26 +25,20 @@ class FieldController extends Controller
  
     public function index()
     {
-        dd('index hello');
+        return view('fields.index');
         //
     }
  
     public function create()
     {
-        if (view()->exists('fields.create')) {
-            $compact = [
-                'trans'         => $this->TRANS,
-                'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
-            ];
-            return view('fields.create', $compact);
-        }
+    
+       
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request)
     {
         dd('asdas');
         //

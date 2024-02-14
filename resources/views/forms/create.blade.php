@@ -17,6 +17,13 @@
     <link href="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.css') }}" rel="stylesheet" type="text/css" />
 @stop
 @section('content')
+<form action="{{ route('forms.store') }}" method="post">
+  @csrf 
+  <input type="text">
+  <input type="submit">
+</form>
+
+
     <div id="kt_content_container" class="container-xxl">
 
 

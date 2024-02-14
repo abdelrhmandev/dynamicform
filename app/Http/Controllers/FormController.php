@@ -105,6 +105,7 @@ class FormController extends Controller
      
     public function index(Request $request)
     {
+       
         if ($request->ajax()) {
             $model = Form::with('fields', 'region')->withCount('fields');
 
