@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\FieldController;
 use Illuminate\Support\Facades\Route;
 
 /*

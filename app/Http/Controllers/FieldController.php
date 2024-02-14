@@ -3,9 +3,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 
-class FieldControler extends Controller
+class FieldController extends Controller
 {
 
     public function __construct()
@@ -21,6 +22,7 @@ class FieldControler extends Controller
      */
     public function index()
     {
+        dd('index hello');
         //
     }
 
@@ -42,19 +44,16 @@ class FieldControler extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
+        dd('asdas');
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      */
