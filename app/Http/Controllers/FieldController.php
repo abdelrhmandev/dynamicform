@@ -25,14 +25,15 @@ class FieldController extends Controller
  
     public function index()
     {
-        return view('fields.index');
+        dd('das');
+        // return view('fields.index');
         //
     }
  
     public function create()
     {
     
-       
+        return view('fields.create');
     }
 
     /**
