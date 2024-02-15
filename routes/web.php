@@ -31,7 +31,7 @@ Route::delete('forms/destroy/all', 'FormController@destroyMultiple')->name('form
 
 
 
-// Route::post('/fields/loadFieldInfo', 'FieldController@loadFieldInfo')->name('loadFieldInfo');
+Route::post('/fields/loadFieldInfo', 'FieldController@loadFieldInfo')->name('loadFieldInfo');
 
 
 

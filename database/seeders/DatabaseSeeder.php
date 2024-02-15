@@ -16,22 +16,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // THIS RECORD AS A NON RANDOM RECORD !!!
-        // \App\Models\User::create([     
-        //     'name'               =>'عبدالرحمن مجدي المنشد',
-        //     'email'              =>'abdelrahman@domain.com',
-        //     'email_verified_at'  => now(),
-        //     'password'           =>\Hash::make('12345678'),
-        //     'remember_token'     => \Str::random(10),
-        // ]);
+        \App\Models\User::create([     
+            'name'               =>'عبدالرحمن مجدي المنشد',
+            'email'              =>'abdelrahman@domain.com',
+            'email_verified_at'  => now(),
+            'password'           =>\Hash::make('12345678'),
+            'remember_token'     => \Str::random(10),
+        ]);
      
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
         
 
         $this->call([
-            // CountrySeeder::class,
-            // RegionCityDistrictSeeder::class,            
-            // FieldSeeder::class,
-            // TypeSeeder::class,
+            CountrySeeder::class,
+            RegionCityDistrictSeeder::class,            
+            FieldSeeder::class,
+
             // EventSeeder::class,
             // GameSeeder::class,
             // QuestionSeeder::class,
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             // BuildingTypeSeeder::class,
             // BuildingTypeFormSeeder::class,
  
-            // FormFieldSeeder::class,
+            FormFieldSeeder::class,
 
         ]); 
 

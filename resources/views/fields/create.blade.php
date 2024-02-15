@@ -14,15 +14,10 @@
 @section('style')
 
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
- @stop
+@stop
 @section('content')
 
-<form action="{{ route('fields.store') }}" method="post">
-    @csrf 
-    <input type="text">
-    <input type="submit">
-</form>
-{{  dd() }}
+
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Stepper-->
         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10"
@@ -81,10 +76,10 @@
                         </div>
                         <!--end::Step 2-->
                         <!--begin::Step 3-->
-                       
+
                         <!--end::Step 3-->
                         <!--begin::Step 4-->
-                     
+
                         <!--end::Step 4-->
                         <!--begin::Step 5-->
                         <div class="stepper-item mark-completed" data-kt-stepper-element="nav">
@@ -117,20 +112,20 @@
                 <!--begin::Form-->
 
 
-                
+
                 <form class="card-body py-20 w-100 mw-xl-700px px-9" novalidate="novalidate" id="kt_create_field_form">
-                 
+
                     <!--begin::Step 1-->
                     <div class="current" data-kt-stepper-element="content">
                         <!--begin::Wrapper-->
                         <div class="w-100">
                             <!--begin::Heading-->
-                           
-                          
+
+
                             <h3 class="card-title align-items-start flex-column">
                                 <span class="card-label fw-bold text-gray-900">نوع الحقل</span>
-                             </h3>
-                            
+                            </h3>
+
                             <!--end::Heading-->
                             <!--begin::Input group-->
                             <div class="fv-row">
@@ -152,11 +147,11 @@
                     <div data-kt-stepper-element="content">
                         <div class="w-100">
 
-                            
+
                             <h3 class="card-title align-items-start flex-column">
                                 <span class="card-label fw-bold text-gray-900">خصائص الحقل</span>
-                             </h3>
-                            
+                            </h3>
+
 
                             <div class="d-flex flex-column mb-7 fv-row">
                                 <!--begin::Label-->
@@ -181,10 +176,9 @@
                                         title="الأسم البرمجي للحقل و لا يظهر عند الأستمارة"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input placeholder="مثال name,id_number .... " type="text" id="name"
-                                    name="name" pattern="[a-zA-Z]"
-                                    class="form-control form-control-lg form-control-solid" />
-                                <small class="fs-7 fw-semibold text-danger">يكتب باللغه الأنجليزيه
+                                <input placeholder="مثال name,id_number .... " type="text" id="name" name="name"
+                                    pattern="[a-zA-Z]" class="form-control form-control-lg form-control-solid" />
+                                <small class="fs-7 fw-semibold text-success">يكتب باللغه الأنجليزيه
                                     فقط</small>
                             </div>
 
@@ -229,17 +223,17 @@
                         </div>
                         <!--end::Wrapper-->
                     </div>
- 
+
                     <div data-kt-stepper-element="content">
                         <!--begin::Wrapper-->
                         <div class="w-100">
                             <!--begin::Heading-->
-                             
+
                             <!--end::Heading-->
                             <!--begin::Body-->
                             <div class="mb-0">
                                 <!--begin::Text-->
-                                 
+
                                 <!--end::Text-->
                                 <!--begin::Alert-->
                                 <!--begin::Notice-->
@@ -255,10 +249,7 @@
                                     <!--begin::Wrapper-->
                                     <div class="d-flex flex-stack flex-grow-1">
                                         <!--begin::Content-->
-                                        <div class="fw-semibold">
-                                            <h4 class="text-gray-900 fw-bold">تمت الأنتهاء من اضافه الحقل</h4>
-                                            
-                                        </div>
+                                        <div id="responseCreateFieldmsg"></div>
                                         <!--end::Content-->
                                     </div>
                                     <!--end::Wrapper-->
@@ -297,9 +288,13 @@
                                 <span class="indicator-label">حفظ البيانات
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                     <span class="svg-icon svg-icon-3 ms-2 me-0">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-                                            <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="6" y="11" width="13" height="2"
+                                                rx="1" fill="currentColor"></rect>
+                                            <path
+                                                d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z"
+                                                fill="currentColor"></path>
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon--></span>
@@ -339,12 +334,10 @@
 @section('scripts')
 
     <script src="{{ asset('assets/js/custom/utilities/modals/fields/create-field.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-
+    <script src="{{ asset('assets/backend/js/custom/Tachyons.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/custom/es6-shim.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/widgets.bundle.js') }}"></script>
     <script>
         function LoadFieldInfo(type) {
             $.ajax({
@@ -360,34 +353,68 @@
             });
         }
 
- 
         function SaveFieldInfo() {
-
-         
             let form = $('#kt_create_field_form')[0];
             let data = new FormData(form);
-
-
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
                         "content"
                     ),
                 },
-            });            
+            });
             $.ajax({
                 url: "{{ route('fields.store') }}",
                 type: "POST",
-                data: {
-                   
-                    '_token': '{{ csrf_token() }}'
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(response, textStatus, xhr) {
+                    if (response["status"] == true) {
+                        Swal.fire({
+                            text: response["msg"],
+                            icon: 'success',
+                            buttonsStyling: false,
+                            confirmButtonText: 'تراجع',
+                            customClass: {
+                                confirmButton: "btn btn-light-success",
+                            }
+                        }).then(function(result) {
+                            window.location = window.location.href;
+                        });
+                    } else if (response["status"] == 'RequestValidation') {
+                        let msgError = "";
+                        $.each(response["msg"], function(key, value) {
+                            msgError += "<p>" + value + "</p>";
+                            parentId = $("#" + key).parents('.tab-pane').attr("id");
+                            icon = $('a[href="#' + parentId + '"][data-bs-toggle="tab"]').parent().find(
+                                'i');
+                            icon.removeClass('fa-check').addClass('fa-times');
+                            icon.attr('style', 'padding:5px; color:#f1416c !important');
+                        });
+                        Swal.fire({
+                            html: msgError, // respose from controller
+                            icon: "warning",
+                            buttonsStyling: false,
+                            confirmButtonText: 'تراجع',
+                            customClass: {
+                                confirmButton: "btn btn-light-warning"
+                            }
+                        })
+                    } else if (response["status"] == false) {
+                        Swal.fire({
+                            html: response["msg"], // respose from controller
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: 'تراجع',
+                            customClass: {
+                                confirmButton: "btn btn-light-danger"
+                            }
+                        })
+                    }
                 },
-                dataType:"JSON",
-                processData : false,
-                contentType:false,
             });
         }
-      
     </script>
-    
 @stop

@@ -30,12 +30,7 @@
     <!--end::Wrapper-->
 </div>
 <div class="d-flex flex-column mb-15 fv-row">
-    <!--begin::Label-->
-
-    <!--end::Label-->
-    <!--begin::Table wrapper-->
     <div class="table-responsive">
-        <!--begin::Table-->
         <table id="kt_create_new_custom_fields"
         class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
         <thead>
@@ -89,10 +84,7 @@
             </tr>
         </tbody>
     </table>
-        <!--end:Table-->
     </div>
-    <!--end::Table wrapper-->
-    <!--begin::Add custom field-->
     <a href="#" class="btn btn-light-success me-auto btn-sm" id="kt_create_new_custom_fields_add">
         <span class="svg-icon svg-icon-3">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -105,11 +97,8 @@
                 </rect>
             </svg>
         </span>
-        <!--end::Svg Icon-->أضف ملئ جديد</a>
-    <!--end::Add custom field-->
+        أضف ملئ جديد</a>
 </div>
-
-
 <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}">
     KTUtil.onDOMContentLoaded(function() {
         KTSubscriptionsAdvanced.init();

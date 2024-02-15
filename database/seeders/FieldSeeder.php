@@ -14,7 +14,11 @@ class FieldSeeder extends Seeder
         $owner_name['validators'] = [
             'type' => 'Regex',
             'pattern' => '^[\u0621-\u064A\u0660-\u0669 ]+$',
-            'message' => 'يقبل كتابه لغه عربيه فقط',
+            'message' => 'هذا الحقل يقبل كتابه لغه عربيه فقط',
+            'minlength' => 2,
+            'minStringLengthMessage' => 'يجب أن يكون عدد حروف النّص بحد أدني 2 ',
+            'maxlength' => 255,
+            'maxStringLengthMessage' => 'يجب أن يكون عدد حروف النّص بحد أقصي 255 ',
         ];
  
 
@@ -73,34 +77,34 @@ class FieldSeeder extends Seeder
 
   
         $items = [
-            ['label' => 'أسم المالك', 'name' => 'name', 'type' => 'textbox', 'required' => '1', 'required_msg' => 'برجاء أدخال أسم المالك', 'validation' => json_encode($owner_name)],
+            ['label' => 'أسم المالك', 'name' => 'name', 'type' => 'textbox', 'class'=>'100','is_required' => '1','validation' => json_encode($owner_name)],
 
-            ['label' => 'البريد الألكتروني للمالك', 'name' => 'email', 'type' => 'email','required'=>'1','required_msg'=>'برجاءأدخال البريد الألكتروني للمالك', 'validation' => json_encode($owner_email)],
+            ['label' => 'البريد الألكتروني للمالك', 'name' => 'email', 'type' => 'email','class'=>'50','is_required'=>'1','validation' => json_encode($owner_email)],
 
-            ['label' => 'رقم هويه المالك', 'name' => 'id_number', 'type' => 'textbox', 'required' => '1', 'required_msg' => 'برجاء أدخال رقم هويه المالك', 'validation' => json_encode($owner_id_number)],
+            ['label' => 'رقم هويه المالك', 'name' => 'id_number', 'type' => 'textbox', 'class'=>'50','is_required' => '1', 'validation' => json_encode($owner_id_number)],
 
-            ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'required' => '1', 'required_msg' => 'برجاء أدخال رقم جوال المالك', 'validation' => json_encode($owner_mobile_number)],
-
-
-
-             ['label' => 'ملف مستند بيع المبني', 'name' => 'building_sales_document', 'type' => 'date_range','required'=>'1','required_msg'=>'برجاء تحديد فترة البيع', 'validation' => json_encode($building_sales_document)],
+            ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'class'=>'50','is_required' => '1', 'validation' => json_encode($owner_mobile_number)],
 
 
-             ['label' => ' فترة البيع', 'name' => 'sale_period', 'type' => 'date_range','required'=>'1','required_msg'=>'date range in required', 'validation' => json_encode($sale_period)],
+
+             ['label' => 'ملف مستند بيع المبني', 'name' => 'building_sales_document', 'type' => 'date_range','class'=>'100','is_required'=>'1', 'validation' => json_encode($building_sales_document)],
 
 
-            // ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select','required'=>'1', 'validation' => $ownership_evidence],
-
-            // ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'googel_map','required'=>'1', 'validation' => $google_map],
-
-            ['label' => 'صوره المبني الرئيسيه', 'name' => 'building_main_image', 'type' => 'file','required'=>'1','required_msg'=>'برجاء تحديد صورة المبني الرئيسيه', 'validation' => json_encode($building_main_image)],
-
-            ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery','required'=>'0','required_msg'=>NULL, 'validation' => json_encode($building_gallery_images)],
-
-            ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature','required'=>'1','required_msg'=>'add yr signtttttrree', 'validation' => NULL],
+             ['label' => ' فترة البيع', 'name' => 'sale_period', 'type' => 'date_range','class'=>'33','is_required'=>'1','validation' => json_encode($sale_period)],
 
 
-            // ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => ' legal_disputes_over_building', 'type' => 'radio','required'=>'0', 'validation' => $legal_disputes_over_building],
+            // ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select','class'=>'66','is_required'=>'1', 'validation' => $ownership_evidence],
+
+            // ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'googel_map','class'=>'66','is_required'=>'1', 'validation' => $google_map],
+
+            ['label' => 'صوره المبني الرئيسيه', 'name' => 'building_main_image', 'type' => 'file','class'=>'50','is_required'=>'1', 'validation' => json_encode($building_main_image)],
+
+            ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery','class'=>'100','is_required'=>'0', 'validation' => json_encode($building_gallery_images)],
+
+            ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature','class'=>'50','is_required'=>'1', 'validation' => NULL],
+
+
+            // ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => ' legal_disputes_over_building', 'type' => 'radio','class'=>'100','is_required'=>'0', 'validation' => $legal_disputes_over_building],
         ];
 
         /*
