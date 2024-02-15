@@ -14,10 +14,15 @@
 @section('style')
 
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.css') }}" rel="stylesheet" type="text/css" />
-@stop
+ @stop
 @section('content')
 
+<form action="{{ route('fields.store') }}" method="post">
+    @csrf 
+    <input type="text">
+    <input type="submit">
+</form>
+{{  dd() }}
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Stepper-->
         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10"
@@ -110,23 +115,22 @@
             <!--begin::Content-->
             <div class="card d-flex flex-row-fluid flex-center">
                 <!--begin::Form-->
+
+
+                
                 <form class="card-body py-20 w-100 mw-xl-700px px-9" novalidate="novalidate" id="kt_create_field_form">
+                 
                     <!--begin::Step 1-->
                     <div class="current" data-kt-stepper-element="content">
                         <!--begin::Wrapper-->
                         <div class="w-100">
                             <!--begin::Heading-->
-                            <div class="pb-2 pb-lg-5">
-                                <!--begin::Title-->
-                                <h3 class="d-flex text-gray-900 fs-1hx fw-bold letter-spacing">
-                                    <span class="ms-3 d-inline-flex position-relative">
-                                        <span class="px-1 fw-bold text-success">حدد نوع الحقل </span>
-                                        <img class="w-100 position-absolute bottom-0 mb-n2"
-                                            src= "{{ asset('assets/media/misc/hero-home-title-underline.svg') }}"
-                                            alt=""> </span>
-                                </h3>
-                                <!--end::Notice-->
-                            </div>
+                           
+                          
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-gray-900">نوع الحقل</span>
+                             </h3>
+                            
                             <!--end::Heading-->
                             <!--begin::Input group-->
                             <div class="fv-row">
@@ -147,15 +151,12 @@
                     <!--begin::Step 2-->
                     <div data-kt-stepper-element="content">
                         <div class="w-100">
-                            <div class="pb-2 pb-lg-5">
-                                <h3 class="d-flex text-gray-900 fs-1hx fw-bold letter-spacing">
-                                    <span class="ms-3 d-inline-flex position-relative">
-                                        <span class="px-1 fw-bold text-success"> حدد خصائص الحقل </span>
-                                        <img class="w-100 position-absolute bottom-0 mb-n2"
-                                            src= "{{ asset('assets/media/misc/hero-home-title-underline.svg') }}"
-                                            alt=""> </span>
-                                </h3>
-                            </div>
+
+                            
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-gray-900">خصائص الحقل</span>
+                             </h3>
+                            
 
                             <div class="d-flex flex-column mb-7 fv-row">
                                 <!--begin::Label-->
@@ -358,8 +359,35 @@
                 }
             });
         }
-        LoadFieldInfo('checkbox');
-       
+
+ 
+        function SaveFieldInfo() {
+
+         
+            let form = $('#kt_create_field_form')[0];
+            let data = new FormData(form);
+
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+            });            
+            $.ajax({
+                url: "{{ route('fields.store') }}",
+                type: "POST",
+                data: {
+                   
+                    '_token': '{{ csrf_token() }}'
+                },
+                dataType:"JSON",
+                processData : false,
+                contentType:false,
+            });
+        }
+      
     </script>
     
 @stop

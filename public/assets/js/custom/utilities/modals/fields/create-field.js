@@ -37,8 +37,8 @@ var KTCreateField = (function () {
                                                 text: "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                                 icon: "error",
                                                 buttonsStyling: !1,
-                                                confirmButtonText: "Ok, got it!",
-                                                customClass: { confirmButton: "btn btn-light" },
+                                                confirmButtonText: "حسنا",
+                                                customClass: { confirmButton: "btn btn-light-danger" },
                                             }).then(function () {
                                                 KTUtil.scrollTop();
                                             });
@@ -68,6 +68,7 @@ var KTCreateField = (function () {
                     o.addEventListener("click", function (e) {
                         s[1].validate().then(function (t) {
                             console.log("validated!"),
+                            SaveFieldInfo()
                                 "Valid" == t
                                     ? (e.preventDefault(),
                                       (o.disabled = !0),
@@ -79,8 +80,8 @@ var KTCreateField = (function () {
                                         text: "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                         icon: "error",
                                           buttonsStyling: !1,
-                                          confirmButtonText: "Ok, got it!",
-                                          customClass: { confirmButton: "btn btn-light" },
+                                          confirmButtonText: "حسنا",
+                                          customClass: { confirmButton: "btn btn-light-danger" },
                                       }).then(function () {
                                           KTUtil.scrollTop();
                                       });
@@ -90,10 +91,7 @@ var KTCreateField = (function () {
         },
     };
 })();
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////  
-
-
+ 
 KTUtil.onDOMContentLoaded(function () {
     KTCreateField.init();
 });

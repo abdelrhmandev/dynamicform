@@ -18,10 +18,7 @@
         <div class="fw-semibold">
             <h4 class="text-gray-900 fw-bold">برجاء الأنتباه الي</h4>
             <div class="fs-6 text-gray-700">
-
-                شكل الخريطه
-                
-                
+                شكل المحدد علي الخريطه
             </div>
         </div>
         <!--end::Content-->
@@ -31,5 +28,5 @@
 
 
 <div class="d-flex flex-column mb-7 fv-row mt-5">   
-     <img class="" width="450" src= "{{ asset('assets/media/icons/duotune/maps/google_map.png') }}" alt="">
+     <img class="" width="100%" src= "{{ asset('assets/media/icons/duotune/maps/google_map.webp') }}" alt="">
  </div>
