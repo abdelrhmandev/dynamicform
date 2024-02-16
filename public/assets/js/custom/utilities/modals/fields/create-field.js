@@ -21,7 +21,7 @@ var KTCreateField = (function () {
                             : (o.classList.remove("d-inline-block"), o.classList.remove("d-none"), a.classList.remove("d-none"));
                     }),
                     r.on("kt.stepper.next", function (e) {
-                        var Fs = $("input[name='field_type']:checked").val();                        
+                        var Fs = $("#kt_create_field_form input[name='type']:checked").val();                        
                         (1 == r.getCurrentStepIndex() ? LoadFieldInfo(Fs) :'');
                         
                         console.log("stepXXXXXXXXxxper.next");
@@ -47,10 +47,14 @@ var KTCreateField = (function () {
                     }),
                     r.on("kt.stepper.previous", function (e) {
                         console.log("stepper.previous"), e.goPrevious(), KTUtil.scrollTop();
+
+                        var Fs = $("#kt_create_field_form input[name='type']:checked").val();                        
+                        (1 == r.getCurrentStepIndex() ? LoadFieldInfo(Fs) :'');
+                        
                     }),
                     s.push(
                         FormValidation.formValidation(i, {
-                            fields: { field_type: { validators: { notEmpty: { message: "برجاء تحديد نوع الحقل" } } } },
+                            fields: { type: { validators: { notEmpty: { message: "برجاء تحديد نوع الحقل" } } } },
                             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                         })
                     ),
@@ -92,6 +96,7 @@ var KTCreateField = (function () {
     };
 })();
  
+
 KTUtil.onDOMContentLoaded(function () {
     KTCreateField.init();
 });

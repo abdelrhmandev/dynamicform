@@ -10,8 +10,7 @@ class CreateFieldsTable extends Migration
             $table->string('label');
             $table->string('name',150);
             $table->string('type',100);
-            $table->enum('required', [1,0])->default(1);
-            $table->string('required_msg')->nullable();
+            $table->enum('is_required', [1,0])->default(1);
             $table->json('validation')->nullable();
 
 

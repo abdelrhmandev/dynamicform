@@ -1,9 +1,5 @@
 <div class="w-100">
-    <!--begin::Heading-->
-
     <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-        <!--begin::Icon-->
-        <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
         <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
@@ -13,43 +9,25 @@
                     fill="currentColor" />
             </svg>
         </span>
-        <!--end::Svg Icon-->
-        <!--end::Icon-->
-        <!--begin::Wrapper-->
         <div class="d-flex flex-stack flex-grow-1">
-            <!--begin::Content-->
             <div class="fw-semibold">
                 <h4 class="text-gray-900 fw-bold">برجاء الأنتباه الي</h4>
-                <div class="fs-6 text-gray-700">
-    
+                <div class="fs-6 text-gray-700">    
                     خصائص أضافيه للحقل
                     | 
-                    وضع قيود علي حقل الملف
-                    
+                    وضع قيود علي حقل الملف                    
                 </div>
             </div>
-            <!--end::Content-->
         </div>
-        <!--end::Wrapper-->
     </div>
-
-
     <p>
         <h4 class="text-gray-900 fw-bold">برجاء حدد نوع الملف</h4>
     </p>
-
-
-    <!--end::Heading-->
-    <!--begin::Input group-->
     <div class="fv-row mt-5">
-        <!--begin::Row-->
         <div class="row">
-            <!--begin::Col-->
             <div class="col-lg-6">
-                <!--begin::Option-->
                 <input type="radio" class="btn-check" name="checkFileRules" value="images" checked="checked" id="FileRuleImages" />
                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="FileRuleImages">
-                    <!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
                     <span class="svg-icon svg-icon-3x me-5">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -61,20 +39,14 @@
                             fill="currentColor"></path>
                     </svg>
                     </span>
-                    <!--end::Svg Icon-->
-                    <!--begin::Info-->
                     <span class="d-block fw-semibold text-start">
                         <span class="text-dark fw-bold d-block fs-4 mb-2">صور فقط</span>
                         <span class="text-muted fw-semibold fs-6">
                             {{ __('site.upload_only_images') }}
                         </span>
                     </span>
-                    <!--end::Info-->
                 </label>
-                <!--end::Option-->
             </div>
-            <!--end::Col-->
-            <!--begin::Col-->
             <div class="col-lg-6">
                 <!--begin::Option-->
                 <input type="radio" class="btn-check" name="checkFileRules" value="documents" id="FileRuledocuments" />
@@ -92,19 +64,12 @@
                         <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
                     </svg>
                     </span>
-                    <!--end::Svg Icon-->
-                    <!--begin::Info-->
                     <span class="d-block fw-semibold text-start">
                         <span class="text-dark fw-bold d-block fs-4 mb-2">{{ __('site.docs') }}</span>
                         <span class="text-muted fw-semibold fs-6">{{ __('site.upload_only_docs') }}</span>
                     </span>
-                    <!--end::Info-->
                 </label>
-                <!--end::Option-->
             </div>
-            <!--end::Col-->
         </div>
-        <!--end::Row-->
     </div>
-    <!--end::Input group-->
 </div>

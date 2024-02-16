@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" id="textbox" value="textbox">
+            <input type="radio" class="btn-check" name="type" id="textbox" value="textbox">
             <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
                 for="textbox">
                 <span class="svg-icon svg-icon-4x me-4">
@@ -24,7 +24,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" id="textarea" value="textarea">
+            <input type="radio" class="btn-check" name="type" id="textarea" value="textarea">
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="textarea">
@@ -47,7 +47,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" id="signature" value="signature">
+            <input type="radio" class="btn-check" name="type" id="signature" value="signature">
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="signature">
@@ -74,7 +74,7 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check checkbox" name="field_type" value="checkbox" id="checkbox" />
+            <input type="radio" class="btn-check checkbox" name="type" value="checkbox" id="checkbox" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="checkbox">
@@ -97,7 +97,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" value="file" id="file" />
+            <input type="radio" class="btn-check" name="type" value="file" id="file" />
             <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
                 for="file">
                 <span class="svg-icon svg-icon-4x me-4">
@@ -120,7 +120,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" value="gallery" id="gallery" />
+            <input type="radio" class="btn-check" name="type" value="gallery" id="gallery" />
             <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
                 for="gallery">
                 <span class="svg-icon svg-icon-4x me-4">
@@ -146,7 +146,7 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" value="numbers" id="numbers" />
+            <input type="radio" class="btn-check" name="type" value="numbers" id="numbers" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="numbers">
@@ -171,7 +171,7 @@
 
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" value="date" id="date" />
+            <input type="radio" class="btn-check" name="type" value="date" id="date" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="date">
@@ -193,10 +193,10 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="field_type" value="daterange" id="daterange" />
+            <input type="radio" class="btn-check" name="type" value="date_range" id="date_range" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
-                for="daterange">
+                for="date_range">
                 <span class="svg-icon svg-icon-4x me-4">
                     <svg width="25" height="28" viewBox="0 0 25 28" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -217,7 +217,7 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check radio" name="field_type" value="radio" id="radio" />
+            <input type="radio" class="btn-check radio" name="type" value="radio" id="radio" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="radio">
@@ -236,7 +236,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="selectmenu" id="selectmenu" />
+            <input type="radio" class="btn-check select" name="type" value="selectmenu" id="selectmenu" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="selectmenu">
@@ -260,7 +260,7 @@
     </div>
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="email" id="email" />
+            <input type="radio" class="btn-check select" name="type" value="email" id="email" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="email">
@@ -286,7 +286,7 @@
 <div class="row">
     <div class="col-xl-6">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="google_map" id="google_map" />
+            <input type="radio" class="btn-check select" name="type" value="google_map" id="google_map" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="google_map">
@@ -305,7 +305,7 @@
     </div>
     <div class="col-xl-6">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="id_number" id="id_number" />
+            <input type="radio" class="btn-check select" name="type" value="id_number" id="id_number" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="id_number">
@@ -326,7 +326,7 @@
 <div class="row">
     <div class="col-xl-6">
         <div class="pb-1">
-            <input type="radio" class="btn-check select" name="field_type" value="phone_number" id="phone_number" />
+            <input type="radio" class="btn-check select" name="type" value="phone_number" id="phone_number" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                 for="phone_number">

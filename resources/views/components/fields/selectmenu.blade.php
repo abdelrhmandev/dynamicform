@@ -1,6 +1,4 @@
 <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-    <!--begin::Icon-->
-    <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
     <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
@@ -10,11 +8,7 @@
                 fill="currentColor" />
         </svg>
     </span>
-    <!--end::Svg Icon-->
-    <!--end::Icon-->
-    <!--begin::Wrapper-->
     <div class="d-flex flex-stack flex-grow-1">
-        <!--begin::Content-->
         <div class="fw-semibold">
             <h4 class="text-gray-900 fw-bold">برجاء الأنتباه الي</h4>
             <div class="fs-6 text-gray-700">
@@ -25,21 +19,14 @@
                 
             </div>
         </div>
-        <!--end::Content-->
     </div>
-    <!--end::Wrapper-->
 </div>
 
 
 
 
 <div class="d-flex flex-column mb-15 fv-row">
-    <!--begin::Label-->
-
-    <!--end::Label-->
-    <!--begin::Table wrapper-->
     <div class="table-responsive">
-        <!--begin::Table-->
         <table id="kt_create_new_custom_fields"
         class="table table-striped table-rounded border border-gray-300 table-row-bordered table-row-gray-300 gy-7 gs-7">
         <thead>
@@ -93,10 +80,7 @@
             </tr>
         </tbody>
     </table>
-        <!--end:Table-->
     </div>
-    <!--end::Table wrapper-->
-    <!--begin::Add custom field-->
     <a href="#" class="btn btn-light-success me-auto btn-sm" id="kt_create_new_custom_fields_add">
         <span class="svg-icon svg-icon-3">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -109,11 +93,7 @@
                 </rect>
             </svg>
         </span>
-        <!--end::Svg Icon-->أضف ملئ جديد</a>
-    <!--end::Add custom field-->
 </div>
-
-
 <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}">
     KTUtil.onDOMContentLoaded(function() {
         KTSubscriptionsAdvanced.init();

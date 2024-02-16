@@ -11,7 +11,7 @@ class Field extends Model
 
  
     protected $table = 'fields';
-    protected $fillable = ['label','name','type','required','requied_message','validation'];
+    protected $fillable = ['label','name','type','is_required','validation'];
     protected $guarded = ['id'];
     public $timestamps = false;
 
