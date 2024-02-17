@@ -14,6 +14,7 @@ trait Functions
     {
         $field = [];
         $pattern = '';
+        
 
         if ($request->type == 'textbox' || $request->type == 'textarea') {
             if ($request->attribute == 'arabic_letters_only') {
@@ -42,7 +43,6 @@ trait Functions
                 'prefix' => $request->NumbersPrefix ?? '',
             ];
         } elseif ($request->type == 'file') {
-            $data_not_empty_message = $request->is_required ? 'برجاء تحديد الملف' : '';
             $data_file = 'true';
             if ($request->checkFileRules == 'images') {
                 $accept = '.png, .jpg, .jpeg';
@@ -57,7 +57,6 @@ trait Functions
             }
             $dataValidation['validators'] = [
                 'accept' => $accept,
-                'data_not_empty_message' => $data_not_empty_message,
                 'data_file_extension' => $data_file_extension,
                 'data_file_type' => $data_file_type,
                 'data_file_message' => $data_file_message,
@@ -74,16 +73,22 @@ trait Functions
         }
 
         ///////////////////////If validation values is empty remove also key ///////////////////
-        foreach ($dataValidation['validators'] as $key => $value) {
-            if (is_null($value) || $value == '') {
-                unset($dataValidation['validators'][$key]);
-            }
+
+        $validation = NULL;
+        if(isset($dataValidation['validators'])){
+            foreach ($dataValidation['validators'] as $key => $value) {
+                if (is_null($value) || $value == '') {
+                    unset($dataValidation['validators'][$key]);
+                }
+            }  
+            $validation = json_encode($dataValidation['validators']);          
         }
-        $field['type'] = $request->type;
-        $field['label'] = $request->label;
-        $field['name'] = $request->name;
+        $field['type']        = $request->type;
+        $field['label']       = $request->label;
+        $field['name']        = $request->name;
+        $field['width']       = $request->width;
         $field['is_required'] = $request->is_required ?? '0';
-        $field['validation'] = json_encode($dataValidation['validators']);
+        $field['validation']  =  $validation;
         return $field;
     }
 

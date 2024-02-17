@@ -252,7 +252,7 @@
                     </svg>
                 </span>
                 <span class="d-block fw-semibold text-start">
-                    <span class="text-dark fw-bold d-block fs-3">"Select"</span>
+                    <span class="text-dark fw-bold d-block fs-3">"Select"</span> Menu options
 
                 </span>
             </label>
@@ -297,7 +297,7 @@
                         </svg>
                 </span>
                 <span class="d-block fw-semibold text-start">
-                    <span class="text-dark fw-bold d-block fs-3">"Google Mmap"</span>
+                    <span class="text-dark fw-bold d-block fs-3">"Google Map"</span>Pick Location
 
                 </span>
             </label>

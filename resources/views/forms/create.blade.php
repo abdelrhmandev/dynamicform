@@ -12,154 +12,158 @@
     </ul>
 @stop
 @section('style')
- 
+
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.css') }}" rel="stylesheet" type="text/css" />
 @stop
 @section('content')
-<form action="{{ route('forms.store') }}" method="post">
-  @csrf 
-  <input type="text">
-  <input type="submit">
-</form>
-
 
     <div id="kt_content_container" class="container-xxl">
-
-
-
         <form id="Add{{ $trans }}" data-route-url="{{ $storeRoute }}" class="form d-flex flex-column flex-lg-row"
             data-form-submit-error-message="{{ __('site.form_submit_error') }}"
             data-form-agree-label="{{ __('site.agree') }}">
+
             <div class="d-flex flex-column gap-3 gap-lg-7 w-100 mb-2 me-lg-5">
                 <div class="card card-flush py-0">
-               <div id="kt_docs_jkanban_color"></div>
- 
-           </div>
+
+
+                    <div class="card-body pt-5">
+                        <div class="d-flex flex-column gap-5">
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="title">{{ __('form.title') }}</label>
+                                        <input placeholder="{{ __('form.title') }}" type="text" id="title"
+                                            name="title" class="form-control mb-2" required
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="mobile">{{ __('site.mobile') }}</label>
+                                        <input placeholder="{{ __('site.mobile') }}" type="text" id="mobile"
+                                            name="mobile" class="form-control mb-2" required
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label"
+                                            for="id_number">{{ __('site.id_number') }}</label>
+                                        <input placeholder="{{ __('site.id_number') }}" type="text" id="id_number"
+                                            name="id_number" class="form-control mb-2" required
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="region_id">المنطقه</label>
+                                        <select class="form-select form-select-solid" data-control="select2"
+                                            data-hide-search="false" data-placeholder="المنطقه" name="region_id">
+                                            <option value="">المنطقه</option>
+                                            @foreach ($regions as $region)
+                                                <option value="{{ $region->id }}">{{ $region->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column">
+                                <label class="form-label" for="address_info">العنوان</label>
+                                <textarea class="form-control form-control-solid" rows="4" id="address_info" name="address_info"></textarea>
+                            </div>
+
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">الجنس
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تحديد جنس صاحب الأستمارة">
+                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                    </span></label>
+                                <!--End::Label-->
+                                <!--begin::Row-->
+                                <div class="row g-9" data-kt-buttons="true"
+                                    data-kt-buttons-target="[data-kt-button='true']">
+                                    <!--begin::Col-->
+                                    <div class="col">
+                                        <!--begin::Option-->
+                                        <label
+                                            class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
+                                            data-kt-button="true">
+                                            <!--begin::Radio-->
+                                            <span
+                                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                <input class="form-check-input" type="radio" name="gender" value="male"
+                                                    />
+                                            </span>
+                                            <!--end::Radio-->
+                                            <!--begin::Info-->
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold text-gray-800 d-block">ذكر</span>
+                                            </span>
+                                            <!--end::Info-->
+                                        </label>
+                                        <!--end::Option-->
+                                    </div>
+       
+                                    <div class="col">
+                                        <!--begin::Option-->
+                                        <label
+                                            class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
+                                            data-kt-button="true">
+                                            <!--begin::Radio-->
+                                            <span
+                                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    value="female" />
+                                            </span>
+                                            <!--end::Radio-->
+                                            <!--begin::Info-->
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold text-gray-800 d-block">أنثي</span>
+                                            </span>
+                                            <!--end::Info-->
+                                        </label>
+                                        <!--end::Option-->
+                                    </div>
+                                   
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <x-btns.button />
             </div>
         </form>
-
-
-
-
-
-
-
     </div>
+
+
+
 @stop
 @section('scripts')
+
     <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
-
-
-
-    <script src="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.js') }}"></script>
-
-
     <script>
-        var KanbanTest = new jKanban({
-        element: "#kt_docs_jkanban_color",
-        gutter: "10px",
-        widthBoard: "450px",
-        itemHandleOptions:{
-          enabled: true,
-        },
- 
-        dropEl: function(el, target, source, sibling){
-
-          // var Fieldid  = console.log(el.dataset.eid);
-          // var case = console.log(target.parentElement.getAttribute('data-id'));
-         
-          
-
-          
-        },
-         
-        itemAddOptions: {
-          enabled: true,
-          content: '+ Add New Card',
-          class: 'custom-button',
-          footer: true
-        },
-        boards: [
-          {
-            id: "_todo",
-            title: "To Do (Can drop item only in working)",
-            class: "info,good",
-            dragTo: ["_working"],
-            item: [
-              {
-                id: "1",
-                title: "Name",           
-              }, 
-              {
-                id: "2",
-                title: "Email",           
-              }, 
-            ]
-          },
-          {
-            id: "_working",
-            title: "Working (Try drag me too)",
-            class: "warning",
- 
-          },
- 
-        ]
-      });
-
-      var toDoButton = document.getElementById("addToDo");
-      toDoButton.addEventListener("click", function() {
-        KanbanTest.addElement("_todo", {
-          title: "Test Add"
+        KTUtil.onDOMContentLoaded(function() {
+            handleFormSubmitFunc('Add{{ $trans }}');
         });
-      });
+    </script>
 
-      var toDoButtonAtPosition = document.getElementById("addToDoAtPosition");
-      toDoButtonAtPosition.addEventListener("click", function() {
-        KanbanTest.addElement("_todo", {
-          title: "Test Add at Pos"
-        }, 1);
-      });
-
-      var addBoardDefault = document.getElementById("addDefault");
-      addBoardDefault.addEventListener("click", function() {
-        KanbanTest.addBoards([
-          {
-            id: "_default",
-            title: "Kanban Default",
-            item: [
-              {
-                title: "Default Item"
-              },
-              {
-                title: "Default Item 2"
-              },
-              {
-                title: "Default Item 3"
-              }
-            ]
-          }
-        ]);
-      });
-
-      var removeBoard = document.getElementById("removeBoard");
-      removeBoard.addEventListener("click", function() {
-        KanbanTest.removeBoard("_done");
-      });
-
-      var removeElement = document.getElementById("removeElement");
-      removeElement.addEventListener("click", function() {
-        KanbanTest.removeElement("_test_delete");
-      });
-
-      var allEle = KanbanTest.getBoardElements("_todo");
-      allEle.forEach(function(item, index) {
-        //console.log(item);
-      });
-      </script>
 @stop

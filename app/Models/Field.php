@@ -11,9 +11,9 @@ class Field extends Model
 
  
     protected $table = 'fields';
-    protected $fillable = ['label','name','type','is_required','validation'];
+    protected $fillable = ['label','name','type','is_required','width','validation'];
     protected $guarded = ['id'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $casts = [
         'validation' => 'json',
@@ -50,7 +50,7 @@ class Field extends Model
 
 
     public function forms(){
-        return $this->belongsToMany(Form::class, 'form_field','field_id','form_id')->withPivot('is_required','notices');  
+        return $this->belongsToMany(Form::class, 'form_field','field_id','form_id');  
     }
 
     

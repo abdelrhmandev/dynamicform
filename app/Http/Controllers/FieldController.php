@@ -2,29 +2,15 @@
 namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
-<<<<<<< HEAD
+use App\Traits\Functions;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\Form;
-use App\Models\Region;
-use App\Models\Field;
-use App\Models\FormField;
-use App\Traits\Functions;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\FormDRequest;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\FormDUpdateRequest;
-
-=======
-use App\Traits\Functions;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\Field;
 use App\Models\FieldFillable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FieldRequest;
->>>>>>> d1b549ceb2ce438cb5d7fcab7475b94d24b27f7b
 class FieldController extends Controller
 {
     use Functions;
@@ -38,16 +24,7 @@ class FieldController extends Controller
 
     public function store(FieldRequest $request)
     {
-<<<<<<< HEAD
-        dd('das');
-        // return view('fields.index');
-        //
-=======
         $validated              = $request->validated();
-        $validated['display'] = $request->display;
-        $validated['name'] = $request->name;
-        $validated['type'] = $request->type;
-
         $fieldInfo = $this->handleSaveField($request);
         $query = Field::insert($fieldInfo);
 
@@ -60,15 +37,15 @@ class FieldController extends Controller
                     if (!empty($k) && !empty($v)) {
                         $insert[] = [
                             'field_id' => DB::getPdo()->lastInsertId(),
-                            'display' => $k,
-                            'value' => $v,
+                            'display'  => $k,
+                            'value'    => $v,
                         ];
                     }
                 }
                 if (!empty($insert)) {
                     FieldFillable::insert($insert);
                 }
-            }
+            } 
             $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];
@@ -76,27 +53,49 @@ class FieldController extends Controller
         return response()->json($arr);
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if ($request->ajax()) {
-            $model = Field::with('fillables')->select('id', 'display', 'name', 'type', 'created_at');
+            $model = Field::withCount('forms')->with('fillables');
+           
             return Datatables::of($model)
 
                 ->addIndexColumn()
-                ->editColumn('display', function ($row) {
-                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->display . '</a>';
-                })
-                ->editColumn('fillables.display', function ($row) {
+                ->editColumn('label', function ($row) {
+
                     $fillable = '';
+                    
                     if (count($row->fillables)) {
+                        $fillable .= '<br/><small class="text-danger w-500">البيانات الأوليه للحقل</small><br>';
                         foreach ($row->fillables as $value) {
-                            $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">" . $value->display . '</span></div> ';
+                            $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
-                    } else {
-                        $fillable = "<div class=\"badge py-3 px-4 fs-7 badge-light-warning\">&nbsp;" . "<span class=\"text-warning\">لا يوجد</span></div>";
                     }
-                    return $fillable;
+
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->label . '</a>'
+                    .$fillable;
+                    ;
                 })
+
+                ->editColumn('forms', function ($row) {
+                    $CountLabel = "<span class=\"fs-7 text-danger\"> غير مرتبط بأي أستمارة</span>";
+                    if($row->forms_count){
+                        $CountLabel = "<span class=\"badge badge-circle badge-primary\">".$row->forms_count."</span>";
+                    }
+                    return $CountLabel;
+                })
+
+
+                ->editColumn('is_required', function ($row) {
+                    $is_required = "<span class=\"badge py-3 px-4 fs-7 badge-light-info\">لا</span>";
+                    if ($row->is_required == 1) {                      
+                        $is_required = "<span class=\"badge py-3 px-4 fs-7 badge-light-success\">نعم</span>";
+                    } 
+                    
+                    return $is_required;
+
+                })
+
+     
                 ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
@@ -106,33 +105,21 @@ class FieldController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['display', 'fillables.display', 'actions', 'created_at', 'created_at.display'])
-                ->make(true);
+                ->rawColumns(['label','is_required','forms', 'fillables.display','actions', 'created_at', 'created_at.display'])                ->make(true);
         }
         if (view()->exists('fields.index')) {
             $compact = [
-                'trans' => $this->TRANS,
-                'createRoute' => route($this->ROUTE_PREFIX . '.create'),
-                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
-                'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
-                'destroyMultipleRoute' => route($this->ROUTE_PREFIX . '.destroyMultiple'),
+                'trans'                 => $this->TRANS,
+                'createRoute'           => route($this->ROUTE_PREFIX . '.create'),
+                'storeRoute'            => route($this->ROUTE_PREFIX . '.store'),
+                'listingRoute'          => route($this->ROUTE_PREFIX . '.index'),
+                'destroyMultipleRoute'  => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
             return view('fields.index', $compact);
         }
->>>>>>> d1b549ceb2ce438cb5d7fcab7475b94d24b27f7b
     }
     public function create()
     {
-<<<<<<< HEAD
-    
-        return view('fields.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-=======
         if (view()->exists('fields.create')) {
             $compact = [
                 'trans' => $this->TRANS,
@@ -143,7 +130,6 @@ class FieldController extends Controller
         }
     }
     public function edit(Request $request, Field $field)
->>>>>>> d1b549ceb2ce438cb5d7fcab7475b94d24b27f7b
     {
         if (view()->exists('fields.edit')) {
             $compact = [

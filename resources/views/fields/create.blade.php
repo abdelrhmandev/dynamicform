@@ -1,7 +1,15 @@
 @extends('layouts.app')
-@section('title', 'sdsdas')
+@section('title', __($trans . '.add'))
 @section('breadcrumbs')
- 
+    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">{{ __($trans . '.plural') }}</h1>
+    <span class="h-20px border-gray-200 border-start mx-3"></span>
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+        <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}"
+                class="text-muted text-hover-primary">{{ __('site.home') }}</a>
+        </li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-200 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-dark">{{ __($trans . '.add') }}</li>
+    </ul>
 @stop
 @section('style')
 
@@ -9,14 +17,6 @@
 @stop
 @section('content')
 
-<<<<<<< HEAD
-<form action="{{ route('fields.store') }}" method="post">
-    @csrf 
-    <input type="text" name="name" id="name">
-    <input type="submit">
-</form>
-  
-=======
 
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Stepper-->
@@ -237,13 +237,10 @@
                                 <!--end::Text-->
                                 <!--begin::Alert-->
                                 <!--begin::Notice-->
-                                <div
-                                    class="notice d-flex bg-light-success rounded border-success border border-dashed p-6">
+                                <div class="notice d-flex bg-light rounded border border border-dashed p-6">
                                     <!--begin::Icon-->
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-                                    <span class="svg-icon svg-icon-2tx svg-icon-success me-4">
-                                        <i class="bi bi-patch-check fs-3"></i>
-                                    </span>
+
                                     <!--end::Svg Icon-->
                                     <!--end::Icon-->
                                     <!--begin::Wrapper-->
@@ -328,26 +325,19 @@
         </div>
         <!--end::Stepper-->
     </div>
->>>>>>> d1b549ceb2ce438cb5d7fcab7475b94d24b27f7b
 
 
 @stop
 @section('scripts')
 
-    <script src="{{ asset('assets/js/custom/utilities/modals/fields/create-field.js') }}"></script>
-<<<<<<< HEAD
     <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
- 
-    
-=======
-    <script src="{{ asset('assets/backend/js/custom/Tachyons.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/custom/es6-shim.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/utilities/modals/fields/create-field.js') }}"></script>
+
+
+
     <script>
         function LoadFieldInfo(type) {
             $.ajax({
@@ -381,51 +371,17 @@
                 contentType: false,
                 cache: false,
                 success: function(response, textStatus, xhr) {
-                    if (response["status"] == true) {
-                        Swal.fire({
-                            text: response["msg"],
-                            icon: 'success',
-                            buttonsStyling: false,
-                            confirmButtonText: 'تراجع',
-                            customClass: {
-                                confirmButton: "btn btn-light-success",
-                            }
-                        }).then(function(result) {
-                            window.location = window.location.href;
-                        });
+                    if (response["status"] == true || response["status"] == false) {
+                        document.getElementById('responseCreateFieldmsg').innerHTML = response["msg"];
                     } else if (response["status"] == 'RequestValidation') {
                         let msgError = "";
                         $.each(response["msg"], function(key, value) {
                             msgError += "<p>" + value + "</p>";
-                            parentId = $("#" + key).parents('.tab-pane').attr("id");
-                            icon = $('a[href="#' + parentId + '"][data-bs-toggle="tab"]').parent().find(
-                                'i');
-                            icon.removeClass('fa-check').addClass('fa-times');
-                            icon.attr('style', 'padding:5px; color:#f1416c !important');
                         });
-                        Swal.fire({
-                            html: msgError, // respose from controller
-                            icon: "warning",
-                            buttonsStyling: false,
-                            confirmButtonText: 'تراجع',
-                            customClass: {
-                                confirmButton: "btn btn-light-warning"
-                            }
-                        })
-                    } else if (response["status"] == false) {
-                        Swal.fire({
-                            html: response["msg"], // respose from controller
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: 'تراجع',
-                            customClass: {
-                                confirmButton: "btn btn-light-danger"
-                            }
-                        })
+                        document.getElementById('responseCreateFieldmsg').innerHTML = msgError;
                     }
                 },
             });
         }
     </script>
->>>>>>> d1b549ceb2ce438cb5d7fcab7475b94d24b27f7b
 @stop

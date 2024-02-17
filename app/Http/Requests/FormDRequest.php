@@ -12,16 +12,26 @@ class FormDRequest extends FormRequest
     public function rules()
     {
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
-        $rules['title']   = 'required|unique:forms,title'.$id;
-        $rules['status']  = 'nullable|in:0,1'; 
-        $rules['field_id']  = 'required|exists:fields,id';   
-        return $rules; 
-    } 
+        $rules['title'] = 'required|unique:forms,title' . $id;
+
+        $rules['mobile'] = 'required|unique:forms,mobile' . $id;
+
+        $rules['id_number'] = 'required|unique:forms,id_number' . $id;
+        $rules['address_info'] = 'nullable';
+
+        $rules['region_id'] = 'exists:regions,id';
+
+        $rules['gender'] = 'required|in:male,female';
+
+        return $rules;
+    }
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'status'   => 'RequestValidation',
-            'msg'      => $validator->errors()
-        ]));
-    }    
+        throw new HttpResponseException(
+            response()->json([
+                'status' => 'RequestValidation',
+                'msg' => $validator->errors(),
+            ]),
+        );
+    }
 }

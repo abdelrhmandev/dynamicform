@@ -12,7 +12,7 @@ class Form extends Model
     protected $fillable = ['title','mobile','id_number','region_id','address_info','gender'];
     protected $guarded = ['id'];
 
-
+    public $timestamps = true;
  
 
     public function fields(){

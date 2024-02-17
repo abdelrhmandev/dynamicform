@@ -27,7 +27,7 @@ return [
     'deactiveted'           =>'غير مفعل',
     'load'                  =>'تحميل',
     'notices'               => 'الملاحظات',
-    'mobile'                => 'رقم الجوال',
+    'id_number'             => 'رقم الهويه',
     'age'                   => 'العمر',
     'degree'                => 'الدرجه',
     'online'                => 'متصل',

@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             RegionCityDistrictSeeder::class,            
             FieldSeeder::class,
+            FieldFillableSeeder::class,
 
             // EventSeeder::class,
             // GameSeeder::class,
@@ -46,6 +47,6 @@ class DatabaseSeeder extends Seeder
 
         ]); 
 
-        // \App\Models\Form::factory(10)->create();
+        \App\Models\Form::factory(10)->create();
     }
 }

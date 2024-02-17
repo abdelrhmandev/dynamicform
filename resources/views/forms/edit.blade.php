@@ -24,114 +24,130 @@
 
             <div class="d-flex flex-column gap-3 gap-lg-7 w-100 mb-2 me-lg-5">
                 <div class="card card-flush py-0">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h2>{{ __($trans . '.info') }}</h2>
-                        </div>
-                    </div>
-                   
-                        <div class="card-body pt-5">
-                            <div class="d-flex flex-column gap-5">
-                                <div class="row">
-                                    <div class="col-xl">
-                                        <div class="fv-row fl">
-                                            <label class="required form-label"
-                                                for="title">{{ __('site.form.name') }}</label>
-                                            <input placeholder="{{ __('site.form.name') }}" type="text" id="title"
-                                                name="title" class="form-control mb-2" value="{{ $row->title }}" required
-                                                data-fv-not-empty___message="{{ __('site.required_field') }}" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl">
-                                        <div class="fv-row fl">
-                                            <label class="required form-label"
-                                                for="status">{{ __('site.status') }}</label>
-                                                <div class="form-check form-switch form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="1" name="status"
-                                                        id="status"
-                                                        {{ isset($row->status) && $row->status == '1' ? "checked='checked'" : '' }} />
-                                                    <label class="form-check-label" for="status">
-                                                        <span>{{ __('site.published') }}</span>
-                                                    </label>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card card-flush pt-3 mb-5 mb-lg-10">
-                                    <h4 class="text-gray-900 fw-bold">الحقول المتاحه  </h4>
-                                    <h4 class="text-gray-900 fw-bold">الحقول المحدده "{{ $OldFormfields}}"  </h4>                                    
-                                    <div class="table-responsive mt-5">
-                                        <table class="table table-striped table-rounded border gy-7 gs-7">
-                                            <thead>
-                                                <tr class="table-primary fs-5 text-gray-900 fw-bold">
-                                                    <th>الحقل</th>
-                                                    <th>قيمه الحقل الأوليه</th>
-                                                    <th>قيود علي الحقل</th>
-                                                    <th>الحقل مطلوب</th>
-                                                    <th>ملاحظات</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($fields as $field)
-                                                <tr id="{{ $field->id }}">
-                                                        <td>
-                                                            <div class="fv-row fl" id="{{ $field->id }}">
-                                                                <label class="form-check form-check-inline">
-                                                                    <input class="form-check-input AA" type="checkbox"
-                                                                    class="sub_chk"
-                                                                        name="field_id[{{ $field->id }}]"
-                                                                        value="{{ $field->id }}"
-                                                                        {{ in_array($field->id, $row->fields->pluck('id')->toArray()) ? 'checked' : '' }}
-                                                                        id="field{{ $field->id }}">
-                                                                        <a href="{{ route('fields.edit', $field->id) }}"
-                                                                            class="fw-bold">{{ $field->display }}</a>
 
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td> {!! $field->Getfillables($field->fillables) !!} </td>
-                                                        <td>
-                                                            @if ($field->rules)
-                                                                <div class="badge py-3 px-4 fs-7 badge-light-danger"><span
-                                                                        class="text-danger">{{ $field->rules }}</span>
-                                                                </div>
-                                                            @else
-                                                                <div class="badge py-3 px-4 fs-7 badge-light-warning"><span
-                                                                        class="text-warning">لا يوجد</span></div>
-                                                            @endif
-                                                        </td>
-                                                        <td>                                                             
-                                                            <div
-                                                                class="form-check form-switch form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="1" name="is_required[{{ $field->id }}]"
-                                                                    {{ $field->is_required == 1 ? 'checked' : '' }}
-                                                                    id="is_required" /><label class="form-check-label"
-                                                                    for="is_required">
-                                                                    <span>نعم</span></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            @if ($field->notices)
-                                                                <div class="badge py-3 px-4 fs-7 badge-light-success"><span
-                                                                        class="text-success">{{ $field->notices }}</span>
-                                                                </div>
-                                                            @else
-                                                                <div class="badge py-3 px-4 fs-7 badge-light-warning"><span
-                                                                        class="text-warning">لا يوجد</span></div>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+
+                    <div class="card-body pt-5">
+                        <div class="d-flex flex-column gap-5">
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="title">{{ __('form.title') }}</label>
+                                        <input placeholder="{{ __('form.title') }}" type="text" id="title"
+                                            name="title" class="form-control mb-2" required
+                                            value="{{ $row->title }}"
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="mobile">{{ __('site.mobile') }}</label>
+                                        <input placeholder="{{ __('site.mobile') }}" type="text" id="mobile"
+                                            name="mobile" class="form-control mb-2" value="{{ $row->mobile }}" required
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label"
+                                            for="id_number">{{ __('site.id_number') }}</label>
+                                        <input placeholder="{{ __('site.id_number') }}" type="text" id="id_number"
+                                            name="id_number" class="form-control mb-2" required
+                                            value="{{ $row->id_number }}"
+                                            data-fv-not-empty___message="{{ __('site.required_field') }}" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="fv-row fl">
+                                        <label class="required form-label" for="region_id">المنطقه</label>
+                                        <select class="form-select form-select-solid" data-control="select2"
+                                            data-hide-search="false" data-placeholder="المنطقه" name="region_id">
+                                            <option value="">المنطقه</option>
+                                            @foreach ($regions as $region)
+                                                <option value="{{ $region->id }}" {{ $region->id == $row->region_id ? 'selected' : '' }}>{{ $region->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column">
+                                <label class="form-label" for="address_info">العنوان</label>
+                                <textarea class="form-control form-control-solid" rows="4" id="address_info" name="address_info">{{ $row->address_info }}</textarea>
+                            </div>
+
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">الجنس
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تحديد جنس صاحب الأستمارة">
+                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                    </span></label>
+                                <!--End::Label-->
+                                <!--begin::Row-->
+                                <div class="row g-9" data-kt-buttons="true"
+                                    data-kt-buttons-target="[data-kt-button='true']">
+                                    <!--begin::Col-->
+                                    <div class="col">
+                                        <!--begin::Option-->
+                                        <label
+                                            class="btn btn-outline btn-outline-dashed {{ $row->gender == 'male' ? 'btn-active-light-primary':'' }} {{ $row->gender == 'male' ? 'active':'' }} d-flex text-start p-6"
+                                            data-kt-button="true">
+                                            <!--begin::Radio-->
+                                            <span
+                                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                <input class="form-check-input" type="radio" name="gender" value="male"
+                                                {{ $row->gender == 'male' ? "checked='checked'":"" }}
+                                                    />
+                                            </span>
+                                            <!--end::Radio-->
+                                            <!--begin::Info-->
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold text-gray-800 d-block">ذكر</span>
+                                            </span>
+                                            <!--end::Info-->
+                                        </label>
+                                        <!--end::Option-->
+                                    </div>
+       
+                                    <div class="col">
+                                        <!--begin::Option-->
+                                        <label
+                                            class="btn btn-outline btn-outline-dashed {{ $row->gender == 'female' ? 'btn-active-light-primary':'' }} {{ $row->gender == 'female' ? 'active':'' }} d-flex text-start p-6"
+                                            data-kt-button="true">
+                                            <!--begin::Radio-->
+                                            <span
+                                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                <input class="form-check-input" type="radio" name="gender" value="female"
+                                                {{ $row->gender == 'female' ? "checked='checked'":"" }}
+                                                    />
+                                            </span>
+                                            <!--end::Radio-->
+                                            <!--begin::Info-->
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold text-gray-800 d-block">أنثي</span>
+                                            </span>
+                                            <!--end::Info-->
+                                        </label>
+                                        <!--end::Option-->
+                                    </div>
+                                    
+                                     
+                                </div>
+                                <!--end::Row-->
+                            </div>
                         </div>
-                   
+                    </div>
+
                 </div>
                 <x-btns.button />
             </div>

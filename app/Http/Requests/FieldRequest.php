@@ -16,13 +16,18 @@ class FieldRequest extends FormRequest
         $rules['label']       = 'required|unique:fields,label'.$id;
         $rules['name']        = 'required|unique:fields,name'.$id;
         $rules['type']        = 'required';        
+        $rules['width']       = 'required';        
         return $rules; 
     } 
 
     public function messages(): array
 {
     return [
+        'label.required' => 'فضلا حدد الأسم الذي سيظر به الحقل',
         'type.required' => 'فضلا حدد نوع الحقل',
+        'name.required' => 'الأسم البرمجي للحقل',
+        'label.unique' => 'أسم الحقل مستخدم من قبل',
+        'name.unique' => 'الأسم البرمجي مستخدم من قبل',
     ];
 }
 
