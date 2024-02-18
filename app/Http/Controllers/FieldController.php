@@ -25,11 +25,12 @@ class FieldController extends Controller
     public function store(FieldRequest $request)
     {
         $validated              = $request->validated();
-        $fieldInfo = $this->handleSaveField($request);
-        $query = Field::insert($fieldInfo);
+        $fieldInfo              = $this->handleSaveField($request);
+        $query                  = Field::create($fieldInfo);
 
         if ($query) {
             #Handle Fillable fields
+           
             if (count($request->fillable_display) > 0 && count($request->fillable_value) > 0) {
                 $result = array_combine($request->fillable_display, $request->fillable_value);
                 $insert = [];
@@ -45,7 +46,8 @@ class FieldController extends Controller
                 if (!empty($insert)) {
                     FieldFillable::insert($insert);
                 }
-            } 
+            }
+           
             $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];

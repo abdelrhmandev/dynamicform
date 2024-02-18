@@ -10,4 +10,5 @@ class FormField extends Model
     protected $table = 'form_field';
     protected $fillable = ['field_id','form_id','is_required'];
     protected $guarded = ['id'];
+    public $timestamps = false;
 }

@@ -30,6 +30,8 @@ Route::resource('forms', FormController::class)->except('show');
 Route::delete('forms/destroy/all', 'FormController@destroyMultiple')->name('forms.destroyMultiple');
 
 
+Route::post('/saveFormfield', [App\Http\Controllers\FormController::class, 'saveFormfield'])->name('forms.saveFormfield');
+
 
 Route::post('/fields/loadFieldInfo', 'FieldController@loadFieldInfo')->name('loadFieldInfo');
 

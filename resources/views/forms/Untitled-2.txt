@@ -1,5 +1,0 @@
-     {{-- @if($field->note)
-                                                             <!--begin::Icon-->
-                                                            <i class="ki-duotone ki-notification-bing fs-2hx text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                                                                
-                                                                " {{ $field->note ?? ''}} "                                                        
-                                                        @endif   

@@ -103,6 +103,8 @@ class FormController extends Controller
     {   
         if (view()->exists('forms.edit')) {
             $compact = [
+                'fields'                 => Field::get(),
+                'selectedFields'         => $form->fields,
                 'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $form->id),
                 'row'                    => $form,
                 'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $form->id),
@@ -126,6 +128,7 @@ class FormController extends Controller
         return response()->json($arr);
     }
 
+
     public function destroy(Form $form)
     {
         if ($form->delete()) {
@@ -135,4 +138,32 @@ class FormController extends Controller
         }
         return response()->json($arr);
     }
+
+    public function saveFormfield(Request $request)
+    {
+        dd($request);
+        $conditionArr = (['form_id'=>$request->form_id,'field_id'=>$request->field_id]);
+
+        #remove from tbl
+        if($request->action == '_inprocess'){
+            FormField::where($conditionArr)->delete();
+            $msg = 'تم حذف الحقل من الأستمارة بنجاح';
+        }
+        else if($request->action == '_working'){
+            FormField::insert($conditionArr);
+            $msg = 'تم اضافه الحقل الي الأستماره بنجاح';
+        }
+
+        /*$order  = explode(",",$request->order);
+        for($i=0; $i < count($order);$i++) {
+            FormField::where('field_id',$order[$i])->update(['order'=>$i]);            
+        }*/
+
+    
+        $arr = ['msg' => $msg , 'status' => true];        
+        return response()->json($arr);
+
+    }
+
+
 }
