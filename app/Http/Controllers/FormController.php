@@ -36,13 +36,11 @@ class FormController extends Controller
         }
         return response()->json($arr);
     }
- 
-     
+
     public function index(Request $request)
     {
-       
         if ($request->ajax()) {
-            $model = Form::with('fields','region')->withCount('fields');
+            $model = Form::with('fields', 'region')->withCount('fields');
 
             return Datatables::of($model)
 
@@ -56,12 +54,12 @@ class FormController extends Controller
                 })
 
                 ->editColumn('gender', function ($row) {
-                    if ($row->gender == 'male') {                       
+                    if ($row->gender == 'male') {
                         $div = "<span class=\"text-success\">ذكر</span>";
-                    } else {                       
+                    } else {
                         $div = "<span class=\"text-danger\">أنثي</span>";
                     }
-                     return $div;
+                    return $div;
                 })
                 ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
@@ -91,25 +89,25 @@ class FormController extends Controller
     {
         if (view()->exists('forms.create')) {
             $compact = [
-                'trans'          => $this->TRANS,
-                'regions'       =>Region::where('country_id',177)->select('id','title')->get(),
-                'listingRoute'  => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
+                'trans' => $this->TRANS,
+                'regions' => Region::where('country_id', 177)->select('id', 'title')->get(),
+                'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
+                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
             ];
             return view('forms.create', $compact);
         }
     }
     public function edit(Form $form)
-    {   
+    {
         if (view()->exists('forms.edit')) {
             $compact = [
-                'fields'                 => Field::get(),
-                'selectedFields'         => $form->fields,
-                'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $form->id),
-                'row'                    => $form,
-                'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $form->id),
-                'trans'                  => $this->TRANS,
-                'regions'                =>Region::where('country_id',177)->select('id','title')->get(),
+                'fields' => Field::get(),
+                'selectedFields' => $form->fields,
+                'updateRoute' => route($this->ROUTE_PREFIX . '.update', $form->id),
+                'row' => $form,
+                'destroyRoute' => route($this->ROUTE_PREFIX . '.destroy', $form->id),
+                'trans' => $this->TRANS,
+                'regions' => Region::where('country_id', 177)->select('id', 'title')->get(),
                 'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
             ];
             return view('forms.edit', $compact);
@@ -128,7 +126,6 @@ class FormController extends Controller
         return response()->json($arr);
     }
 
-
     public function destroy(Form $form)
     {
         if ($form->delete()) {
@@ -139,31 +136,33 @@ class FormController extends Controller
         return response()->json($arr);
     }
 
+    public function AjaxLoadjKanban(Request $request)
+    {
+        $form = Form::where('id', $request->FormId)->first();
+
+        $view = view('forms.AjaxLoadjKanban', ['formFields' => $form->fields, 'fields' => Field::get()])->render();
+        return $view;
+    }
     public function saveFormfield(Request $request)
     {
         dd($request);
-        $conditionArr = (['form_id'=>$request->form_id,'field_id'=>$request->field_id]);
+        $conditionArr = ['form_id' => $request->form_id, 'field_id' => $request->field_id];
 
         #remove from tbl
-        if($request->action == '_inprocess'){
+        if ($request->action == '_inprocess') {
             FormField::where($conditionArr)->delete();
             $msg = 'تم حذف الحقل من الأستمارة بنجاح';
-        }
-        else if($request->action == '_working'){
+        } elseif ($request->action == '_working') {
             FormField::insert($conditionArr);
             $msg = 'تم اضافه الحقل الي الأستماره بنجاح';
         }
 
         /*$order  = explode(",",$request->order);
         for($i=0; $i < count($order);$i++) {
-            FormField::where('field_id',$order[$i])->update(['order'=>$i]);            
+            FormField::where('field_id',$order[$i])->update(['order'=>$i]);
         }*/
 
-    
-        $arr = ['msg' => $msg , 'status' => true];        
+        $arr = ['msg' => $msg, 'status' => true];
         return response()->json($arr);
-
     }
-
-
 }

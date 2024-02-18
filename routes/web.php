@@ -33,6 +33,8 @@ Route::delete('forms/destroy/all', 'FormController@destroyMultiple')->name('form
 Route::post('/saveFormfield', [App\Http\Controllers\FormController::class, 'saveFormfield'])->name('forms.saveFormfield');
 
 
+Route::post('/form/AjaxLoadjKanban', [App\Http\Controllers\FormController::class,'AjaxLoadjKanban'])->name('forms.AjaxLoadjKanban');
+
 Route::post('/fields/loadFieldInfo', 'FieldController@loadFieldInfo')->name('loadFieldInfo');
 
 
