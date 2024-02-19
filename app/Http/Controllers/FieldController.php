@@ -31,7 +31,11 @@ class FieldController extends Controller
         if ($query) {
             #Handle Fillable fields
            
-            if (count($request->fillable_display) > 0 && count($request->fillable_value) > 0) {
+            if (
+                !(empty($request->fillable_display)) &&
+                count($request->fillable_display) > 0 &&
+                !(empty($request->fillable_value)) && 
+                count($request->fillable_value) > 0) {
                 $result = array_combine($request->fillable_display, $request->fillable_value);
                 $insert = [];
                 foreach ($result as $k => $v) {
