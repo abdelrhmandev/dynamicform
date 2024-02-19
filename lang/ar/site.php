@@ -10,6 +10,7 @@ return [
     'confirmMultiDeleteMessage'  =>'هل تريد حذف العناصر المحدده :item',
     'delete_selected'            =>'حذف العناصر المحدده',
 
+    'selected'              =>'عناصر محدده',
     'status_updated'        =>'تم تغير الحاله بنجاح',
     'actions'               =>' الأجراءات',
     'empty_records'         =>'لا توجد سجلات',

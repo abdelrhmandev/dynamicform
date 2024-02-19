@@ -40,7 +40,16 @@ class FormController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $model = Form::with('fields', 'region')->withCount('fields');
+            $model = Form::with([              
+                'region' => function($query) {
+                    $query->select('id', 'title'); # One to many
+                },
+               
+            ])
+            ->with('fields')
+            ->withCount('fields');
+            
+
 
             return Datatables::of($model)
 
@@ -49,9 +58,16 @@ class FormController extends Controller
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
 
+                ->editColumn('buildingFields', function ($row) {
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id)."#kt_vtab_pane_5". " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" .$row->fields_count.'</a>';
+                })
+
+
+
                 ->editColumn('region_id', function ($row) {
                     return $row->region->title;
                 })
+
 
                 ->editColumn('gender', function ($row) {
                     if ($row->gender == 'male') {
@@ -71,7 +87,7 @@ class FormController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['title', 'mobile', 'id_number', 'region_id', 'address_info', 'gender', 'fields', 'actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['title', 'mobile','buildingFields', 'id_number', 'region_id', 'address_info', 'gender', 'fields', 'actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('forms.index')) {
@@ -140,21 +156,29 @@ class FormController extends Controller
     {
         $form = Form::where('id', $request->FormId)->first();
 
-        $view = view('forms.AjaxLoadjKanban', ['formFields' => $form->fields, 'fields' => Field::get()])->render();
+        $FormId = $request->FormId;
+        $avaiableFields = Field::whereDoesntHave('forms', function($query) use($FormId) {
+            $query->where('form_id',$FormId);
+          })->get();
+        
+
+        $view = view('forms.AjaxLoadjKanban', ['formFields' => $form->fields, 'avaiableFields' => $avaiableFields,'FormId'=>$FormId])->render();
         return $view;
     }
     public function saveFormfield(Request $request)
     {
-        dd($request);
+        
         $conditionArr = ['form_id' => $request->form_id, 'field_id' => $request->field_id];
 
         #remove from tbl
         if ($request->action == '_inprocess') {
             FormField::where($conditionArr)->delete();
             $msg = 'تم حذف الحقل من الأستمارة بنجاح';
+            $status = 'info';
         } elseif ($request->action == '_working') {
             FormField::insert($conditionArr);
             $msg = 'تم اضافه الحقل الي الأستماره بنجاح';
+            $status = true;
         }
 
         /*$order  = explode(",",$request->order);
@@ -162,7 +186,7 @@ class FormController extends Controller
             FormField::where('field_id',$order[$i])->update(['order'=>$i]);
         }*/
 
-        $arr = ['msg' => $msg, 'status' => true];
+        $arr = ['msg' => $msg, 'status' => $status];
         return response()->json($arr);
     }
 }

@@ -111,7 +111,7 @@ var dynamicColumns = [ //as an array start from 0
 
 { data: 'forms', name: 'forms',orderable: false}, 
 
-{{--  { data: 'fillables.display', name: 'fillables.display',orderable: false},    --}}
+ 
 { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];

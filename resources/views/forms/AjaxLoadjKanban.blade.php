@@ -17,8 +17,8 @@
                         'title': 'حقول المباني المتاحه',
                         'class': 'info',
                         'item': [
-                            @foreach ($fields as $field)
-                            {
+                            @foreach ($avaiableFields as $field)
+                            {                             
                                 'class': 'text-info',
                                 'id': "{{ $field->id }}",
                                 'title': '<span class="fw-bold">{{ $field->label }}</span>'
@@ -30,13 +30,21 @@
                         'title': 'الحقول المرتبطه بهذه الأستمارة',
                         'class': 'success',
                         'item': [
-                            @foreach ($formFields as $field)
+                            @forelse ($formFields as $field)
                                 {
                                     'class': 'text-info',
                                     'id': "{{ $field->id }}",
                                     'title': '<span class="fw-bold">{{ $field->label }}</span>'
                                 },
-                            @endforeach
+                            @empty
+
+                            {
+                                'class': 'text-info',
+                                'id': "0",
+                                'title': '<span class="fw-bold">لم يتم أضافه حقول بعد الي الأستمارة</span>'
+                            },
+                        
+                            @endforelse
                         ]
                     }
                 ],
@@ -55,12 +63,40 @@
                         url: "{{ route('forms.saveFormfield') }}",
                         method: "POST",
                         data: {
-                            form_id: '1',
-                            field_id: '11',
+                            form_id: '{{ $FormId }}',
+                            field_id: field_id,
                             action: action,
                             // order: order_string,
                         },
                         
+                        success: function(response) {
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-center",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            if (response['status'] == true) {
+                                toastr.success(response['msg']);
+                            }  
+                            else if (response['status'] == 'info') {
+                                toastr.info(response['msg']);
+                            } else {
+                                toastr.error(response['msg']);
+                            }
+                        }
+
                     });
                 },
             });
