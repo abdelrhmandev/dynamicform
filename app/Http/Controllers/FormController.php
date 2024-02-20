@@ -149,7 +149,7 @@ class FormController extends Controller
         } else {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
         }
-        return response()->json($arr);
+        return response()->json($arr); 
     }
 
     public function AjaxLoadjKanban(Request $request)
