@@ -4,13 +4,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class BuildingValue extends Model
+class BuildingSubmission extends Model
 {
     use HasFactory;
  
 
  
-    protected $table = 'building_values';
+    protected $table = 'building_submission';
     protected $fillable = ['form_id','field_id','field_fillable_id','fill_answer_text'];
     public $timestamps = false;
 

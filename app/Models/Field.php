@@ -23,9 +23,10 @@ class Field extends Model
         return $this->hasOne(BuildingValue::class);  
     }
 
-    public function JsonExtractValidationRules($key){          
-        if(isset($this->validation['validators'][$key]) && !(empty($this->validation['validators'][$key])))  {
-            return $this->validation['validators'][$key];       
+    public function JsonExtractValidationRules($key){                 
+         $Json = json_decode($this->validation); 
+         if(isset($Json->$key) && !(empty($Json->$key)))  {
+            return $Json->$key;       
         }
     }
 

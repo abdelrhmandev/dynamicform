@@ -124,8 +124,7 @@ class FieldController extends Controller
             return view('fields.index', $compact);
         }
     }
-    public function create()
-    {
+    public function create(){
         if (view()->exists('fields.create')) {
             $compact = [
                 'trans' => $this->TRANS,
@@ -139,18 +138,17 @@ class FieldController extends Controller
     {
         if (view()->exists('fields.edit')) {
             $compact = [
-                'updateRoute' => route($this->ROUTE_PREFIX . '.update', $field->id),
-                'row' => $field,
-                'destroyRoute' => route($this->ROUTE_PREFIX . '.destroy', $field->id),
-                'trans' => $this->TRANS,
+                'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $field->id),
+                'row'                    => $field,
+                'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $field->id),
+                'trans'                  => $this->TRANS,
                 'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
             ];
             return view('fields.edit', $compact);
         }
     }
 
-    public function loadFieldInfo(Request $request)
-    {
+    public function loadFieldInfo(Request $request){
         if ($request->type) {
             $view = '';
             $os = ['selectmenu', 'checkbox', 'radio'];
@@ -185,7 +183,6 @@ class FieldController extends Controller
         $index = 'id';
         $fillablesInstance = new FieldFillable();
         \Batch::update($fillablesInstance, $updateRecord, $index);
-
         #new fillable added
         if (count($request->fillable_display) > 0 && count($request->fillable_value) > 0) {
             $result = array_combine($request->fillable_display, $request->fillable_value);
@@ -203,7 +200,6 @@ class FieldController extends Controller
                 FieldFillable::insert($insert);
             }
         }
-
         if (Field::findOrFail($field->id)->update($validated)) {
             $arr = ['msg' => __($this->TRANS . '.updateMessageSuccess'), 'status' => true];
         } else {

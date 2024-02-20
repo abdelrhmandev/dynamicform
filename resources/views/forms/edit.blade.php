@@ -13,6 +13,9 @@
 @stop
 @section('style')
     <style>
+        [data-class="light-primary"] {
+            pointer-events: none !important;
+        }
         .toast-top-center {
             top: 12px;
             margin: 0 auto;
@@ -25,13 +28,7 @@
 @stop
 @section('content')
     <div id="kt_content_container" class="container-xxl">
-
-
         <div class="card card-flush py-0">
-
-
-
-
             <div class="d-flex flex-column flex-md-row rounded  p-10">
                 <ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px"
                     role="tablist">
@@ -192,26 +189,26 @@
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jkanban/jkanban.bundle.js') }}"></script>
     <script>
-        // Class definition
- 
- 
+        // Class definition       
+        function AjaxLoadjKanban(){
+        $.ajax({
+            url: "{{ route('forms.AjaxLoadjKanban') }}",
+            method: "POST",
+            data: {
+                FormId: '{{ $row->id }}',
+                '_token': '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                $("#AjaxResponsejKanban").html(data);
+            }
+        });
+    }
 
-       
-            $.ajax({
-                url: "{{ route('forms.AjaxLoadjKanban') }}",
-                method: "POST",
-                data: {
-                    FormId: '{{ $row->id }}',
-                    '_token': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    $("#AjaxResponsejKanban").html(data);
-                }
-            });
-         
+        AjaxLoadjKanban();
+
 
         KTUtil.onDOMContentLoaded(function() {
-            // handleFormSubmitFunc('Edit{{ $trans }}');
+            handleFormSubmitFunc('Edit{{ $trans }}');
             KTJKanbanDemoFixedHeight.init();
         });
     </script>

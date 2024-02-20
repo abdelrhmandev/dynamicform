@@ -17,13 +17,21 @@
                         'title': 'حقول المباني المتاحه',
                         'class': 'info',
                         'item': [
-                            @foreach ($avaiableFields as $field)
-                            {                             
+                            @forelse ($avaiableFields as $field)
+                                {
                                 'class': 'text-info',
                                 'id': "{{ $field->id }}",
                                 'title': '<span class="fw-bold">{{ $field->label }}</span>'
+                                },
+                            @empty
+
+                            {
+                                'class': 'light-primary',
+                                'id': "0",
+                                'title': '<span class="fw-bold">لا توجد حقول متاحه</span>'
                             },
-                        @endforeach
+                        
+                            @endforelse
                         ]
                     },{
                         'id': '_working',
@@ -39,9 +47,9 @@
                             @empty
 
                             {
-                                'class': 'text-info',
+                                'class': 'light-primary',
                                 'id': "0",
-                                'title': '<span class="fw-bold">لم يتم أضافه حقول بعد الي الأستمارة</span>'
+                                'title': '<span class="fw-bold">لم يتم أضافه حقول بعد الي الأستمارة برجاء تحديد الحقول</span>'
                             },
                         
                             @endforelse
@@ -89,11 +97,14 @@
                             };
                             if (response['status'] == true) {
                                 toastr.success(response['msg']);
+                                AjaxLoadjKanban();
                             }  
                             else if (response['status'] == 'info') {
                                 toastr.info(response['msg']);
+                                AjaxLoadjKanban();
                             } else {
                                 toastr.error(response['msg']);
+                                AjaxLoadjKanban();
                             }
                         }
 

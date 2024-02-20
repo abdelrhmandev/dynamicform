@@ -31,7 +31,7 @@ class FieldFillableSeeder extends Seeder
     
 
             ['display' => ' صك الملكية','value' => '1','field_id' => '9'],
-            ['display' => 'عوى تثبيت الملكية','value' => '2','field_id' => '9'],
+            ['display' => 'دعوي تثبيت الملكية','value' => '2','field_id' => '9'],
             ['display' => 'مشتري العقار ','value' => '3','field_id' => '9'],
             ['display' => 'حكم لإثبات ملكيته للعقار','value' => '4','field_id' => '9'],
 

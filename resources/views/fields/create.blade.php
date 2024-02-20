@@ -146,13 +146,9 @@
                     <!--begin::Step 2-->
                     <div data-kt-stepper-element="content">
                         <div class="w-100">
-
-
                             <h3 class="card-title align-items-start flex-column">
                                 <span class="card-label fw-bold text-gray-900">خصائص الحقل</span>
                             </h3>
-
-
                             <div class="d-flex flex-column mb-7 fv-row">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -161,11 +157,9 @@
                                         title="الأسم الذي سيظر به الحقل عند عرض الأستمارة"></i>
                                 </label>
                                 <!--end::Label-->
-
                                 <input placeholder="مثال الأسم , رقم الهويه .... " type="text" id="label"
                                     name="label" pattern="[a-zA-Z]"
                                     class="form-control form-control-lg form-control-solid" />
-
                             </div>
 
                             <div class="d-flex flex-column mb-7 fv-row">
@@ -335,9 +329,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/utilities/modals/fields/create-field.js') }}"></script>
-
-
-
     <script>
         function LoadFieldInfo(type) {
             $.ajax({
@@ -352,7 +343,6 @@
                 }
             });
         }
-
         function SaveFieldInfo() {
             let form = $('#kt_create_field_form')[0];
             let data = new FormData(form);

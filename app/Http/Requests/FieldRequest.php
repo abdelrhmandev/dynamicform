@@ -20,16 +20,16 @@ class FieldRequest extends FormRequest
         return $rules; 
     } 
 
-//     public function messages(): array
-// {
-//     return [
-//         'label.required' => 'فضلا حدد الأسم الذي سيظر به الحقل',
-//         'type.required' => 'فضلا حدد نوع الحقل',
-//         'name.required' => 'الأسم البرمجي للحقل',
-//         'label.unique' => 'أسم الحقل مستخدم من قبل',
-//         'name.unique' => 'الأسم البرمجي مستخدم من قبل',
-//     ];
-// }
+    public function messages(): array
+{
+    return [
+        'label.required' => 'فضلا حدد الأسم الذي سيظر به الحقل',
+        'type.required' => 'فضلا حدد نوع الحقل',
+        'name.required' => 'الأسم البرمجي للحقل',
+        'label.unique' => 'أسم الحقل مستخدم من قبل',
+        'name.unique' => 'الأسم البرمجي مستخدم من قبل',
+    ];
+}
 
     public function failedValidation(Validator $validator)
     {
