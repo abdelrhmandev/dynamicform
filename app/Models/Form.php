@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Form extends Model
 {
     use HasFactory;
- 
+ ///
     protected $table = 'forms';
     protected $fillable = ['title','mobile','id_number','region_id','address_info','gender'];
     protected $guarded = ['id'];
