@@ -10,6 +10,7 @@ class CreateBuildingTypesTable extends Migration
             $table->string('title');
             $table->string('image')->nullable();
             $table->string('color')->nullable();
+            $table->foreignId('form_id')->nullable();
         });	
     }
     public function down(){

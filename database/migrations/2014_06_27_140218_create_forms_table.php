@@ -12,8 +12,7 @@ class CreateFormsTable extends Migration
             $table->string('id_number');
             $table->foreignId('region_id');
             $table->string('address_info');
-            $table->enum('gender', ['male','female'])->default('male');
-            $table->foreignId('building_type_id')->nullable();
+            $table->enum('gender', ['male','female'])->default('male');           
             $table->timestamps();        
         });	
     }
