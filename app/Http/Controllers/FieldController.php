@@ -122,6 +122,7 @@ class FieldController extends Controller
                 'destroyMultipleRoute'  => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
             return view('fields.index', $compact);
+            ////
         }
     }
     public function create(){
