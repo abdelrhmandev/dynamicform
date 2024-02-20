@@ -119,5 +119,4 @@ KTUtil.onDOMContentLoaded(function () {
   loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
 });
 </script>
-<script src="{{ asset('assets/js/custom/updateStatus.js')}}"></script> 
 @stop
