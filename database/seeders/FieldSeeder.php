@@ -97,6 +97,12 @@ class FieldSeeder extends Seeder
             ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery', 'width' => '100', 'is_required' => '0', 'validation' => json_encode($building_gallery_images), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature', 'width' => '50', 'is_required' => '1', 'validation' => null, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => 'legal_disputes_over_building', 'type' => 'radio', 'width' => '100', 'is_required' => '0', 'validation' => NULL,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+       
+       
+            ['label' => 'أسم المبني', 'name' => 'name', 'type' => 'textbox', 'width' => '100', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
+            ['label' => 'مميزات المبني', 'name' => 'building_features', 'type' => 'checkbox', 'width' => '100', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
         ];
 
         /*

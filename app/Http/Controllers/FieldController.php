@@ -156,7 +156,7 @@ class FieldController extends Controller
             if (in_array($request->type, $os)) {
                 $view = view('components.fields.fieldfillable')->render();
             } else {
-                $os = ['textbox', 'google_map', 'numbers', 'date', 'signature', 'textarea', 'file', 'gallery', 'id_number', 'email', 'phone_number', 'date_range'];
+                $os = ['textbox', 'google_map', 'number', 'date', 'signature', 'textarea', 'file', 'gallery', 'id_number', 'email', 'phone_number', 'date_range'];
                 if (in_array($request->type, $os)) {
                     $view = view('components.fields.' . $request->type)->render();
                 }
@@ -209,6 +209,19 @@ class FieldController extends Controller
 
         return response()->json($arr);
     }
+
+    public function AjaxRemoveFieldFillable($id)
+    {
+        // $field->form_field()->detach();
+        if (FieldFillable::where('id',$id)->delete()) {
+            $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
+        }
+        return response()->json($arr);
+    }
+
+
     public function destroy(Field $field)
     {
         // $field->form_field()->detach();

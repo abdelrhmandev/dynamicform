@@ -38,6 +38,16 @@ class FieldFillableSeeder extends Seeder
         
             ['display' => ' نعم هناك نزاعات','value' => 'yes','field_id' => '14'],
             ['display' => 'لا توجد نزاعات','value' => 'no','field_id' => '14'],
+
+
+
+            ['display' => 'مزيد من المساحة الداخلية','value' => '1','field_id' => '16'],
+            ['display' => ' أقل خطر من أضرار العاصفة ','value' => '2','field_id' => '16'],
+            ['display' => ' الطلاء المعدني لمكافحة التآكل','value' => '3','field_id' => '16'],
+            ['display' => 'دعامات السقف طويل المدى','value' => '4','field_id' => '16'],
+            ['display' => ' ملاءمة للسكن ، المرآب ، التخزين ، الزراعة و التخزين الاستخدام ','value' => '5','field_id' => '16'],
+ 
+
         ];
 
  
