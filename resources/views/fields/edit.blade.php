@@ -138,7 +138,7 @@
                                     </label>
                                     <input type="text" id="minlength" maxlength="3" name="minlength"
                                         placeholder=" مثال 1" class="form-control form-control-lg form-control-solid"
-                                        value="{{ $row->JsonExtractValidationRules('minlength') }}" />
+                                        value="" />
                                 </div>
 
                                 <div class="d-flex flex-column mb-7 fv-row mt-5">
@@ -147,7 +147,7 @@
                                     </label>
                                     <input type="text" id="maxlength" maxlength="3" name="maxlength"
                                         placeholder=" مثال 255" class="form-control form-control-lg form-control-solid"
-                                        value="{{ $row->JsonExtractValidationRules('maxlength') }}" />
+                                        value="" />
                                 </div>
                                 <div class="d-flex flex-column mb-7 fv-row mt-10">
                                     <div class="me-5">
@@ -160,8 +160,7 @@
 
                                     <label class="form-check form-switch form-check-custom form-check-solid">
                                         <input class="form-check-input" type="checkbox" name="attribute"
-                                            value="arabic_letters_only"
-                                            {{ $row->JsonExtractValidationRules('pattern') == '^[\u0621-\u064A\u0660-\u0669 ]+$' ? 'checked' : '' }} />
+                                            value="arabic_letters_only" />
                                         <span class="form-check-label fw-semibold text-muted">نعم</span>
                                     </label>
                                     <!--end::Switch-->
