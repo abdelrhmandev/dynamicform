@@ -73,22 +73,22 @@ class FieldSeeder extends Seeder
 
         $items = [
             ['label' => 'أسم المالك', 'name' => 'name', 'type' => 'textbox', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($owner_name), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'البريد الألكتروني للمالك', 'name' => 'email', 'type' => 'email', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_email), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'رقم هويه المالك', 'name' => 'id_number', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_id_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_mobile_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'البريد الألكتروني للمالك', 'name' => 'email', 'type' => 'email', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_email), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'رقم هويه المالك', 'name' => 'id_number', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_id_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_mobile_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
-            // ['label' => 'الحاله الأجتماعيه', 'name' => 'social_status', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'المستوي التعليمي', 'name' => 'education_level', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'الحاله الأجتماعيه', 'name' => 'social_status', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'المستوي التعليمي', 'name' => 'education_level', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
 
-            // ['label' => 'ملف مستند بيع المبني', 'name' => 'building_sales_document', 'type' => 'file', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($building_sales_document), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => ' فترة البيع', 'name' => 'sale_period', 'type' => 'date_range', 'width' => '33', 'is_required' => '1', 'validation' => json_encode($sale_period), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select', 'width' => '66', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'googel_map', 'width' => '66', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'صوره المبني الرئيسيه', 'name' => 'building_main_image', 'type' => 'file', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($building_main_image), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery', 'width' => '100', 'is_required' => '0', 'validation' => json_encode($building_gallery_images), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature', 'width' => '50', 'is_required' => '1', 'validation' => null, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            // ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => 'legal_disputes_over_building', 'type' => 'radio', 'width' => '100', 'is_required' => '0', 'validation' => NULL,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'ملف مستند بيع المبني', 'name' => 'building_sales_document', 'type' => 'file', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($building_sales_document), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => ' فترة البيع', 'name' => 'sale_period', 'type' => 'date_range', 'width' => '33', 'is_required' => '1', 'validation' => json_encode($sale_period), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'أثبات الملكيه', 'name' => 'ownership_evidence', 'type' => 'select', 'width' => '66', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'الموقع الجغرافي للمبني', 'name' => 'google_map', 'type' => 'googel_map', 'width' => '66', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'صوره المبني الرئيسيه', 'name' => 'building_main_image', 'type' => 'file', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($building_main_image), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'معرض صور', 'name' => 'building_gallery', 'type' => 'file_gallery', 'width' => '100', 'is_required' => '0', 'validation' => json_encode($building_gallery_images), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature', 'width' => '50', 'is_required' => '1', 'validation' => null, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => 'legal_disputes_over_building', 'type' => 'radio', 'width' => '100', 'is_required' => '0', 'validation' => NULL,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ];
 
         /*
