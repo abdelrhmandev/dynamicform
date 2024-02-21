@@ -33,7 +33,7 @@ trait Functions
         } elseif ($request->type == 'email') {
             $pattern = '/^[a-zA-Z0-9. _-]+@[a-zA-Z0-9. -]+\. [a-zA-Z]{2,4}$/';
             $message = 'البريد الألكتروني يجب أن يكون في صيغه صحيحه';
-        } elseif ($request->type == 'numbers') {
+        } elseif ($request->type == 'number') {
             $dataValidation['validators'] = [
                 'type' => 'StringLength',
                 'minlength' => $request->NumbersMinLength ?? '',
@@ -45,17 +45,21 @@ trait Functions
         } elseif ($request->type == 'file') {
             $data_file = 'true';
             if ($request->checkFileRules == 'images') {
+                $file_type = 'image';
                 $accept = '.png, .jpg, .jpeg';
                 $data_file_extension = 'jpeg,jpg,png';
                 $data_file_type = 'image/jpeg,image/jpg,image/png';
                 $data_file_message = __('validation.mimetypes', ['attribute' => 'image', 'values' => '*.png, *.jpg and *.jpeg']);
             } elseif ($request->checkFileRules == 'documents') {
+
+                $file_type ='document';
                 $accept = '.xlsx,.docx,.pdf';
                 $data_file_extension = 'xlsx,docx,pdf';
                 $data_file_type = 'application/xlsx,application/docx,application/pdf';
                 $data_file_message = __('validation.mimetypes', ['attribute' => 'file', 'values' => '*.xlsx, *.docx and *.pdf']);
             }
             $dataValidation['validators'] = [
+                'file_type' => $file_type,
                 'accept' => $accept,
                 'data_file_extension' => $data_file_extension,
                 'data_file_type' => $data_file_type,

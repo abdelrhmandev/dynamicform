@@ -15,9 +15,6 @@ class Field extends Model
     protected $guarded = ['id'];
     public $timestamps = true;
 
-    protected $casts = [
-        'validation' => 'json',
-    ];
 
     public function values(){
         return $this->hasOne(BuildingValue::class);  

@@ -47,9 +47,17 @@ class FieldSeeder extends Seeder
             'StringLengthMessage' => 'رقم الجوال مكون من 10 أرقام فقط لا أقل و لا أكثر',
         ];
         $building_sales_document = [
-            'accept' => '.xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf',
+            "file_type"=>'document',
+            'accept' => '.xlsx,.docx,.pdf',
+            'data_not_empty_message' => 'pleas set the file',
+            'data_file' => 'true',
+            'data_file_extension' => '.xlsx,.docx,.pdf',
+            'data_file_type' => 'application/xlsx,application/docx,application/pdf',
+            'data_file_message' => __('validation.mimetypes', ['attribute' => 'image', 'values' => '*.xlsx, *.docx and *.pdf']),
+
         ];
         $building_main_image = [
+            "file_type"=>'image',
             'accept' => '.png, .jpg, .jpeg',
             'data_not_empty_message' => 'pleas set the image',
             'data_file' => 'true',

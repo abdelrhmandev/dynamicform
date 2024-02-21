@@ -146,10 +146,10 @@
 <div class="row">
     <div class="col-xl-4">
         <div class="pb-1">
-            <input type="radio" class="btn-check" name="type" value="numbers" id="numbers" />
+            <input type="radio" class="btn-check" name="type" value="number" id="number" />
             <label
                 class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
-                for="numbers">
+                for="number">
                 <span class="svg-icon svg-icon-4x me-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +162,7 @@
                     </svg>
                 </span>
                 <span class="d-block fw-semibold text-start">
-                    <span class="text-dark fw-bold d-block fs-3">"Numbers"</span>
+                    <span class="text-dark fw-bold d-block fs-3">"Number"</span>
 
                 </span>
             </label>
