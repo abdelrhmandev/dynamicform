@@ -123,7 +123,7 @@ class FieldController extends Controller
                 'destroyMultipleRoute'  => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
             return view('fields.index', $compact);
-            ////
+         
         }
     }
     public function create(){
@@ -138,19 +138,12 @@ class FieldController extends Controller
     }
     public function edit(Request $request, Field $field)
     {
-        if (view()->exists('fields.edit')) {
-
- 
+        if (view()->exists('fields.edit')) { 
         if ($request->ajax()) {
             $fillables =  $field->fillables;
             return Datatables::of($fillables)
                 ->addIndexColumn()
                 ->editColumn('fillable_display', function ($row) {                    
-                    
-
-                    
- 
-
                 $data = "<div class=\"input-group\">
                 <span class=\"input-group-text\" data-kt-item-filter" . $row->id . "=\"item\">
                 <label class=\"form-check form-check-custom form-check-solid me-1\">
@@ -160,10 +153,7 @@ class FieldController extends Controller
                 <input type=\"text\" value=".$row->display." id=\"answerText\"
                 name=\"old_fillable_display[".$row->id."]\" class=\"form-control form-control-lg\"/>                
                 </div>";
-
-
-                    return $data; 
- 
+                    return $data;  
                 })    
                 ->editColumn('fillable_value', function ($row) {
                     return "<input type=\"text\" class=\"form-control form-control-lg\" placeholder=\"مثال ذكر\"
@@ -171,11 +161,11 @@ class FieldController extends Controller
                     data-kt-item-filter" . $row->id . "=\"item\"
                     value=\"".$row->value."\" />";
                 })    
-
                 ->editColumn('actions', function ($row) {
-                    return $row->id."<div class=\"menu-item px-3\"><a id=\"delete_item\" 
-                    data-destroy-route=".route('fields.AjaxRemoveFieldFillable',$row->id)." 
-                    data-XX-item-filter" . $row->id . "=\"item\"
+                    return "<div class=\"menu-item px-3\"><a id=\"delete_item\" 
+                    data-destroy-route=".route('fields.AjaxRemoveFieldFillable',":id")." 
+                    data-item-filter" . $row->id . "=\"item\"
+                    data-id=".$row->id."
                     class=\"menu-link px-3\"  
                     data-kt-table-filter=\"delete_row\" 
                     data-back-list-text=\"العودة الى القائمة\" 
@@ -185,20 +175,11 @@ class FieldController extends Controller
                     data-confirm-button-textgotit=\"حسنا\"
                     data-deleting-selected-items=\"حذف العناصر المحدده الملأ\" 
                     data-not-deleted-message=\"لم يتم الحذف\"                    
-                    >
-                    <i class=\"fa fa-trash-alt m-1 w-1 h-1 mr-1 rtl:ml-1\"></i></a></div>";
-                })
-                
+                    ><i class=\"fa fa-trash-alt m-1 w-1 h-1 mr-1 rtl:ml-1\"></i></a></div>";
+                })                
                 ->rawColumns(['fillable_display','fillable_value','actions'])
                 ->make(true);
         }
-
-///////////////////
-
-
-
-
-
             $compact = [
                 'editRoute'                    => route($this->ROUTE_PREFIX . '.edit', $field->id),
                 'updateRoute'                  => route($this->ROUTE_PREFIX . '.update', $field->id),
@@ -247,6 +228,7 @@ class FieldController extends Controller
 
     public function update(FieldRequest $request, Field $field)
     {
+        dd('dasd');
         $validated = $request->validated();
         $validated['title'] = $request->title;
         $validated['notices'] = $request->notices;
@@ -295,6 +277,7 @@ class FieldController extends Controller
 
     public function destroy(Field $field)
     {
+       
         // $field->form_field()->detach();
 
         if ($field->delete()) {
@@ -307,6 +290,7 @@ class FieldController extends Controller
     
     //////////////// Fillable Handle //////////////////////////////////////////////
     public function AjaxRemoveFieldFillable($id){ 
+
         if (FieldFillable::where('id',$id)->delete()) {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
         } else {

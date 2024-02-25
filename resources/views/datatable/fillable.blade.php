@@ -19,12 +19,13 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,                  
-                    info: false, 
+                    info: false,               
+                    bPaginate: false,    
                     oLanguage: {
                         "zeroRecords" : '@include("partials.no_matched_records")',
                         "sEmptyTable": '@include("partials.empty")',
                     },
-                    bPaginate: false,    
+
                     orientation: 'landscape',     
                     exportOptions: {
                         orthogonal: "myExport",
@@ -100,19 +101,13 @@
                     deleteButtons.forEach(d => {
                     d.addEventListener('click', function (e) {
                      
-                        e.preventDefault();
-                        const parent = e.target.closest('tr');
-                        // const itemName = '<strong><u>'+parent.querySelectorAll('td')[1].innerText+'</u></strong>';                   
+                    e.preventDefault();
+                    const parent = e.target.closest('tr');
+                    const itemName = '<strong><u>'+parent.querySelectorAll('td')[1].innerText+'</u></strong>';                   
 
-                           alert(parent);
-                        
-
-                        var c = document.querySelector('[data-kt-item-filter2="item"]'); 
-
-                                    
-
-
-
+                    const id = $(this).attr('data-id');
+                    const Deleteurl = destroy.getAttribute("data-destroy-route");
+                    const ActionDeleteurl = Deleteurl.replace(':id', id);
 
                     Swal.fire({
                     html: destroy.getAttribute("data-confirm-message") + ' ' + itemName + '?',
@@ -133,7 +128,7 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            url: destroy.getAttribute("data-destroy-route"),
+                            url: ActionDeleteurl,
                             data: {
                                 '_method': 'delete',
                             },
