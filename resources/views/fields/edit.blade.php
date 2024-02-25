@@ -187,7 +187,7 @@
                                                     name="fillable_value[]" value="{{ $value->value }}" />
                                             </td>
                                             <td class="text-end">
-                                               
+                                                {{ $value->id }}
                                                 
                                                 <button type="button" class="btn btn-icon btn-flex w-30px h-30px me-3"
                                                     id="delete_item" 
@@ -410,7 +410,7 @@
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}"></script>
   
-    
+  <script>  
         KTUtil.onDOMContentLoaded(function() {           
             handleFormSubmitFunc('Edit{{ $trans }}');
         });

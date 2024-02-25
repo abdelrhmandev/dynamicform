@@ -99,7 +99,7 @@
         </span>
         أضف ملئ جديد</a>
 </div>
-<script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}">
+<script src="{{ asset('assets/js/custom/fieldfillableCreate.js') }}">
     KTUtil.onDOMContentLoaded(function() {
         KTSubscriptionsAdvanced.init();
     });

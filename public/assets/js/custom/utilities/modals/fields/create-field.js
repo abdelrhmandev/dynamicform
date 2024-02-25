@@ -24,7 +24,7 @@ var KTCreateField = (function () {
                         var Fs = $("#kt_create_field_form input[name='type']:checked").val();                        
                         (1 == r.getCurrentStepIndex() ? LoadFieldInfo(Fs) :'');
                         
-                        console.log("stepXXXXXXXXxxper.next");
+                        // console.log("stepXXXXXXXXxxper.next");
 
 
                         var t = s[e.getCurrentStepIndex() - 1];
