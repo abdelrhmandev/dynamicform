@@ -1,5 +1,5 @@
 "use strict";
-var KTSubscriptionsAdvanced = (function () {
+var KTFiledFillableCreate = (function () {
     var t,
         e,
         n = function () {
@@ -30,7 +30,7 @@ var KTSubscriptionsAdvanced = (function () {
                     t.preventDefault();
                     const n = t.target.closest("tr");
                     Swal.fire({
-                        text: "  هل تريد حقا حذف هذا الملأ  ؟",
+                        text: "  هل تريد حقا حذف هذا الملأXXXXXXXXXXXXXXxx  ؟",
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
@@ -49,5 +49,5 @@ var KTSubscriptionsAdvanced = (function () {
     };
 })();
 KTUtil.onDOMContentLoaded(function () {
-    KTSubscriptionsAdvanced.init();
+    KTFiledFillableCreate.init();
 });

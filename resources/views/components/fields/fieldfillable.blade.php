@@ -101,6 +101,6 @@
 </div>
 <script src="{{ asset('assets/js/custom/fieldfillableCreate.js') }}">
     KTUtil.onDOMContentLoaded(function() {
-        KTSubscriptionsAdvanced.init();
+        KTFiledFillableCreate.init();
     });
 </script>

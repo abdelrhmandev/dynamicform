@@ -90,9 +90,9 @@ var KTSubscriptionsAdvanced = (function () {
                                         }).then(function() {
                                             // delete row data from server and re-draw datatable
 
-                                            // document.location.href = window.location;
+                                            document.location.href = window.location;
 
-                                            e.row($(n)).remove().draw();
+                                            // e.row($(n)).remove().draw();
                                         });
                                     } else if (response["status"] == false) {
                                         Swal.fire({
