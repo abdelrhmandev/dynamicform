@@ -33,7 +33,7 @@ Route::delete('forms/destroy/all', 'FormController@destroyMultiple')->name('form
 Route::post('/saveFormfield', [App\Http\Controllers\FormController::class, 'saveFormfield'])->name('forms.saveFormfield');
 
 Route::delete('/AjaxRemoveFieldFillable/{id}', [App\Http\Controllers\FieldController::class, 'AjaxRemoveFieldFillable'])->name('fields.AjaxRemoveFieldFillable');
-
+Route::delete('/AjaxRemoveMultiFieldFillable', [App\Http\Controllers\FieldController::class, 'AjaxRemoveMultiFieldFillable'])->name('fields.AjaxRemoveMultiFieldFillable');
 
 
 

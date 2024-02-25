@@ -19,6 +19,7 @@ class FieldController extends Controller
         $this->middleware('auth');
         $this->ROUTE_PREFIX = 'fields';
         $this->TRANS = 'field';
+        $this->TRANSFillable = 'fillable';
         $this->Tbl = 'fields';
     }
 
@@ -138,12 +139,75 @@ class FieldController extends Controller
     public function edit(Request $request, Field $field)
     {
         if (view()->exists('fields.edit')) {
+
+ 
+        if ($request->ajax()) {
+            $fillables =  $field->fillables;
+            return Datatables::of($fillables)
+                ->addIndexColumn()
+                ->editColumn('fillable_display', function ($row) {                    
+                    
+
+                    
+ 
+
+                $data = "<div class=\"input-group\">
+                <span class=\"input-group-text\" data-kt-item-filter" . $row->id . "=\"item\">
+                <label class=\"form-check form-check-custom form-check-solid me-1\">
+                 ".$row->display."
+                </label>
+                </span>
+                <input type=\"text\" value=".$row->display." id=\"answerText\"
+                name=\"old_fillable_display[".$row->id."]\" class=\"form-control form-control-lg\"/>                
+                </div>";
+
+
+                    return $data; 
+ 
+                })    
+                ->editColumn('fillable_value', function ($row) {
+                    return "<input type=\"text\" class=\"form-control form-control-lg\" placeholder=\"مثال ذكر\"
+                    name=\"old_fillable_value[".$row->id."]\" 
+                    data-kt-item-filter" . $row->id . "=\"item\"
+                    value=\"".$row->value."\" />";
+                })    
+
+                ->editColumn('actions', function ($row) {
+                    return $row->id."<div class=\"menu-item px-3\"><a id=\"delete_item\" 
+                    data-destroy-route=".route('fields.AjaxRemoveFieldFillable',$row->id)." 
+                    data-XX-item-filter" . $row->id . "=\"item\"
+                    class=\"menu-link px-3\"  
+                    data-kt-table-filter=\"delete_row\" 
+                    data-back-list-text=\"العودة الى القائمة\" 
+                    data-confirm-message=\"هل تريد حذف الملأ\"
+                    data-confirm-button-text=\"نعم, حذف!\" 
+                    data-cancel-button-text=\"لا, ألغ\" 
+                    data-confirm-button-textgotit=\"حسنا\"
+                    data-deleting-selected-items=\"حذف العناصر المحدده الملأ\" 
+                    data-not-deleted-message=\"لم يتم الحذف\"                    
+                    >
+                    <i class=\"fa fa-trash-alt m-1 w-1 h-1 mr-1 rtl:ml-1\"></i></a></div>";
+                })
+                
+                ->rawColumns(['fillable_display','fillable_value','actions'])
+                ->make(true);
+        }
+
+///////////////////
+
+
+
+
+
             $compact = [
-                'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $field->id),
-                'row'                    => $field,
-                'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $field->id),
-                'trans'                  => $this->TRANS,
-                'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
+                'editRoute'                    => route($this->ROUTE_PREFIX . '.edit', $field->id),
+                'updateRoute'                  => route($this->ROUTE_PREFIX . '.update', $field->id),
+                'row'                          => $field,
+                'transfillable'                =>$this->TRANSFillable,
+                'destroyRoute'                 => route($this->ROUTE_PREFIX . '.destroy', $field->id),
+                'trans'                        => $this->TRANS,
+                'AjaxRemoveMultiFieldFillable' =>route('fields.AjaxRemoveMultiFieldFillable'),
+                'redirect_after_destroy'       => route($this->ROUTE_PREFIX . '.index'),
             ];
             return view('fields.edit', $compact);
         }
@@ -164,6 +228,22 @@ class FieldController extends Controller
         }
         return $view;
     }
+
+    public function destroyMultiple(Request $request){
+        /*$ids = explode(',', $request->ids);
+        foreach (MainModel::whereIn('id', $ids)->get() as $selectedItems) {
+            $selectedItems->image ? $this->unlinkFile($selectedItems->image) : ''; // Unlink Images
+        }
+        $items = MainModel::whereIn('id', $ids); // Check
+        if ($items->delete()) {
+            $arr = ['msg' => __($this->TRANS . '.' . 'MulideleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS . '.' . 'MiltideleteMessageError'), 'status' => false];
+        }
+        return response()->json($arr);
+        */
+    }
+
 
     public function update(FieldRequest $request, Field $field)
     {
@@ -210,16 +290,7 @@ class FieldController extends Controller
         return response()->json($arr);
     }
 
-    public function AjaxRemoveFieldFillable($id)
-    {
-        // $field->form_field()->detach();
-        if (FieldFillable::where('id',$id)->delete()) {
-            $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
-        } else {
-            $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
-        }
-        return response()->json($arr);
-    }
+
 
 
     public function destroy(Field $field)
@@ -232,5 +303,28 @@ class FieldController extends Controller
             $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
         }
         return response()->json($arr);
+    }    
+    
+    //////////////// Fillable Handle //////////////////////////////////////////////
+    public function AjaxRemoveFieldFillable($id){ 
+        if (FieldFillable::where('id',$id)->delete()) {
+            $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
+        }
+        return response()->json($arr);
     }
+
+    public function AjaxRemoveMultiFieldFillable(Request $request){
+        $ids = explode(',', $request->ids);        
+        $items = FieldFillable::whereIn('id', $ids); // Check
+        if ($items->delete()) {
+            $arr = ['msg' => __($this->TRANSFillable . '.' . 'MulideleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANSFillable . '.' . 'MiltideleteMessageError'), 'status' => false];
+        }
+        return response()->json($arr);
+    }
+
+
 }
