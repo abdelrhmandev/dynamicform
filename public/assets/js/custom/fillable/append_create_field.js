@@ -1,5 +1,5 @@
 "use strict";
-var KTFiledFillableCreate = (function () {
+var KTFillableAppendField = (function () {
     var t,
         e,
         n = function () {
@@ -30,7 +30,7 @@ var KTFiledFillableCreate = (function () {
                     t.preventDefault();
                     const n = t.target.closest("tr");
                     Swal.fire({
-                        text: "  هل تريد حقا حذف هذا الملأXXXXXXXXXXXXXXxx  ؟",
+                        text: "  هل تريد حقا حذف هذا الملأ  ؟",
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
@@ -49,5 +49,5 @@ var KTFiledFillableCreate = (function () {
     };
 })();
 KTUtil.onDOMContentLoaded(function () {
-    KTFiledFillableCreate.init();
+    KTFillableAppendField.init();
 });

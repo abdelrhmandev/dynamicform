@@ -99,8 +99,8 @@
         </span>
         أضف ملئ جديد</a>
 </div>
-<script src="{{ asset('assets/js/custom/fieldfillableCreate.js') }}">
+<script src="{{ asset('assets/js/custom/fillable/append_create_field.js') }}">
     KTUtil.onDOMContentLoaded(function() {
-        KTFiledFillableCreate.init();
+        KTFillableAppendField.init();
     });
 </script>

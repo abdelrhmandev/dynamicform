@@ -8,7 +8,7 @@ var KTSubscriptionsAdvanced = (function () {
                     o = t.querySelector("td:nth-child(2) input"),
                     i = n.getAttribute("id"),
                     r = o.getAttribute("id");
-                n.setAttribute("name", i + "-" + e), o.setAttribute("name", r + "-" + e);
+                // n.setAttribute("name", i + "-" + e), o.setAttribute("name", r + "-" + e);
             });
         };
     return {
@@ -30,19 +30,19 @@ var KTSubscriptionsAdvanced = (function () {
                     t.preventDefault();
                     const n = t.target.closest("tr");
                     Swal.fire({
-                        text: "Are you sure you want to delete this field ?",
+                        text: "  هل تريد حقا حذف هذا الملأ  ؟",
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
-                        confirmButtonText: "Yes, delete!",
-                        cancelButtonText: "No, cancel",
+                        confirmButtonText: "نعم حذف",
+                        cancelButtonText: "لا, الغ",
                         customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
                     }).then(function (t) {
                         t.value
-                            ? Swal.fire({ text: "You have deleted it!.", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } }).then(function () {
+                            ? Swal.fire({ text: "تم الحذف.", icon: "success", buttonsStyling: !1, confirmButtonText: "حسنا نعم", customClass: { confirmButton: "btn fw-bold btn-primary" } }).then(function () {
                                   e.row($(n)).remove().draw();
                               })
-                            : "cancel" === t.dismiss && Swal.fire({ text: "It was not deleted.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } });
+                            : "cancel" === t.dismiss && Swal.fire({ text: "لم يتم الحذف.", icon: "error", buttonsStyling: !1, confirmButtonText: "حسنا نعم", customClass: { confirmButton: "btn fw-bold btn-primary" } });
                     });
                 });
         },
