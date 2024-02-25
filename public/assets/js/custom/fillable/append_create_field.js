@@ -20,7 +20,17 @@ var KTFillableAppendField = (function () {
                         r = t.querySelector("tbody tr td:nth-child(2)").innerHTML,
                         c = t.querySelector("tbody tr td:last-child").innerHTML;
                     var d;
-                    (e = $(t).DataTable({ info: !1, order: [], ordering: !1, paging: !1, lengthChange: !1 })),
+                    (e = $(t).DataTable({ 
+                        oLanguage: {
+                            "zeroRecords" : 'لا توجد بيانات متاحه',
+                            "sEmptyTable": 'لا توجد بيانات متاحه',
+                        },
+                        info: !1, 
+                        order: [], 
+                        ordering: !1, 
+                        paging: !1, 
+                        lengthChange: !1 
+                      })),
                         o.addEventListener("click", function (t) {
                             t.preventDefault(), (d = e.row.add([i, r, c]).draw().node()), $(d).find("td").eq(2).addClass("text-end"), n();
                         });

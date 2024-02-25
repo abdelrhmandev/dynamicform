@@ -408,7 +408,7 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/subscriptions/add/advanced.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/fillable/append_edit_field.js') }}"></script>
   
   <script>  
         KTUtil.onDOMContentLoaded(function() {           
