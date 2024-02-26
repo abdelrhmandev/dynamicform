@@ -43,16 +43,12 @@ class FormController extends Controller
             $model = Form::with([              
                 'region' => function($query) {
                     $query->select('id', 'title'); # One to many
-                },
-               
+                },               
             ])
             ->with('fields')
             ->withCount('fields');
             
-
-
             return Datatables::of($model)
-
                 ->addIndexColumn()
                 ->editColumn('title', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
@@ -77,6 +73,7 @@ class FormController extends Controller
                     }
                     return $div;
                 })
+                
                 ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })

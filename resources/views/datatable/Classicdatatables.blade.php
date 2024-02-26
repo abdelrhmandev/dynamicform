@@ -8,7 +8,7 @@ var data = table.rows().data();
 alert( 'The table has '+data.length+' records' );
 */
 function loadDatatable(tableId,RouteListing,dynamicColumns,StatusColumn=null,TitleColumnOrder=null){
-    var table;
+        var table;
         var dt;
         var filterStatus;      
         var lang = document.dir == 'rtl' ? 'ar' : 'en-GB';  
@@ -18,7 +18,8 @@ function loadDatatable(tableId,RouteListing,dynamicColumns,StatusColumn=null,Tit
          if(CREATED_at) { 
             sorting = [[CREATED_at , 'desc']];
          }
- 
+
+         
          
             dt = $("#"+tableId).DataTable({
                 searchDelay: 500,

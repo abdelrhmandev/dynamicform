@@ -21,6 +21,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::resource('buildingtypes', BuildingTypeController::class)->except('show');
+Route::delete('/buildingtypes/destroy/all', [App\Http\Controllers\BuildingTypeController::class,'destroyMultiple'])->name('buildingtypes.destroyMultiple');
+
 
 Route::resource('fields', FieldController::class)->except('show');
 Route::delete('/fields/destroy/all', 'FieldController@destroyMultiple')->name('fields.destroyMultiple');
@@ -50,9 +53,6 @@ Route::post('/fields/loadFieldInfo', 'FieldController@loadFieldInfo')->name('loa
 Route::resource('buildings', BuildingController::class)->except('show');
 
 
-Route::resource('buildingtypes', BuildingTypeController::class)->except('show');
-
-Route::delete('/buildingtypes/destroy/all', [App\Http\Controllers\BuildingTypeController::class,'destroyMultiple'])->name('buildingtypes.destroyMultiple');
 
 
  
