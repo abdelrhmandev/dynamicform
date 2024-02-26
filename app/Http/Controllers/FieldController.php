@@ -26,7 +26,7 @@ class FieldController extends Controller
     public function store(FieldRequest $request){
         $validated              = $request->validated();
         $fieldInfo              = $this->handleSaveField($request);
-        $query                  = Field::create($fieldInfo);
+         $query                  = Field::create($fieldInfo);
         
         if ($query) {
             #Handle Fillable fields

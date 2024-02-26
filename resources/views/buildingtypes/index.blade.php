@@ -93,11 +93,11 @@
 @include('datatable.Classicdatatables')
 <script>
 var dynamicColumns = [ //as an array start from 0
-{ data: 'id', name: 'id',exportable:false}, 
-{ data: 'title', name: 'title',orderable: false},
-{ data: 'title', name: 'title',orderable: false},
-{ data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
-{ data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
+  { data: 'id', name: 'id',exportable:false}, 
+  { data: 'title', name: 'title',orderable: false},
+  { data: 'color', name: 'color',orderable: false},
+  { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
+  { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
   loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
