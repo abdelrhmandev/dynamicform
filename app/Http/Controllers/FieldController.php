@@ -23,16 +23,14 @@ class FieldController extends Controller
         $this->Tbl = 'fields';
     }
 
-    public function store(FieldRequest $request)
-    {
+    public function store(FieldRequest $request){
         $validated              = $request->validated();
         $fieldInfo              = $this->handleSaveField($request);
         $query                  = Field::create($fieldInfo);
-
+        
         if ($query) {
             #Handle Fillable fields
-           
-            if (
+           if (
                 !(empty($request->fillable_display)) &&
                 count($request->fillable_display) > 0 &&
                 !(empty($request->fillable_value)) && 
@@ -51,8 +49,7 @@ class FieldController extends Controller
                 if (!empty($insert)) {
                     FieldFillable::insert($insert);
                 }
-            }
-           
+            }           
             $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];
@@ -62,27 +59,21 @@ class FieldController extends Controller
 
     public function index(Request $request){
         if ($request->ajax()) {
-            $model = Field::withCount('forms')->with('fillables');
-           
+            $model = Field::withCount('forms')->with('fillables');           
             return Datatables::of($model)
-
                 ->addIndexColumn()
                 ->editColumn('label', function ($row) {
-
-                    $fillable = '';
-                    
+                    $fillable = '';                    
                     if (count($row->fillables)) {
                         $fillable .= '<br/><small class="text-danger w-500">البيانات الأوليه للحقل</small><br>';
                         foreach ($row->fillables as $value) {
                             $fillable .= "<div class=\"badge py-3 px-4 fs-7 badge-light-primary mt-1\">&nbsp;" . "<span class=\"text-primary\">".$value->display."</span></div> ";
                         }
                     }
-
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->label . '</a>'
                     .$fillable;
                     ;
                 })
-
                 ->editColumn('forms', function ($row) {
                     $CountLabel = "<span class=\"fs-7 text-danger\"> غير مرتبط بأي أستمارة</span>";
                     if($row->forms_count){
@@ -90,19 +81,13 @@ class FieldController extends Controller
                     }
                     return $CountLabel;
                 })
-
-
                 ->editColumn('is_required', function ($row) {
                     $is_required = "<span class=\"badge py-3 px-4 fs-7 badge-light-info\">لا</span>";
                     if ($row->is_required == 1) {                      
                         $is_required = "<span class=\"badge py-3 px-4 fs-7 badge-light-success\">نعم</span>";
-                    } 
-                    
+                    }                     
                     return $is_required;
-
-                })
-
-     
+                })     
                 ->editColumn('created_at', function ($row) {
                     return $this->dataTableGetCreatedat($row->created_at);
                 })
@@ -136,22 +121,22 @@ class FieldController extends Controller
             return view('fields.create', $compact);
         }
     }
-    public function edit(Request $request, Field $field)
-    {
+    public function edit(Request $request, Field $field){
         if (view()->exists('fields.edit')) { 
         if ($request->ajax()) {
             $fillables =  $field->fillables;
             return Datatables::of($fillables)
                 ->addIndexColumn()
-                ->editColumn('fillable_display', function ($row) {                    
-                $data = "<div class=\"input-group\">
+                ->editColumn('fillable_display', function ($row) {                                    
+                 $data = "<input type=\"hidden\" name=\"field_fillable_id[]\" value='".$row->id."'>
+                 <div class=\"input-group\">
                 <span class=\"input-group-text\" data-kt-item-filter" . $row->id . "=\"item\">
                 <label class=\"form-check form-check-custom form-check-solid me-1\">
                  ".$row->display."
                 </label>
                 </span>
-                <input type=\"text\" value=".$row->display." id=\"answerText\"
-                name=\"old_fillable_display[".$row->id."]\" class=\"form-control form-control-lg\"/>                
+                <input type=\"text\" value='".$row->display."' id=\"answerText\"
+                name=\"old_fillable_display[".$row->id."]\" class=\"form-control\"/>                
                 </div>";
                     return $data;  
                 })    
@@ -226,30 +211,37 @@ class FieldController extends Controller
     }
 
 
-    public function update(FieldRequest $request, Field $field)
-    {
-        dd('dasd');
+    public function update(FieldRequest $request, Field $field){
+        
         $validated = $request->validated();
-        $validated['title'] = $request->title;
-        $validated['notices'] = $request->notices;
+        $validated['label'] = $request->label;
+        $validated['name'] = $request->name;
+        $validated['type'] = $request->type;
+        $validated['width'] = $request->width;
+        $validated['is_required'] = $request->is_required;
+       
+        $fieldInfo              = $this->handleSaveField($request);
+         
         $updateRecord = [];
-        foreach ($request->field_fillable_id as $k => $v) {
-            if (!(empty($request->old_fillable_display[$v]) && !empty($request->old_fillable_value[$v]))) {
-                $updateRecord[$k] = [
-                    'id' => $v,
-                    'display' => $request->old_fillable_display[$v],
-                    'value' => $request->old_fillable_value[$v],
-                ];
+        if(!(empty($request->field_fillable_id))){
+            foreach ($request->field_fillable_id as $k => $v) {             
+                if (!(empty($request->old_fillable_display[$v]) && !empty($request->old_fillable_value[$v]))) {
+                    $updateRecord[$k] = [
+                        'id' => $v,
+                        'display' => $request->old_fillable_display[$v],
+                        'value' => $request->old_fillable_value[$v],
+                    ];
+                }
             }
+            $index = 'id';
+            $fillablesInstance = new FieldFillable();
+            \Batch::update($fillablesInstance, $updateRecord, $index);
         }
-        #update old fillable
-        $index = 'id';
-        $fillablesInstance = new FieldFillable();
-        \Batch::update($fillablesInstance, $updateRecord, $index);
-        #new fillable added
-        if (count($request->fillable_display) > 0 && count($request->fillable_value) > 0) {
-            $result = array_combine($request->fillable_display, $request->fillable_value);
-            $insert = [];
+
+       #new fillable added
+       if (!empty($request->fillable_display) > 0 && !empty($request->fillable_value) > 0) {
+        $result = array_combine($request->fillable_display, $request->fillable_value);
+        $insert = [];
             foreach ($result as $k => $v) {
                 if (!empty($k) && !empty($v)) {
                     $insert[] = [
@@ -262,8 +254,11 @@ class FieldController extends Controller
             if (!empty($insert)) {
                 FieldFillable::insert($insert);
             }
-        }
-        if (Field::findOrFail($field->id)->update($validated)) {
+        }        
+
+
+ 
+        if (Field::findOrFail($field->id)->update($fieldInfo)) {
             $arr = ['msg' => __($this->TRANS . '.updateMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.updateMessageError'), 'status' => false];

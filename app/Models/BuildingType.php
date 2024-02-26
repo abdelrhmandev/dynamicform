@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuildingType extends Model
 {
-    use HasFactory; 
+
     protected $table = 'building_types';
-    protected $fillable = ['*'];
-    public $timestamps = false;
+    protected $fillable = ['title'];
+    protected $guarded = ['id'];
+    public $timestamps = true;
+
+   
+
+
+    public function form(){
+        return $this->belongsTo(Form::class);
+    }
+
 
 }

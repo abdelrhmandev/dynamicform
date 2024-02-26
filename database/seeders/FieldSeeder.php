@@ -18,6 +18,16 @@ class FieldSeeder extends Seeder
             'maxlength' => 255,
             'maxStringLengthMessage' => 'يجب أن يكون عدد حروف النّص بحد أقصي 255 ',
         ];
+        
+        $commercial_registration_number_building = [
+            'type' => 'StringLength',
+            'pattern' => '^\d{10}$',
+            'message' => 'رقم السجل التجاري للمبني يقبل أرقام فقط',
+            'maxlength' => 20,
+            'minlength' => 10,
+            'StringLengthMessage' => 'رقم السجل التجاري للمبني مكون من 20 أرقام فقط لا أقل و لا أكثر',
+        ];
+
 
         $owner_email = [
             'type' => 'Regex',
@@ -34,9 +44,10 @@ class FieldSeeder extends Seeder
             'minlength' => 10,
             'StringLengthMessage' => 'رقم الهوية مكون من 10 أرقام فقط لا أقل و لا أكثر',
         ];
-        $owner_mobile_number = [
+        $owner_phone_number = [
             'type' => 'StringLength',
             'min' => '0100000000',
+            'callback' => 'Validate_SA_Phone_Number',
             'data_fv_greater_than_inclusive' => 'true',
             'data_fv_greater_than_message' => 'لابد من اضافة رقم الجوال مكون من 10 ارقام',
             'max' => '0999999999',
@@ -71,6 +82,11 @@ class FieldSeeder extends Seeder
             'date_end' => '2024-2-25',
         ];
 
+
+        $building_date_license = [
+            'is_min_date'=>'1'
+        ];
+
         $building_gallery_images = [
             'accept' => '.png, .jpg, .jpeg',
             'data_file' => 'true',
@@ -83,7 +99,7 @@ class FieldSeeder extends Seeder
             ['label' => 'أسم المالك', 'name' => 'name', 'type' => 'textbox', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($owner_name), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'البريد الألكتروني للمالك', 'name' => 'email', 'type' => 'email', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_email), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'رقم هويه المالك', 'name' => 'id_number', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_id_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_mobile_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['label' => 'رقم جوال المالك', 'name' => 'mobile', 'type' => 'textbox', 'width' => '50', 'is_required' => '1', 'validation' => json_encode($owner_phone_number), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
             ['label' => 'الحاله الأجتماعيه', 'name' => 'social_status', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'المستوي التعليمي', 'name' => 'education_level', 'type' => 'radio', 'width' => '50', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
@@ -98,10 +114,18 @@ class FieldSeeder extends Seeder
             ['label' => 'توقيع المالك', 'name' => 'signature', 'type' => 'signature', 'width' => '50', 'is_required' => '1', 'validation' => null, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'هل هناك نزاعات قضائيه علي المبني', 'name' => 'legal_disputes_over_building', 'type' => 'radio', 'width' => '100', 'is_required' => '0', 'validation' => NULL,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
        
-       
-            ['label' => 'أسم المبني', 'name' => 'name', 'type' => 'textbox', 'width' => '100', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
+            ['label' => 'رقم السجل التجاري للمبني', 'name' => 'commercial_registration_number_building', 'type' => 'number', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($commercial_registration_number_building), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['label' => 'مميزات المبني', 'name' => 'building_features', 'type' => 'checkbox', 'width' => '100', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
+
+
+            ['label' => 'أسم المبني', 'name' => 'building_name', 'type' => 'textbox', 'width' => '100', 'is_required' => '1', 'validation' => NULL, 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
+
+
+            ['label' => 'تاريخ ترخيص المبني', 'name' => 'building_date_license', 'type' => 'date', 'width' => '100', 'is_required' => '1', 'validation' => json_encode($building_date_license), 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
 
         ];
 

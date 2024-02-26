@@ -14,7 +14,7 @@ trait Functions
     {
         $field = [];
         $pattern = '';
-        
+        $type = $request->type;
 
         if ($request->type == 'textbox' || $request->type == 'textarea') {
             if ($request->attribute == 'arabic_letters_only') {
@@ -51,8 +51,7 @@ trait Functions
                 $data_file_type = 'image/jpeg,image/jpg,image/png';
                 $data_file_message = __('validation.mimetypes', ['attribute' => 'image', 'values' => '*.png, *.jpg and *.jpeg']);
             } elseif ($request->checkFileRules == 'documents') {
-
-                $file_type ='document';
+                $file_type = 'document';
                 $accept = '.xlsx,.docx,.pdf';
                 $data_file_extension = 'xlsx,docx,pdf';
                 $data_file_type = 'application/xlsx,application/docx,application/pdf';
@@ -76,23 +75,56 @@ trait Functions
             ];
         }
 
+        ////////////////////////////////////////////Custom Entry/////////////////////////////////////
+
+        if ($request->typeIdNumber == '1' || $type == 'id_number' ) {
+            $type = 'textbox';
+            $dataValidation['validators'] = [
+                'type' => 'StringLength',
+                'pattern' => '^\d{10}$',
+                'callback' => 'Validate_SA_Id_Number',
+                'message' => 'رقم الهويه يقبل أرقام فقط',
+                'maxlength' => 10,
+                'minlength' => 10,
+                'StringLengthMessage' => 'رقم الهوية مكون من 10 أرقام فقط لا أقل و لا أكثر',
+            ];
+        } if ($request->typePhoneNumber == '1' || $type == 'phone_number' ) {
+            $type = 'textbox';
+            $dataValidation['validators']  = [
+                'type' => 'StringLength',
+                'min' => '0100000000',
+                'callback' => 'Validate_SA_Phone_Number',
+                'data_fv_greater_than_inclusive' => 'true',
+                'data_fv_greater_than_message' => 'لابد من اضافة رقم الجوال مكون من 10 ارقام',
+                'max' => '0999999999',
+                'data_fv_less_than_inclusive' => 'false',
+                'data_fv_less_than_message' => 'لابد أن يبدأ رقم الجوال برقم 05',
+                'maxlength' => '10',
+                'minlength' => '10',
+                'StringLengthMessage' => 'رقم الجوال مكون من 10 أرقام فقط لا أقل و لا أكثر',
+            ];
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+
         ///////////////////////If validation values is empty remove also key ///////////////////
 
-        $validation = NULL;
-        if(isset($dataValidation['validators'])){
+        $validation = null;
+        if (isset($dataValidation['validators'])) {
             foreach ($dataValidation['validators'] as $key => $value) {
                 if (is_null($value) || $value == '') {
                     unset($dataValidation['validators'][$key]);
                 }
-            }  
-            $validation = json_encode($dataValidation['validators']);          
+            }
+            $validation = json_encode($dataValidation['validators']);
         }
-        $field['type']        = $request->type;
-        $field['label']       = $request->label;
-        $field['name']        = $request->name;
-        $field['width']       = $request->width;
+
+        $field['type'] = $type;
+        $field['label'] = $request->label;
+        $field['name'] = $request->name;
+        $field['width'] = $request->width;
         $field['is_required'] = $request->is_required ?? '0';
-        $field['validation']  =  $validation;
+        $field['validation'] = $validation;
         return $field;
     }
 

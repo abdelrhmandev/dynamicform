@@ -33,20 +33,20 @@ class DatabaseSeeder extends Seeder
             FieldSeeder::class,
             FieldFillableSeeder::class,
 
-            // EventSeeder::class,
-            // GameSeeder::class,
-            // QuestionSeeder::class,
-            // AnswerSeeder::class,
+     
+     
+  
+ 
             // RolesAndPermissionsSeeder::class,
  
             // QuestionCorrectAnswerSeeder::class,
             // BuildingTypeSeeder::class,
-            // BuildingTypeFormSeeder::class,
+            BuildingTypeSeeder::class,
  
             FormFieldSeeder::class,
 
         ]); 
 
-        \App\Models\Form::factory(10)->create();
+        \App\Models\Form::factory(20)->create();
     }
 }

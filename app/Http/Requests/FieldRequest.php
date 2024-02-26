@@ -16,7 +16,11 @@ class FieldRequest extends FormRequest
         $rules['label']       = 'required|unique:fields,label'.$id;
         $rules['name']        = 'required|unique:fields,name'.$id;
         $rules['type']        = 'required';        
-        $rules['width']       = 'required';        
+        $rules['width']       = 'required';             
+        $rules['is_required'] = 'nullable|in:0,1';  
+
+ 
+        
         return $rules; 
     } 
 

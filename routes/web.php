@@ -52,6 +52,10 @@ Route::resource('buildings', BuildingController::class)->except('show');
 
 Route::resource('buildingtypes', BuildingTypeController::class)->except('show');
 
+Route::delete('/buildingtypes/destroy/all', [App\Http\Controllers\BuildingTypeController::class,'destroyMultiple'])->name('buildingtypes.destroyMultiple');
+
+
+ 
 
 
 
