@@ -41,8 +41,24 @@ class BuildingController extends Controller
     }
 
     public function AjaxFormdata(Request $request){
-        $form = Form::where('id', $request->id)->get();
-        $view = view('buildings.AjaxGetFormdata', ['form' => $form])->render();
+        $form = BuildingType::with('form')->where('form_id', $request->building_type_id);
+
+
+         
+    $query = BuildingType::with([
+        'form' => function($query) {
+            $query->select('id', 'title','mobile','id_number','region_id','address_info','gender','created_at');  
+        },
+       
+    ])
+    ->where('id', $request->building_type_id)
+    ->select(['id', 'title','form_id'])->first();
+      
+
+
+       
+
+        $view = view('buildings.AjaxGetFormdata', ['query' => $query])->render();
         return $view;
     }
 }
