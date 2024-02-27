@@ -115,6 +115,7 @@ class FormController extends Controller
     }
     public function edit(Form $form)
     {
+       
         if (view()->exists('forms.edit')) {
             $compact = [
                 'fields' => Field::get(),

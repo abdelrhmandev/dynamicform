@@ -15,6 +15,7 @@ class BuildingTypeRequest extends FormRequest
         $id = $this->request->get('id') ? ',' . $this->request->get('id') : '';
         $rules['title']         = 'required|unique:building_types,title'.$id;
         $rules['image']         = 'nullable|max:1000|mimes:jpeg,bmp,png,gif'; // max size 1 MB
+        $rules['form_id']       = 'exists:forms,id';
         $rules['color']         = 'nullable';   
         return $rules; 
     } 

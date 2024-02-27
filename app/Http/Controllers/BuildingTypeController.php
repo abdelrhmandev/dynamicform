@@ -5,6 +5,8 @@ use Carbon\Carbon;
 use App\Models\Form;
 use App\Models\BuildingType;
 use App\Traits\Functions;
+use App\Traits\UploadAble;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +15,14 @@ use App\Http\Controllers\Controller;
 
 class BuildingTypeController extends Controller
 {
-    use Functions;
+    use UploadAble,Functions;
     public function __construct()
     {
         $this->middleware('auth');
         $this->ROUTE_PREFIX = 'buildingtypes';
         $this->TRANS = 'buildingtype';
-        $this->Tbl = 'buildingtypes';
+        $this->Tbl = 'building_types';
+        $this->UPLOADFOLDER = 'buildings/types';
     }
 
    
@@ -28,22 +31,28 @@ class BuildingTypeController extends Controller
         if ($request->ajax()) {           
             $model = BuildingType::withCount('form');  
             return Datatables::of($model)
-                ->addIndexColumn()               
+                ->addIndexColumn()       
+                
+                ->editColumn('title', function ($row) {
+                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
+                })
+
                ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
                 ->editColumn('actions', function ($row) {
                     return 'dsad';
                 })
-                ->rawColumns(['actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['title','actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('buildingtypes.index')) {
             $compact = [
-                'trans' => $this->TRANS,
-                'createRoute' => route($this->ROUTE_PREFIX . '.create'),
-                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
-                'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
+                'trans'                => $this->TRANS,
+                'model'                => BuildingType::select('*')->withCount('form')->get(),
+                'createRoute'          => route($this->ROUTE_PREFIX . '.create'),
+                'storeRoute'           => route($this->ROUTE_PREFIX . '.store'),
+                'listingRoute'         => route($this->ROUTE_PREFIX . '.index'),
                 'destroyMultipleRoute' => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
              
@@ -52,37 +61,48 @@ class BuildingTypeController extends Controller
     }
     public function create()
     {
-        if (view()->exists('forms.create')) {
+        if (view()->exists('buildingtypes.create')) {
             $compact = [
-                'trans' => $this->TRANS,
-                'regions' => Region::where('country_id', 177)->select('id', 'title')->get(),
+                'trans'        => $this->TRANS,
+                'forms'        => Form::select('id', 'title')->get(),
                 'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
+                'storeRoute'   => route($this->ROUTE_PREFIX . '.store'),
             ];
-            return view('forms.create', $compact);
-        }
-    }
-    public function edit(Form $form)
-    {
-        if (view()->exists('forms.edit')) {
-            $compact = [
-                'fields' => Field::get(),
-                'selectedFields' => $form->fields,
-                'updateRoute' => route($this->ROUTE_PREFIX . '.update', $form->id),
-                'row' => $form,
-                'destroyRoute' => route($this->ROUTE_PREFIX . '.destroy', $form->id),
-                'trans' => $this->TRANS,
-                'regions' => Region::where('country_id', 177)->select('id', 'title')->get(),
-                'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
-            ];
-            return view('forms.edit', $compact);
+            return view('buildingtypes.create', $compact);
         }
     }
 
-    public function update(FormDRequest $request, Form $form)
-    {
+    public function store(BuildingTypeRequest $request){
         $validated = $request->validated();
-        $update = $form->update($validated);
+        $validated['image'] = !empty($request->file('image')) ? $this->uploadFile($request->file('image'), $this->UPLOADFOLDER) : null;
+        if (BuildingType::create($validated)) {
+            $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageError'), 'status' => false];
+        }
+        return response()->json($arr); 
+    }
+
+
+
+    public function edit(BuildingType $buildingtype){         
+        if (view()->exists('buildingtypes.edit')) {
+            $compact = [
+                'forms'                  => Form::select('id', 'title')->get(),
+                'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $buildingtype->id),
+                'row'                    => $buildingtype,
+                'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $buildingtype->id),
+                'trans'                  => $this->TRANS,
+                'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
+            ];
+            return view('buildingtypes.edit', $compact);
+        }
+    }
+
+    public function update(BuildingTypeRequest $request, BuildingType $buildingtype){
+        $validated = $request->validated();        
+        $validated['image'] = !empty($request->file('image')) ? $this->uploadFile($request->file('image'), $this->UPLOADFOLDER) : null;
+        $update = $buildingtype->update($validated);
         if ($update) {
             $arr = ['msg' => __('form.updateMessageSuccess'), 'status' => true];
         } else {
@@ -91,9 +111,8 @@ class BuildingTypeController extends Controller
         return response()->json($arr);
     }
 
-    public function destroy(Form $form)
-    {
-        if ($form->delete()) {
+    public function destroy(BuildingType $buildingtype){
+        if ($buildingtype->delete()) {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
@@ -101,41 +120,17 @@ class BuildingTypeController extends Controller
         return response()->json($arr); 
     }
 
-    public function AjaxLoadjKanban(Request $request)
+    public function destroyMultiple(Request $request)
     {
-        $form = Form::where('id', $request->FormId)->first();
-
-        $FormId = $request->FormId;
-        $avaiableFields = Field::whereDoesntHave('forms', function($query) use($FormId) {
-            $query->where('form_id',$FormId);
-          })->get();
-        
-
-        $view = view('forms.AjaxLoadjKanban', ['formFields' => $form->fields, 'avaiableFields' => $avaiableFields,'FormId'=>$FormId])->render();
-        return $view;
-    }
-    public function saveFormfield(Request $request)
-    {
-        
-        $conditionArr = ['form_id' => $request->form_id, 'field_id' => $request->field_id];
-
-        #remove from tbl
-        if ($request->action == '_inprocess') {
-            FormField::where($conditionArr)->delete();
-            $msg = 'تم حذف الحقل من الأستمارة بنجاح';
-            $status = 'info';
-        } elseif ($request->action == '_working') {
-            FormField::insert($conditionArr);
-            $msg = 'تم اضافه الحقل الي الأستماره بنجاح';
-            $status = true;
+        $ids = explode(',', $request->ids);
+        $items = BuildingType::whereIn('id', $ids); // Check
+        if ($items->delete()) {
+            $arr = ['msg' => __($this->TRANS . '.' . 'MulideleteMessageSuccess'), 'status' => true];
+        } else {
+            $arr = ['msg' => __($this->TRANS . '.' . 'MiltideleteMessageError'), 'status' => false];
         }
-
-        /*$order  = explode(",",$request->order);
-        for($i=0; $i < count($order);$i++) {
-            FormField::where('field_id',$order[$i])->update(['order'=>$i]);
-        }*/
-
-        $arr = ['msg' => $msg, 'status' => $status];
         return response()->json($arr);
     }
+
+    
 }
