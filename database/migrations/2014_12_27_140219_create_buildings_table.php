@@ -7,10 +7,10 @@ class CreateBuildingsTable extends Migration
     public function up(){
         Schema::create('buildings', function (Blueprint $table) {                 
             $table->id();  
-            $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
-            $table->foreignId('field_id')->constrained('fields')->onDelete('cascade');
+            $table->foreignId('building_type_id');
+            $table->foreignId('field_id');
             $table->string('field_fillable_id')->nullable();
-            $table->string('fill_answer_text')->nullable();
+            $table->text('fill_answer_text')->nullable();
         });	
     }
     public function down(){
