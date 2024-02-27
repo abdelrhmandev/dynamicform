@@ -3,13 +3,83 @@
     <link href="{{ asset('assets/css/style.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css') }}" rel="stylesheet"
         type="text/css" />
-    {{-- {{ $query->form->fields()->get() }} --}}
     <div class="d-flex flex-column flex-lg-row">
         <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
-            @for ($i = 0; $i < 5; $i++)
-                هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول
-                هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول هنا الحقول
-            @endfor
+
+            <div class="d-flex flex-column gap-5">
+                @foreach ($query->form->fields()->get() as $field)
+                    @if (in_array($field->type, ['textbox', 'numbers']))
+                        <div class="fv-row fl">
+                            <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                            <input type="text" id="{{ $field->name }}" name="{{ $field->name }}"
+                                class="form-control mb-2" placeholder="{{ $field->label }}"
+                                {{ $field->required == 1 ? 'required' : '' }}
+                                pattern="{{ $field->JsonExtractValidationRules('pattern') }}"
+                                data-fv-regexp___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"
+                                data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
+                                minlength="{{ $field->JsonExtractValidationRules('minlength') }}"
+                                maxlength="{{ $field->JsonExtractValidationRules('maxlength') }}"
+                                data-fv-string-length___message = "{{ $field->JsonExtractValidationRules('StringLengthMessage') }}"
+                                data-fv-callback="{{ $field->JsonExtractValidationRules('callback') ? 'true' : 'false' }}"
+                                data-fv-callback___callback="{{ $field->JsonExtractValidationRules('callback') ? $field->JsonExtractValidationRules('callback') : '' }}"
+                                data-fv-greater-than___inclusive="{{ $field->JsonExtractValidationRules('data_fv_greater_than_inclusive') }}"
+                                data-fv-greater-than___message="{{ $field->JsonExtractValidationRules('data_fv_greater_than_message') }}"
+                                max="{{ $field->JsonExtractValidationRules('max') }}"
+                                data-fv-less-than___inclusive="{{ $field->JsonExtractValidationRules('data_fv_less_than_inclusive') }}"
+                                data-fv-less-than___message="{{ $field->JsonExtractValidationRules('data_fv_less_than_message') }} " />
+                        </div>
+                    
+                        @elseif (in_array($field->type, ['email']))
+                        <div class="fv-row fl">                                
+                           <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                           <input style="text-align: right" type="email" id="{{ $field->name }}" name="{{ $field->name }}"
+                               class="form-control mb-2"
+                               placeholder="{{ $field->label }}" 
+                               {{ $field->required == 1 ? 'required':'' }}
+                               data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"                                    
+                               data-fv-email-address___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"                                    
+                               />
+                        </div>
+                        @elseif (in_array($field->type, ['file']))                        
+                        {{ $field->label }} 
+                         <div class="card card-flush">                                                                                                   
+                                    <input type="file" name="image" id="image"
+                                    required
+                                    accept=".png, .jpg, .jpeg"
+                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
+                                    data-fv-file="true" 
+                                    data-fv-file___extension="jpeg,jpg,png" 
+                                    data-fv-file___type="image/jpeg,image/jpg,image/png" 
+                                    data-fv-file___message="{{  __('validation.mimetypes',['attribute'=>'image','values'=>'*.png, *.jpg and *.jpeg']) }}"
+                                    />                                    
+                                </label>                                            
+                         </div>
+                        
+                        @elseif (in_array($field->type, ['date_range']))          
+                        <div class="fv-row fl">
+                            <label class="required form-label"
+                                for="{{ $field->name }}">{{ $field->label }}</label>
+                            <div class="position-relative d-flex align-items-center">
+                                <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
+                                <input placeholder="{{ $field->label }}" 
+                                    data-datestart = "{{ $field->JsonExtractValidationRules('date_start') }}"
+                                    data-dateend = "{{ $field->JsonExtractValidationRules('date_end') }}"
+                                    type="text" id="{{ $field->name }}"
+                                    name="{{ $field->name }}"
+                                    class="dateRange form-control form-control-solid ps-12 flatpickr-input active"
+                                    readonly="readonly" required
+                                    data-fv-not-empty___message="dasdsdsadsads" />
+                            </div>
+                        </div>
+
+
+
+
+                    @endif
+                @endforeach
+            </div>
+
+
         </div>
         <div class="flex-column flex-lg-row-auto w-100 w-lg-250px w-xl-300px mb-10 order-1 order-lg-2">
             <div data-theme="light" class="card card-flush pt-3 mb-0 border-0" data-kt-sticky="true"
@@ -66,9 +136,11 @@
                         <div class="text-gray-700 fw-semibold fs-6 me-2">الجنس</div>
                         <div class="d-flex align-items-center">
                             <span class="text-gray-900 fw-bolder fs-6">
-                            {!! $query->form->gender == 'male' ? '<span class="text-success">ذكر</span>':'<span class="text-danger">أنثي</span>'  !!}
-                            
-                            
+                                {!! $query->form->gender == 'male'
+                                    ? '<span class="text-success">ذكر</span>'
+                                    : '<span class="text-danger">أنثي</span>' !!}
+
+
                         </div>
                     </div>
 
@@ -87,7 +159,7 @@
                         <div class="d-flex align-items-center">
                             <span class="text-gray-900 fw-bolder fs-6">
                                 {{ \Carbon\Carbon::parse($query->form->created_at)->diffForHumans() }}
-                                
+
                                 {{-- {{ $query->form->created_at }} --}}
                             </span>
                         </div>
