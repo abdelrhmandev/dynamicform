@@ -114,7 +114,7 @@ var dynamicColumns = [ //as an array start from 0
 { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
-  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'','1');
+  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
 });
 </script>
 @stop

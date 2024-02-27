@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Batch;
 use Carbon\Carbon;
 use App\Models\Form;
+use App\Models\BuildingType;
 use App\Traits\UploadAble;
 use App\Models\FormElement;
 use App\Models\BuildingValue;
@@ -15,150 +16,33 @@ use Illuminate\Support\Facades\File;
 
 class BuildingController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
     public function __construct()
     {
         $this->middleware('auth');
         $this->ROUTE_PREFIX = 'buildings';
         $this->UPLOADFOLDER = 'buildings';
-        $this->TRANS  = 'building';
+        $this->TRANS = 'building';
     }
     use UploadAble;
 
-    public function store(Request $request)
-    {
-        foreach ($request->field_id as $k => $v) {
-            $F_type = substr($k, strpos($k, '-') + 1);
-            $os = ['textbox', 'numbers', 'date', 'textarea'];
-            // Handle Fillable Pure Data Inserted By user
-            $fieldId = intval($k);
-            $data[$fieldId]['form_id'] = 1;
-            $data[$fieldId]['field_id'] = $fieldId;
-
-            $data[$fieldId]['field_fillable_id'] = null;
-            $data[$fieldId]['fill_answer_text'] = null;
-
-            if (in_array($F_type, $os)) {
-                $data[$fieldId]['fill_answer_text'] = $v;
-            } elseif ($F_type == 'file') {
-                $fileNameToStore = Str::random(25) . '.' . $v->getClientOriginalExtension();
-                $v->move(public_path('uploads/' . $this->UPLOADFOLDER), $fileNameToStore);
-                $data[$fieldId]['fill_answer_text'] = 'uploads/' . $this->UPLOADFOLDER . '/' . $fileNameToStore;
-            } elseif ($F_type == 'checkbox') {
-                //Get Forgin Fillable Ids
-                $data[$fieldId]['field_fillable_id'] = implode(',', $v);
-                $data[$fieldId]['fill_answer_text'] = null;
-            } else {
-                $data[$fieldId]['field_fillable_id'] = $v;
-            }
-        }
-
-        DB::table('building_values')->insert($data);
-
-        return redirect('/buildings/11/edit');
-
-        // return redirect()->route->name('admin.buildings.edit','11');
-    }
-
-    public function create()
-    {
-        $id = 1;
-        $form = Form::with('fields')
-            ->where('id', $id)
-            ->first();
-        $fields = $form->fields;
-        if (view()->exists('buildings.answer')) {
+    public function create(){
+        if (view()->exists('buildings.create')) {
             $compact = [
-                'form'=>$form,
-                'trans'             => $this->TRANS,
-                'listingRoute'      => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute'        => route($this->ROUTE_PREFIX . '.store'),
-                'fields'            => $fields,
+                'buildingtypes' => BuildingType::select('id','title','image','form_id')->get(),
+                'trans'         => $this->TRANS,
+                'createRoute'   => route($this->ROUTE_PREFIX . '.create'),
+                'storeRoute'    => route($this->ROUTE_PREFIX . '.store'),
             ];
-            return view('buildings.answer', $compact);
+            return view('buildings.create', $compact);
         }
     }
-
-    public function edit($id)
-    {
-        
-        $form = Form::with(['fields.fillables', 'fields.values'])
-            ->where('id', $id)
-            ->first();
-        $fields = $form->fields;
-        $values = $form->values;
-
-        if (view()->exists('buildings.answer')) {
-            $compact = [
-                'updateRoute' => route($this->ROUTE_PREFIX . '.update', $id),
-                'values' => $values,
-                'form'=>$form,
-                'fields' => $fields,
-            ];
-            return view('buildings.edit', $compact);
-        }
+    public function store(Request $request){
+            dd('store');
     }
 
-    public function update(Request $request, $id)
-    {
-        $form = Form::FindOrFail($id)
-            ->with('fields.values')
-            ->first();
-
-        foreach ($request->field_id as $k => $v) {
-            $F_type = substr($k, strpos($k, '-') + 1);
-            $os = ['textbox', 'numbers', 'date', 'textarea'];
-            // Handle Fillable Pure Data Inserted By user
-            $fieldId = intval($k);
-            $updateRecord[$fieldId]['form_id'] = $id;
-            $updateRecord[$fieldId]['field_id'] = $fieldId;
-            $updateRecord[$fieldId]['field_fillable_id'] = null;
-            $updateRecord[$fieldId]['fill_answer_text'] = $v;
-
-            echo '<pre>';
-            ///////////////////////////////////////////////////////////////////////////////
-            if (in_array($F_type, $os)) {
-                $updateRecord[$fieldId]['fill_answer_text'] = $v;
-            } elseif ($F_type == 'file') {
-                if (!empty($v)) {
-                    foreach ($form->fields as $b) {
-                        if (!empty($b->values->fill_answer_text)) {
-                            if ($b->values->field_id == $fieldId) {
-                                $this->unlinkFile($b->values->fill_answer_text);
-                            }
-                        }
-                    }
-
-                    // Delete Old File
-                    $fileNameToStore = Str::random(25) . '.' . $v->getClientOriginalExtension();
-                    $v->move(public_path('uploads/' . $this->UPLOADFOLDER), $fileNameToStore);
-                    $updateRecord[$fieldId]['fill_answer_text'] = 'uploads/' . $this->UPLOADFOLDER . '/' . $fileNameToStore;
-                }
-            } elseif ($F_type == 'checkbox') {
-                $updateRecord[$fieldId]['field_fillable_id'] = implode(',', $v);
-                $updateRecord[$fieldId]['fill_answer_text'] = null;
-            } else {
-                $updateRecord[$fieldId]['field_fillable_id'] = $v;
-            }
-        }
-
-        #update old fillable
-        $index = 'field_id';
-        $BuildInstance = new BuildingValue();
-
-        \Batch::update($BuildInstance, $updateRecord, $index);
-
-
-
-         return redirect()->back();
-         
-        echo '<pre>';
-        // dd($updateRecord);
-        echo '<pre>';
+    public function AjaxFormdata(Request $request){
+        $form = Form::where('id', $request->id)->get();
+        $view = view('buildings.AjaxGetFormdata', ['form' => $form])->render();
+        return $view;
     }
 }

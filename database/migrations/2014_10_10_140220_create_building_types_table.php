@@ -11,7 +11,6 @@ class CreateBuildingTypesTable extends Migration
             $table->string('image')->nullable();
             $table->string('color')->nullable();
             $table->foreignId('form_id');
-            $table->timestamps();     
         });	
     }
     public function down(){

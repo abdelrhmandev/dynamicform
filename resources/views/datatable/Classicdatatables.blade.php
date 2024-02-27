@@ -14,10 +14,12 @@ function loadDatatable(tableId,RouteListing,dynamicColumns,StatusColumn=null,Tit
         var lang = document.dir == 'rtl' ? 'ar' : 'en-GB';  
         var sorting = '';
 
+        if(StatusColumn){
         var CREATED_at = $('#'+tableId+' thead th').length-2;
          if(CREATED_at) { 
             sorting = [[CREATED_at , 'desc']];
          }
+        }
 
          
          

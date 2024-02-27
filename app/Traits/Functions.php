@@ -10,6 +10,25 @@ use Illuminate\Support\Facades\File;
  */
 trait Functions
 {
+    public function dataTableGetImage($row, $route)
+    {
+        $div = '<span aria-hidden="true">—</span>';
+        $row->image && File::exists(public_path($row->image)) ? ($imagePath = url(asset($row->image))) : ($imagePath = asset('assets/media/svg/files/blank-image.svg'));
+        $div =
+            '<a href=' .
+            route($route, $row->id) .
+            " title='" .
+            $row->title .
+            "'>
+                <div class=\"symbol symbol-50px\"><img class=\"img-fluid\" src=" .
+            $imagePath .
+            "></div>
+                </a>";
+
+        return $div;
+    }
+
+    
     public function handleSaveField($request)
     {
         $field = [];

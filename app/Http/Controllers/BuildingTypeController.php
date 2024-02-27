@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\BuildingTypeRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BuildingTypeRequest;
+
 
 class BuildingTypeController extends Controller
 {
@@ -29,7 +30,7 @@ class BuildingTypeController extends Controller
 
     public function index(Request $request){
         if ($request->ajax()) {           
-            $model = BuildingType::withCount('form');  
+            $model = BuildingType::with('form');  
             return Datatables::of($model)
                 ->addIndexColumn()       
                 
@@ -37,19 +38,30 @@ class BuildingTypeController extends Controller
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
 
-               ->filterColumn('created_at', function ($query, $keyword) {
-                    $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
+                ->editColumn('image', function ($row) {
+                    return $this->dataTableGetImage($row, $this->ROUTE_PREFIX . '.edit');
                 })
+
+                ->editColumn('color', function ($row) {
+                    return $row->color ? "<span class=\"bullet bullet-dot h-15px w-15px\" style=\"background:".$row->color."\"></span>":'غير محدد';
+                })
+
+                ->editColumn('form_id', function ($row) {
+                    return $row->form->title;
+                })
+
+ 
                 ->editColumn('actions', function ($row) {
-                    return 'dsad';
+                    return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['title','actions', 'created_at', 'created_at.display'])
+
+
+                ->rawColumns(['title','image','form_id','color','actions'])
                 ->make(true);
         }
         if (view()->exists('buildingtypes.index')) {
             $compact = [
                 'trans'                => $this->TRANS,
-                'model'                => BuildingType::select('*')->withCount('form')->get(),
                 'createRoute'          => route($this->ROUTE_PREFIX . '.create'),
                 'storeRoute'           => route($this->ROUTE_PREFIX . '.store'),
                 'listingRoute'         => route($this->ROUTE_PREFIX . '.index'),
@@ -104,9 +116,9 @@ class BuildingTypeController extends Controller
         $validated['image'] = !empty($request->file('image')) ? $this->uploadFile($request->file('image'), $this->UPLOADFOLDER) : null;
         $update = $buildingtype->update($validated);
         if ($update) {
-            $arr = ['msg' => __('form.updateMessageSuccess'), 'status' => true];
+            $arr = ['msg' => __('buildingtype.updateMessageSuccess'), 'status' => true];
         } else {
-            $arr = ['msg' => __('form.updateMessageError'), 'status' => true];
+            $arr = ['msg' => __('buildingtype.updateMessageError'), 'status' => true];
         }
         return response()->json($arr);
     }
