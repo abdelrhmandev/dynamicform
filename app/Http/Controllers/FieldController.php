@@ -97,7 +97,8 @@ class FieldController extends Controller
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
-                ->rawColumns(['label','is_required','forms', 'fillables.display','actions', 'created_at', 'created_at.display'])                ->make(true);
+                ->rawColumns(['label','is_required','forms', 'fillables.display','actions', 'created_at', 'created_at.display'])                
+                ->make(true);
         }
         if (view()->exists('fields.index')) {
             $compact = [

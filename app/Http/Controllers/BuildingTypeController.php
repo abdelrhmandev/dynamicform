@@ -3,9 +3,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Models\Form;
- 
 use App\Models\BuildingType;
- 
 use App\Traits\Functions;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,47 +22,20 @@ class BuildingTypeController extends Controller
         $this->Tbl = 'buildingtypes';
     }
 
-    public function store(FormDRequest $request)
-    {
-        $validated = $request->validated();
-        $query = Form::create($validated);
-        if ($query) {
-            $arr = ['msg' => __($this->TRANS . '.storeMessageSuccess'), 'status' => true];
-        } else {
-            $arr = ['msg' => __($this->TRANS . '.storeMessageError'), 'status' => false];
-        }
-        return response()->json($arr);
-    }
+   
 
-    public function index(Request $request)
-    {
-        if ($request->ajax()) {
-            $model = BuildingType::with([              
-                'form' => function($query) {
-                    $query->select('id', 'title'); # One to many
-                },
-               
-            ]);
-
-            dd($model);
-            
-
-
+    public function index(Request $request){
+        if ($request->ajax()) {           
+            $model = BuildingType::withCount('form');  
             return Datatables::of($model)
-
-                ->addIndexColumn()
-                ->editColumn('title', function ($row) {
-                    return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
-                })
-
-           
-                ->filterColumn('created_at', function ($query, $keyword) {
+                ->addIndexColumn()               
+               ->filterColumn('created_at', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') LIKE ?", ["%$keyword%"]);
                 })
                 ->editColumn('actions', function ($row) {
-                    return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
+                    return 'dsad';
                 })
-                ->rawColumns(['title', 'actions', 'created_at', 'created_at.display'])
+                ->rawColumns(['actions', 'created_at', 'created_at.display'])
                 ->make(true);
         }
         if (view()->exists('buildingtypes.index')) {
@@ -75,6 +46,7 @@ class BuildingTypeController extends Controller
                 'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
                 'destroyMultipleRoute' => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
+             
             return view('buildingtypes.index', $compact);
         }
     }

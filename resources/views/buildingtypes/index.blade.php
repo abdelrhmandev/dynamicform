@@ -1,13 +1,15 @@
 @extends('layouts.app')
-@section('title', __($trans . '.plural'))
+@section('title', __('field.add'))
 @section('breadcrumbs')
-<h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">{{ __($trans . '.plural') }}</h1>
-<span class="h-20px border-gray-200 border-start mx-3"></span>
-<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-    <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}" class="text-muted text-hover-primary">{{ __('site.home') }}</a></li>
-    <li class="breadcrumb-item"><span class="bullet bg-gray-200 w-5px h-2px"></span></li>
-    <li class="breadcrumb-item text-dark">{{ __($trans . '.plural') }}</li>
-</ul>
+    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">{{ __('field.plural') }}</h1>
+    <span class="h-20px border-gray-200 border-start mx-3"></span>
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+        <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}"
+                class="text-muted text-hover-primary">{{ __('site.home') }}</a>
+        </li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-200 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-dark">{{ __('field.plural') }}</li>
+    </ul>
 @stop
 
 @section('style')
@@ -69,8 +71,9 @@
                 <input class="form-check-input AA" type="checkbox" data-kt-check="true" data-kt-check-target="#{{ __($trans.".plural") }} .AA" value="1" />
               </div>
             </th>            
-            <th> sdasdsad </th>
-            <th> sdasdsad </th>
+            <th> نوع الحقل </th>
+            
+             
             <th class="text-primary">{{ __('site.created_at') }}</th>
             <th class="text-end min-w-50px noExport">{{ __('site.actions') }}</th>  
           </tr>
@@ -93,14 +96,16 @@
 @include('datatable.Classicdatatables')
 <script>
 var dynamicColumns = [ //as an array start from 0
-  { data: 'id', name: 'id',exportable:false}, 
-  { data: 'title', name: 'title',orderable: false},
-  { data: 'color', name: 'color',orderable: false},
-  { data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
-  { data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
+{ data: 'id', name: 'id',exportable:false}, 
+{ data: 'title', name: 'title',orderable: false}, // 
+
+ 
+{ data: 'created_at',name :'created_at', type: 'num', render: { _: 'display', sort: 'timestamp', order: 'desc'}}, // 6
+{ data: 'actions' , name : 'actions' ,exportable:false,orderable: false,searchable: false},    
 ];
 KTUtil.onDOMContentLoaded(function () {
-  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'2','1');
+  loadDatatable('{{ __($trans.".plural") }}','{{ $listingRoute }}',dynamicColumns,'','1');
 });
 </script>
+ 
 @stop
