@@ -22,10 +22,6 @@
                 <div class="card card-flush py-0">
                     <div class="card-body pt-5">
                         <div class="d-flex flex-column gap-5">
-                           
-
-                             
-
                             <div class="fv-row fl">
                                 <div class="form-floating border rounded">
                                     <select class="form-select form-select-transparent" data-control="select2"
@@ -41,25 +37,9 @@
                                     <label for="buildingtype">{{ __('buildingtype.select') }}</label>
                                 </div>                                                                                               
                             </div>
-
                             <div>
                                 <div id="FormResposeFields"></div>
                             </div>
-
-                            
-
- 
-                            
-                            
-                      
-                            
-                            
-
- 
-    
-
-    
-
                         </div>
                     </div>
                 </div>
@@ -73,6 +53,7 @@
     <script src="{{ asset('assets/js/custom/Tachyons.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom/es6-shim.min.js') }}"></script>
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/handleFormSubmit.js') }}"></script>
     <script>
         "use strict";
         var KTFormsSelect2Demo = {
@@ -92,8 +73,6 @@
                 });
             },
         };
-
-        ///////
         //  Start Ajax country and city 
         $('select[name="building_type_id"]').on('change', function() {
             var building_type_id = $(this).val();
@@ -112,10 +91,8 @@
                 });
             }
         });
-
-        /////////////
-
         KTUtil.onDOMContentLoaded(function() {
+            handleFormSubmitFunc('Add{{ $trans }}');
             KTFormsSelect2Demo.init();
         });
     </script>

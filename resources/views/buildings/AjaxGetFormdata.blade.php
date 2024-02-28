@@ -11,9 +11,9 @@
                     @if (in_array($field->type, ['textbox', 'numbers']))
                         <div class="fv-row fl">
                             <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
-                            <input type="text" id="{{ $field->name }}" name="{{ $field->name }}"
-                                class="form-control mb-2" placeholder="{{ $field->label }}"
-                                {{ $field->required == 1 ? 'required' : '' }}
+                            <input type="text" id="{{ $field->name }}"
+                                name="field_id[{{ $field->id }}-{{ $field->type }}]" class="form-control mb-2"
+                                placeholder="{{ $field->label }}" {{ $field->required == 1 ? 'required' : '' }}
                                 pattern="{{ $field->JsonExtractValidationRules('pattern') }}"
                                 data-fv-regexp___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"
                                 data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
@@ -28,53 +28,62 @@
                                 data-fv-less-than___inclusive="{{ $field->JsonExtractValidationRules('data_fv_less_than_inclusive') }}"
                                 data-fv-less-than___message="{{ $field->JsonExtractValidationRules('data_fv_less_than_message') }} " />
                         </div>
-                    
-                        @elseif (in_array($field->type, ['email']))
-                        <div class="fv-row fl">                                
-                           <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
-                           <input style="text-align: right" type="email" id="{{ $field->name }}" name="{{ $field->name }}"
-                               class="form-control mb-2"
-                               placeholder="{{ $field->label }}" 
-                               {{ $field->required == 1 ? 'required':'' }}
-                               data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"                                    
-                               data-fv-email-address___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}"                                    
-                               />
-                        </div>
-                        @elseif (in_array($field->type, ['file']))                        
-                        {{ $field->label }} 
-                         <div class="card card-flush">                                                                                                   
-                                    <input type="file" name="image" id="image"
-                                    required
-                                    accept=".png, .jpg, .jpeg"
-                                    data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
-                                    data-fv-file="true" 
-                                    data-fv-file___extension="jpeg,jpg,png" 
-                                    data-fv-file___type="image/jpeg,image/jpg,image/png" 
-                                    data-fv-file___message="{{  __('validation.mimetypes',['attribute'=>'image','values'=>'*.png, *.jpg and *.jpeg']) }}"
-                                    />                                    
-                                </label>                                            
-                         </div>
-                        
-                        @elseif (in_array($field->type, ['date_range']))          
+                    @elseif (in_array($field->type, ['email']))
                         <div class="fv-row fl">
-                            <label class="required form-label"
-                                for="{{ $field->name }}">{{ $field->label }}</label>
-                            <div class="position-relative d-flex align-items-center">
-                                <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
-                                <input placeholder="{{ $field->label }}" 
-                                    data-datestart = "{{ $field->JsonExtractValidationRules('date_start') }}"
-                                    data-dateend = "{{ $field->JsonExtractValidationRules('date_end') }}"
-                                    type="text" id="{{ $field->name }}"
-                                    name="{{ $field->name }}"
-                                    class="dateRange form-control form-control-solid ps-12 flatpickr-input active"
-                                    readonly="readonly" required
-                                    data-fv-not-empty___message="dasdsdsadsads" />
+                            <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                            <input style="text-align: right" type="email" id="{{ $field->name }}"
+                                name="field_id[{{ $field->id }}-{{ $field->type }}]" class="form-control mb-2"
+                                placeholder="{{ $field->label }}" {{ $field->required == 1 ? 'required' : '' }}
+                                data-fv-not-empty___message="{{ $field->required == 1 ? $field->required_msg : 'هذا الحقل مطلوب' }}"
+                                data-fv-email-address___message="{{ $field->JsonExtractValidationRules('message') ?? '' }}" />
+                        </div>
+                    @elseif (in_array($field->type, ['checkbox']))
+                        <div class="fv-row fl">
+                            <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                            @foreach ($field->fillables()->get() as $fillable)
+                                <div class="p-1 form-check form-check-custom form-check-primary form-check-solid">
+                                    <input class="form-check-input" type="checkbox" id="{{ $field->name }}"
+                                        value="{{ $fillable->id }}"
+                                        name="field_id[{{ $field->id }}-{{ $field->type }}][]" />
+                                    <label class="form-check-label" for="flexCheckboxLg">
+                                        {{ $fillable->display }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    @elseif (in_array($field->type, ['radio']))
+                        <div class="fv-row fl">
+                            <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
+                            @foreach ($field->fillables()->get() as $fillable)
+                                <div class="p-1 form-check form-check-custom form-check-primary form-check-solid">
+                                    <input class="form-check-input" type="radio" id="{{ $field->name }}"
+                                        value="{{ $fillable->id }}"
+                                        name="field_id[{{ $field->id }}-{{ $field->type }}]" />
+                                    <label class="form-check-label" for="flexCheckboxLg">
+                                        {{ $fillable->display }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    @elseif (in_array($field->type, ['select']))
+                        <div class="row">
+                            <div class="col-xl">
+                                <div class="fv-row fl">
+                                    <label class="required form-label"
+                                        for="{{ $field->name }}">{{ $field->label }}</label>
+                                    <select class="form-select form-select-solid" data-control="select2"
+                                        data-hide-search="false" id="{{ $field->name }}"
+                                        data-placeholder="{{ $field->label }}"
+                                        name="field_id[{{ $field->id }}-{{ $field->type }}]">
+
+                                        <option value="">{{ $field->label }}</option>
+                                        @foreach ($field->fillables()->get() as $fillable)
+                                            <option value="{{ $fillable->id }}"> {{ $fillable->display }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
-
-
-
                     @endif
                 @endforeach
             </div>

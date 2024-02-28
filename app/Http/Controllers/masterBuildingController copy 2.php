@@ -30,8 +30,7 @@ class BuildingController extends Controller
     }
     use UploadAble;
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         foreach ($request->field_id as $k => $v) {
             $F_type = substr($k, strpos($k, '-') + 1);
             $os = ['textbox', 'numbers', 'date', 'textarea'];
@@ -57,8 +56,10 @@ class BuildingController extends Controller
                 $data[$fieldId]['field_fillable_id'] = $v;
             }
         }
+        $data['building_type_id'] = $request->building_type_id;
+        dd($data);
 
-        DB::table('building_values')->insert($data);
+        DB::table('building')->insert($data);
 
         return redirect('/buildings/11/edit');
 
