@@ -43,8 +43,6 @@ class BuildingController extends Controller
         $query = Building::create($validated);        
         if ($query) {
         $building_id = $query->id;
-
-
         ////////Inser building detailed data /////////////////////
         foreach ($request->field_id as $k => $v) {
             $F_type = substr($k, strpos($k, '-') + 1);
@@ -55,7 +53,6 @@ class BuildingController extends Controller
             $data[$fieldId]['field_id'] = $fieldId;
             $data[$fieldId]['field_fillable_id'] = null;
             $data[$fieldId]['fill_answer_text'] = null;
-
             if (in_array($F_type, $os)) {
                 $data[$fieldId]['fill_answer_text'] = $v;
             } elseif ($F_type == 'file') {
@@ -71,7 +68,6 @@ class BuildingController extends Controller
             }
         }
             BuildingSubmission::insert($data);
-
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageError'), 'status' => false];
@@ -82,10 +78,10 @@ class BuildingController extends Controller
     public function index()
     {
         if (view()->exists('buildings.index')) {
-            // $buildings = Building::with(['submissions','submissions.field','type','type.form.fields'])->get();
+
+            $buildings = Building::with(['submissions','submissions.field','type','type.form.fields'])->get();
 
 
-            $buildings = Building::with(['submissions.field'])->get();
 
  
             $compact = [

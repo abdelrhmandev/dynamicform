@@ -17,24 +17,54 @@
     <div class="container-xxl" id="kt_content_container">
         <div class="card">
 
-            <div class="card-body pt-0">
-                <table class="table align-middle table-row-bordered fs-6 gy-5" id="buildingtypes">
-                    <thead>
-                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-                             
-                            {{ $buildings->submissions }}
-                                @foreach ($buildings->submissions->field as $field)
-                                    <th>{{ $field }}</th>
+            <div class="card-body pt-5">
+
+
+                <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-2">{{ __($trans . '.plural') }}
+                    {{ $buildings->count() }} </h1>
+
+
+
+                @foreach ($buildings as $building)
+                    <table class="table align-middle table-row-bordered fs-6 gy-5" id="buildings">
+                        <thead>
+                            <tr class="fw-bold fs-6 text-gray-800">
+                                <th>التصنيف</th>
+                                @foreach ($building->type->form->fields as $field)
+                                    <th>{{ $field->label }}</th>
                                 @endforeach
-                            
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-600">
-                        <tr>
-                            <td>dasdsad</td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+
+                        </thead>
+                        <tbody class="text-gray-600">
+                            <tr>
+                                <td>
+
+                                    <span class="bullet bullet-dot h-15px w-15px"
+                                        style="background:{{ $building->type->color }}"></span>
+                                    {{ $building->type->title }}
+                                </td>
+                                @foreach ($building->submissions as $submission)
+                                    <td>
+
+
+
+                                        @if ($submission->fill_answer_text)
+                                            {{ $submission->fill_answer_text }}
+                                        @else
+                                            @if (strpos($submission->field_fillable_id, ',') !== false)
+                                                'array fillable'
+                                            @else
+                                                'single relation'
+                                            @endif
+                                        @endif
+
+                                    </td>
+                                @endforeach
+                            </tr>
+                        </tbody>
+                    </table>
+                @endforeach
             </div>
         </div>
     </div>
