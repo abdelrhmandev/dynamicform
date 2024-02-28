@@ -19,7 +19,7 @@ class BuildingTypeSeeder extends Seeder {
                 ['title' => 'سكن عمال','image' => 'uploads/buildings/types/5.png','color'=>'#FF7F50','form_id'=>'5'],
                 ['title' => 'حديقه عامه','image' => 'uploads/buildings/types/6.png','color'=>'#CCCCFF','form_id'=>'6'],
                 ['title' => 'حوش','image' => 'uploads/buildings/types/7.png','color'=>'#40E0D0','form_id'=>'7'],
-                ['title' => 'زراعه','image' => 'uploads/buildings/types/8.png','color'=>'#9FE2BF','form_id'=>'8'],
+                ['title' => 'مزرعه','image' => 'uploads/buildings/types/8.png','color'=>'#9FE2BF','form_id'=>'8'],
                 ['title' => 'شرطة','image' => 'uploads/buildings/types/9.png','color'=>'#FFBF00','form_id'=>'9'],
                 ['title' => 'دفاع مدني','image' => 'uploads/buildings/types/10.png','color'=>'#008000','form_id'=>'1'],
                 ['title' => 'ملعب او نادي','image' => 'uploads/buildings/types/11.png','color'=>'#000080','form_id'=>'11'],

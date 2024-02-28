@@ -11,12 +11,16 @@ class Building extends Model
 
  
     protected $table = 'buildings';
-    protected $fillable = ['form_id','field_id','field_fillable_id','fill_answer_text'];
-    public $timestamps = false;
+    protected $fillable = ['building_type_id','created_at'];
+    public $timestamps = true;
 
 
-
+    public function submissions(){
+        return $this->hasMany(BuildingSubmission::class,'building_id','id');
+    }
  
-
+    public function type(){
+        return $this->belongsTo(BuildingType::class,'building_type_id','id');
+    }
 
 }

@@ -8,9 +8,7 @@ class CreateBuildingsTable extends Migration
         Schema::create('buildings', function (Blueprint $table) {                 
             $table->id();  
             $table->foreignId('building_type_id');
-            $table->foreignId('field_id');
-            $table->string('field_fillable_id')->nullable();
-            $table->text('fill_answer_text')->nullable();
+            $table->timestamps();  
         });	
     }
     public function down(){

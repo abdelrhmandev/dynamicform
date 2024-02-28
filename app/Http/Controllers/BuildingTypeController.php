@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BuildingTypeRequest;
 
-
 class BuildingTypeController extends Controller
 {
-    use UploadAble,Functions;
+    use UploadAble, Functions;
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,14 +25,13 @@ class BuildingTypeController extends Controller
         $this->UPLOADFOLDER = 'buildings/types';
     }
 
-   
-
-    public function index(Request $request){
-        if ($request->ajax()) {           
-            $model = BuildingType::with('form');  
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $model = BuildingType::with('form');
             return Datatables::of($model)
-                ->addIndexColumn()       
-                
+                ->addIndexColumn()
+
                 ->editColumn('title', function ($row) {
                     return '<a href=' . route($this->ROUTE_PREFIX . '.edit', $row->id) . " class=\"text-gray-800 text-hover-primary fs-5 fw-bold mb-1\" data-kt-item-filter" . $row->id . "=\"item\">" . $row->title . '</a>';
                 })
@@ -43,31 +41,29 @@ class BuildingTypeController extends Controller
                 })
 
                 ->editColumn('color', function ($row) {
-                    return $row->color ? "<span class=\"bullet bullet-dot h-15px w-15px\" style=\"background:".$row->color."\"></span>":'غير محدد';
+                    return $row->color ? "<span class=\"bullet bullet-dot h-15px w-15px\" style=\"background:" . $row->color . "\"></span>" : 'غير محدد';
                 })
 
                 ->editColumn('form_id', function ($row) {
                     return $row->form->title;
                 })
 
- 
                 ->editColumn('actions', function ($row) {
                     return $this->dataTableEditRecordAction($row, $this->ROUTE_PREFIX);
                 })
 
-
-                ->rawColumns(['title','image','form_id','color','actions'])
+                ->rawColumns(['title', 'image', 'form_id', 'color', 'actions'])
                 ->make(true);
         }
         if (view()->exists('buildingtypes.index')) {
             $compact = [
-                'trans'                => $this->TRANS,
-                'createRoute'          => route($this->ROUTE_PREFIX . '.create'),
-                'storeRoute'           => route($this->ROUTE_PREFIX . '.store'),
-                'listingRoute'         => route($this->ROUTE_PREFIX . '.index'),
+                'trans' => $this->TRANS,
+                'createRoute' => route($this->ROUTE_PREFIX . '.create'),
+                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
+                'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
                 'destroyMultipleRoute' => route($this->ROUTE_PREFIX . '.destroyMultiple'),
             ];
-             
+
             return view('buildingtypes.index', $compact);
         }
     }
@@ -75,16 +71,17 @@ class BuildingTypeController extends Controller
     {
         if (view()->exists('buildingtypes.create')) {
             $compact = [
-                'trans'        => $this->TRANS,
-                'forms'        => Form::select('id', 'title')->get(),
+                'trans' => $this->TRANS,
+                'forms' => Form::select('id', 'title')->get(),
                 'listingRoute' => route($this->ROUTE_PREFIX . '.index'),
-                'storeRoute'   => route($this->ROUTE_PREFIX . '.store'),
+                'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
             ];
             return view('buildingtypes.create', $compact);
         }
     }
 
-    public function store(BuildingTypeRequest $request){
+    public function store(BuildingTypeRequest $request)
+    {
         $validated = $request->validated();
         $validated['image'] = !empty($request->file('image')) ? $this->uploadFile($request->file('image'), $this->UPLOADFOLDER) : null;
         if (BuildingType::create($validated)) {
@@ -92,28 +89,40 @@ class BuildingTypeController extends Controller
         } else {
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageError'), 'status' => false];
         }
-        return response()->json($arr); 
+        return response()->json($arr);
     }
 
-
-
-    public function edit(BuildingType $buildingtype){         
+    public function edit(BuildingType $buildingtype)
+    {
         if (view()->exists('buildingtypes.edit')) {
             $compact = [
-                'forms'                  => Form::select('id', 'title')->get(),
-                'updateRoute'            => route($this->ROUTE_PREFIX . '.update', $buildingtype->id),
-                'row'                    => $buildingtype,
-                'destroyRoute'           => route($this->ROUTE_PREFIX . '.destroy', $buildingtype->id),
-                'trans'                  => $this->TRANS,
+                'forms' => Form::select('id', 'title')->get(),
+                'updateRoute' => route($this->ROUTE_PREFIX . '.update', $buildingtype->id),
+                'row' => $buildingtype,
+                'destroyRoute' => route($this->ROUTE_PREFIX . '.destroy', $buildingtype->id),
+                'trans' => $this->TRANS,
                 'redirect_after_destroy' => route($this->ROUTE_PREFIX . '.index'),
             ];
             return view('buildingtypes.edit', $compact);
         }
     }
 
-    public function update(BuildingTypeRequest $request, BuildingType $buildingtype){
-        $validated = $request->validated();        
-        $validated['image'] = !empty($request->file('image')) ? $this->uploadFile($request->file('image'), $this->UPLOADFOLDER) : null;
+    public function update(BuildingTypeRequest $request, BuildingType $buildingtype)
+    {
+        $validated = $request->validated();
+
+        $image = $buildingtype->image;
+        if (!empty($request->file('image'))) {
+            $buildingtype->image && File::exists(public_path($buildingtype->image)) ? $this->unlinkFile($buildingtype->image) : '';
+            $image = $this->uploadFile($request->file('image'), $this->UPLOADFOLDER);
+        }
+        if (isset($request->drop_image_checkBox) && $request->drop_image_checkBox == 1) {
+            $this->unlinkFile($buildingtype->image);
+            $image = null;
+        }
+
+        $validated['image'] = $image;
+
         $update = $buildingtype->update($validated);
         if ($update) {
             $arr = ['msg' => __('buildingtype.updateMessageSuccess'), 'status' => true];
@@ -123,13 +132,14 @@ class BuildingTypeController extends Controller
         return response()->json($arr);
     }
 
-    public function destroy(BuildingType $buildingtype){
+    public function destroy(BuildingType $buildingtype)
+    {
         if ($buildingtype->delete()) {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.deleteMessageError'), 'status' => false];
         }
-        return response()->json($arr); 
+        return response()->json($arr);
     }
 
     public function destroyMultiple(Request $request)
@@ -143,6 +153,4 @@ class BuildingTypeController extends Controller
         }
         return response()->json($arr);
     }
-
-    
 }

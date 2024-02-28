@@ -8,7 +8,7 @@
 
             <div class="d-flex flex-column gap-5">
                 @foreach ($query->form->fields()->get() as $field)
-                    @if (in_array($field->type, ['textbox', 'numbers']))
+                    @if (in_array($field->type, ['textbox', 'number']))
                         <div class="fv-row fl">
                             <label class="required form-label" for="{{ $field->name }}">{{ $field->label }}</label>
                             <input type="text" id="{{ $field->name }}"
