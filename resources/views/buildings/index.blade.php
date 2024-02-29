@@ -53,6 +53,25 @@
                                     </td>
                                     @foreach ($building->submissions as $submission)
                                         <td>
+  {{-- @if ($submission->fill_answer_text == 'multiplie_answer')                                             --}}
+                                            {{-- {{ $submission->field->type }} --}}
+                                            {{-- asdasdsa --}}
+                                            {{-- @else --}}
+
+
+                                            {{-- @foreach ($building->type->form->fields as $field) --}}
+                                            {{-- {{ $field->type}}     --}}
+                                            {{-- @if($field->type == 'file')
+                                                    FILE 
+                                                @endif --}}
+
+                                            {{-- @endforeach --}}
+
+                                            
+                                            {{-- {{ $submission->fill_answer_text }} --}}
+
+
+                                            {{-- @endif --}}                                            
 
                                             {{-- @if ($submission->field_fillable_id == 'multiplie_answer')
                                             multi plie answers
