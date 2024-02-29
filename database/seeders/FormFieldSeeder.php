@@ -20,6 +20,12 @@ class FormFieldSeeder extends Seeder
             ['form_id' => '1','field_id' => '3'],
             ['form_id' => '1','field_id' => '4'],
             ['form_id' => '1','field_id' => '5'],
+            ['form_id' => '1','field_id' => '7'],
+
+            ['form_id' => '1','field_id' => '9'],
+            ['form_id' => '1','field_id' => '14'],
+            ['form_id' => '1','field_id' => '16'],
+
 
 
 

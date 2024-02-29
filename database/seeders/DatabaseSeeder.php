@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
             // QuestionCorrectAnswerSeeder::class,
             // BuildingTypeSeeder::class,
             BuildingTypeSeeder::class,
+
+            BuildingSeeder::class,
  
             FormFieldSeeder::class,
 

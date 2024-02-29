@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\BuildingRequest;
+use App\Models\BuildingSubmissionMultiplie;
 
 class BuildingController extends Controller
 {
@@ -40,34 +41,47 @@ class BuildingController extends Controller
     public function store(BuildingRequest $request)
     {
         $validated = $request->validated();
-        $query = Building::create($validated);        
+        $query = Building::create($validated);
         if ($query) {
-        $building_id = $query->id;
-        ////////Inser building detailed data /////////////////////
-        foreach ($request->field_id as $k => $v) {
-            $F_type = substr($k, strpos($k, '-') + 1);
-            $os = ['textbox', 'numbers', 'date', 'textarea', 'email'];
-            // Handle Fillable Pure Data Inserted By user
-            $fieldId = intval($k);
-            $data[$fieldId]['building_id'] = $building_id;
-            $data[$fieldId]['field_id'] = $fieldId;
-            $data[$fieldId]['field_fillable_id'] = null;
-            $data[$fieldId]['fill_answer_text'] = null;
-            if (in_array($F_type, $os)) {
-                $data[$fieldId]['fill_answer_text'] = $v;
-            } elseif ($F_type == 'file') {
-                $fileNameToStore = Str::random(25) . '.' . $v->getClientOriginalExtension();
-                $v->move(public_path('uploads/' . $this->UPLOADFOLDER), $fileNameToStore);
-                $data[$fieldId]['fill_answer_text'] = 'uploads/' . $this->UPLOADFOLDER . '/' . $fileNameToStore;
-            } elseif ($F_type == 'checkbox') {
-                //Get Forgin Fillable Ids
-                $data[$fieldId]['field_fillable_id'] = implode(',', $v);
+            $building_id = $query->id;
+            $BuildingSubmissionMiltiplie = [];
+            $SaveMulti = [];
+            ////////Inser building detailed data /////////////////////
+            foreach ($request->field_id as $k => $v) {
+                $F_type = substr($k, strpos($k, '-') + 1);
+                $os = ['textbox', 'number', 'date', 'textarea', 'email'];
+                // Handle Fillable Pure Data Inserted By user
+                $fieldId = intval($k);
+                $data[$fieldId]['building_id'] = $building_id;
+                $data[$fieldId]['field_id'] = $fieldId;
+                $data[$fieldId]['field_fillable_id'] = null;
                 $data[$fieldId]['fill_answer_text'] = null;
-            } else {
-                $data[$fieldId]['field_fillable_id'] = $v;
+                if (in_array($F_type, $os)) {
+                    $data[$fieldId]['fill_answer_text'] = $v;
+                } elseif ($F_type == 'file') {
+                    $fileNameToStore = Str::random(25) . '.' . $v->getClientOriginalExtension();
+                    $v->move(public_path('uploads/' . $this->UPLOADFOLDER), $fileNameToStore);
+                    $data[$fieldId]['fill_answer_text'] = 'uploads/' . $this->UPLOADFOLDER . '/' . $fileNameToStore;
+                } elseif ($F_type == 'checkbox') {
+                    foreach ($v as $k => $b_sMiltiplie) {
+                        $BuildingSubmissionMiltiplie[$k]['field_fillable_id'] = $b_sMiltiplie;
+                    }
+                    //Get Forgin Fillable Ids
+                    $data[$fieldId]['field_fillable_id'] = 'multiplie_answer';
+                    $data[$fieldId]['fill_answer_text']  = 'multiplie_answer';
+                } else {
+                    $data[$fieldId]['field_fillable_id'] = $v;
+                }
             }
-        }
-            BuildingSubmission::insert($data);
+            $b_Query = BuildingSubmission::insert($data);
+            if (isset($BuildingSubmissionMiltiplie) && !(empty($BuildingSubmissionMiltiplie))) {
+                $building_submission_id = DB::getPdo()->lastInsertId();
+                foreach ($BuildingSubmissionMiltiplie as $k => $v) {
+                    $SaveMulti[$k]['building_submission_id'] = $building_submission_id;
+                    $SaveMulti[$k]['field_fillable_id'] = $v['field_fillable_id'];
+                }
+                BuildingSubmissionMultiplie::insert($SaveMulti);
+            }
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageError'), 'status' => false];
@@ -78,14 +92,9 @@ class BuildingController extends Controller
     public function index()
     {
         if (view()->exists('buildings.index')) {
+            $buildings = Building::with(['submissions', 'submissions.field', 'type', 'type.form.fields.fillables'])->get();
 
-            $buildings = Building::with(['submissions','submissions.field','type','type.form.fields.fillables'])->get();
-
-
-
- 
             $compact = [
-             
                 'buildings' => $buildings,
                 'trans' => $this->TRANS,
                 'createRoute' => route($this->ROUTE_PREFIX . '.create'),

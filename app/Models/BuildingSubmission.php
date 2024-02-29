@@ -12,8 +12,20 @@ class BuildingSubmission extends Model
  
     protected $table = 'building_submission';
     protected $fillable = ['building_id','field_id','field_fillable_id','fill_answer_text'];
+    protected $guarded = ['id'];
     public $timestamps = true;
 
+
+    // public function bfillablesMiltiAnswers($field_fillable_id){
+
+
+    //     // return $this->belongsTo(FieldFillable::class,'field_fillable_id','id')-where('field_fillable_id',);
+
+    // }
+
+    public function bfillables(){
+        return $this->belongsTo(FieldFillable::class,'field_fillable_id','id');
+    }
 
 
     public function field(){
