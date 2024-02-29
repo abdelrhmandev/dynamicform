@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('title', __($trans . '.plural'))
 @section('breadcrumbs')
-    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">{{ __($trans . '.plural') }}</h1>
+    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">
+        {{ __($trans . '.plural') }}</h1>
     <span class="h-20px border-gray-200 border-start mx-3"></span>
     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
         <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}"
@@ -24,53 +25,65 @@
                     {{ $buildings->count() }} </h1>
 
 
+                <div class="table-responsive">
+                    @foreach ($buildings as $building)
+                        <table class="table align-middle table-row-bordered fs-6 gy-5" id="buildings">
+                            <thead>
+                                <tr class="fw-semibold fs-7 text-primary border-bottom border-gray-200 py-4">
+                                    <th>التصنيف</th>
 
-                @foreach ($buildings as $building)
-                    <table class="table align-middle table-row-bordered fs-6 gy-5" id="buildings">
-                        <thead>
-                            <tr class="fw-bold fs-6 text-gray-800">
-                                <th>التصنيف</th>
-                                @foreach ($building->type->form->fields as $field)
-                                    <th>{{ $field->label }}</th>
-                                @endforeach
-                            </tr>
+                                    @foreach ($building->type->form->fields as $field)
+                                        <th>{{ $field->label }}</th>
+                                    @endforeach
+                                    <th>تاريخ أضافه المبني</th>
+                                </tr>
 
-                        </thead>
-                        <tbody class="text-gray-600">
-                            <tr>
-                                <td>
-
-                                    <span class="bullet bullet-dot h-15px w-15px"
-                                        style="background:{{ $building->type->color }}"></span>
-                                    {{ $building->type->title }}
-                                </td>
-                                @foreach ($building->submissions as $submission)
+                            </thead>
+                            <tbody class="text-gray-600">
+                                <tr>
                                     <td>
-
-
-
-                                        @if ($submission->fill_answer_text)
-                                            {{ $submission->fill_answer_text }}
-                                        @else
-                                            @if (strpos($submission->field_fillable_id, ',') !== false)
-                                                'array fillable'
-                                            @else
-                                                'single relation'
-                                            @endif
-                                        @endif
-
+                                        <span class="bullet bullet-dot h-15px w-15px" style="background:{{ $building->type->color }}"></span>
+                                        <b>{{ $building->type->title }}</b>
                                     </td>
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                @endforeach
+                                    @foreach ($building->submissions as $submission)
+                                        <td>
+                                            @if ($submission->fill_answer_text)
+                                                {{ $submission->fill_answer_text }}
+                                            @else
+                                                @if (strpos($submission->field_fillable_id, ',') !== false)
+                                                    {{-- 'array fillable' --}}
+                                                @else
+
+
+                                                <h1>
+                                                    <pre>
+                                                    {{-- {{ $submission->field->fillables }} --}}
+                                                    </pre>
+                                                </h1>
+                                                
+
+
+                                                @endif
+                                            @endif
+
+                                        </td>
+                                    @endforeach
+                                    <td>
+                                        {{ $building->created_at }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
 
 @stop
 @section('scripts')
+
+
 @stop
 {{-- @foreach ($buildings as $building)
             @foreach ($building->type->form->fields as $field)

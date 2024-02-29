@@ -79,7 +79,7 @@ class BuildingController extends Controller
     {
         if (view()->exists('buildings.index')) {
 
-            $buildings = Building::with(['submissions','submissions.field','type','type.form.fields'])->get();
+            $buildings = Building::with(['submissions','submissions.field','type','type.form.fields.fillables'])->get();
 
 
 
