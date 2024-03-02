@@ -87,16 +87,15 @@
                             </div>
                         </div>
                     @elseif (in_array($field->type, ['file']))
-                        @if ($field->JsonExtractValidationRules('file_type') == 'image')
+                        {{--  @if ($field->JsonExtractValidationRules('file_type') == 'image')
                             image
-                        @elseif($field->JsonExtractValidationRules('file_type') == 'document')
+                        @elseif($field->JsonExtractValidationRules('file_type') == 'document')  --}}
                             
                         <div class="row">
                             <div class="col-xl">
                                 <div class="fv-row fl">
                                     <label class="required form-label"
-                                        for="{{ $field->name }}">{{ $field->label }}</label>
-                                  
+                                        for="{{ $field->name }}">{{ $field->label }}</label>                                  
                                         <input type="file" id="{{ $field->name }}" name="field_id[{{ $field->id }}-{{ $field->type }}]">
                                 </div>
                             </div>
@@ -106,7 +105,7 @@
                         
 
 
-                        @endif
+                        {{--  @endif  --}}
                     @endif
                 @endforeach
             </div>

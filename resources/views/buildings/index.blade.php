@@ -38,7 +38,7 @@
                                     <th style="color: red">التصنيف</th>
 
                                     @foreach ($building->type->form->fields as $field)
-                                        <th>{{ $field->label }}</th>
+                                        <th> <h1>{{ $field->id }}</h1> {{ $field->label }}</th>
                                     @endforeach
                                     <th style="color: red">تاريخ أضافه المبني</th>
                                 </tr>
@@ -53,6 +53,9 @@
                                     </td>
                                     @foreach ($building->submissions as $submission)
                                         <td>
+
+
+                                            <h1>{{ $submission->field_id }}</h1>
   {{-- @if ($submission->fill_answer_text == 'multiplie_answer')                                             --}}
                                             {{-- {{ $submission->field->type }} --}}
                                             {{-- asdasdsa --}}
@@ -79,7 +82,7 @@
                                             
                                             realtion relation 
                                             @endif --}}
-dasdas
+{{--  dasdas  --}}
                                             {{-- {{ $submission->field->type }} --}}
                                             {{ $submission->fill_answer_text }}
                                             {{-- @endif --}}
