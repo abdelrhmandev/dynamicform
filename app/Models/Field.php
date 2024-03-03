@@ -15,10 +15,7 @@ class Field extends Model
     protected $guarded = ['id'];
     public $timestamps = true;
 
-
-    public function values(){
-        return $this->hasOne(BuildingValue::class);  
-    }
+ 
 
     public function JsonExtractValidationRules($key){                 
          $Json = json_decode($this->validation); 

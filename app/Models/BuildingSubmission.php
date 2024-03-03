@@ -28,7 +28,7 @@ class BuildingSubmission extends Model
     }
 
 
-    public function field(){
+    public function fields(){
         return $this->belongsTo(Field::class,'field_id','id');
     }
 

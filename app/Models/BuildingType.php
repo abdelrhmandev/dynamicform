@@ -20,6 +20,8 @@ class BuildingType extends Model
         return $this->belongsTo(Form::class,'form_id','id');
     }
    
-
+    public function buildings(){
+        return $this->hasMany(Building::class);
+    }
 
 }

@@ -30,8 +30,8 @@
                                         <option></option>
                                         @foreach ($buildingtypes as $buildingtype)
                                             <option value="{{ $buildingtype->id }}"
-                                                data-kt-select2-buildingtype="{{ url(asset($buildingtype->image)) }}">
-                                                {{ $buildingtype->title }}</option>
+                                                data-kt-select2-buildingtype="{{ isset($buildingtype->image) ? url(asset($buildingtype->image)) : url(asset('assets/media/svg/files/blank-image.svg')) }}">
+                                                {{ $buildingtype->title }}  ({{ ($buildingtype->buildings_count) }})</option>
                                         @endforeach
                                     </select>
                                     <label for="buildingtype">{{ __('buildingtype.select') }}</label>

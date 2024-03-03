@@ -30,7 +30,7 @@ class BuildingController extends Controller
     {
         if (view()->exists('buildings.create')) {
             $compact = [
-                'buildingtypes' => BuildingType::select('id', 'title', 'image', 'form_id')->get(),
+                'buildingtypes' => BuildingType::select('id', 'title', 'image', 'form_id')->withCount('buildings')->get(),
                 'trans' => $this->TRANS,
                 'createRoute' => route($this->ROUTE_PREFIX . '.create'),
                 'storeRoute' => route($this->ROUTE_PREFIX . '.store'),
@@ -92,11 +92,11 @@ class BuildingController extends Controller
     public function index()
     {
         if (view()->exists('buildings.index')) {
-            $buildings = Building::with(['submissions', 'submissions.field', 'type', 'type.form.fields.fillables'])->get();
+            $buildings = Building::with(['submissions.fields','submissions.bfillables'])->get();
 
             $compact = [
-                'buildings' => $buildings,
-                'trans' => $this->TRANS,
+                'buildings'   => $buildings,
+                'trans'       => $this->TRANS,
                 'createRoute' => route($this->ROUTE_PREFIX . '.create'),
             ];
             return view('buildings.index', $compact);

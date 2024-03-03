@@ -8,7 +8,7 @@ class FormField extends Model
     use HasFactory;
  
     protected $table = 'form_field';
-    protected $fillable = ['field_id','form_id','is_required'];
+    protected $fillable = ['field_id','form_id','order'];
     protected $guarded = ['id'];
     public $timestamps = false;
 }
