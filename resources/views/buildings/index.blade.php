@@ -35,9 +35,16 @@
                         <table class="table align-middle table-row-bordered fs-6 gy-5 p-5" id="buildings">
                             <thead>
                                 <tr class="fw-semibold fs-7 text-primary border-bottom border-gray-200 py-4">
+<<<<<<< HEAD
                                     <th style="color: red">التصنيف</th>                                   
                                     @foreach ($building->submissions as $f)
                                     <th>{{ $f->fields->label}}</th>
+=======
+                                    <th style="color: red">التصنيف</th>
+
+                                    @foreach ($building->type->form->fields as $field)
+                                        <th> <h1>{{ $field->id }}</h1> {{ $field->label }}</th>
+>>>>>>> 003ee5513e27b5503a148045b201e5f6855a5430
                                     @endforeach
                                     <th style="color: red">تاريخ أضافه المبني</th>
                                 </tr>
@@ -50,6 +57,7 @@
                                             style="background:{{ $building->type->color }}"></span>
                                         <b>{{ $building->type->title }}</b>
                                     </td>
+<<<<<<< HEAD
                                       
 
                                      
@@ -71,10 +79,44 @@
 
                                     </td>
                                     @endforeach 
+=======
+                                    @foreach ($building->submissions as $submission)
+                                        <td>
+
+
+                                            <h1>{{ $submission->field_id }}</h1>
+  {{-- @if ($submission->fill_answer_text == 'multiplie_answer')                                             --}}
+                                            {{-- {{ $submission->field->type }} --}}
+                                            {{-- asdasdsa --}}
+                                            {{-- @else --}}
+>>>>>>> 003ee5513e27b5503a148045b201e5f6855a5430
 
 
 
+<<<<<<< HEAD
                                    
+=======
+                                            {{-- @endforeach --}}
+
+                                            
+                                            {{-- {{ $submission->fill_answer_text }} --}}
+
+
+                                            {{-- @endif --}}                                            
+
+                                            {{-- @if ($submission->field_fillable_id == 'multiplie_answer')
+                                            multi plie answers
+                                            @elseif(!(empty($submission->field_fillable_id)))
+                                            
+                                            realtion relation 
+                                            @endif --}}
+{{--  dasdas  --}}
+                                            {{-- {{ $submission->field->type }} --}}
+                                            {{ $submission->fill_answer_text }}
+                                            {{-- @endif --}}
+                                        </td>
+                                    @endforeach
+>>>>>>> 003ee5513e27b5503a148045b201e5f6855a5430
                                     <td>
                                         {{ $building->created_at }}
                                     </td>

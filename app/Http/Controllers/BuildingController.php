@@ -73,7 +73,11 @@ class BuildingController extends Controller
                     $data[$fieldId]['field_fillable_id'] = $v;
                 }
             }
+
+            
+             
             $b_Query = BuildingSubmission::insert($data);
+            
             if (isset($BuildingSubmissionMiltiplie) && !(empty($BuildingSubmissionMiltiplie))) {
                 $building_submission_id = DB::getPdo()->lastInsertId();
                 foreach ($BuildingSubmissionMiltiplie as $k => $v) {
@@ -82,6 +86,7 @@ class BuildingController extends Controller
                 }
                 BuildingSubmissionMultiplie::insert($SaveMulti);
             }
+            dd();
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageSuccess'), 'status' => true];
         } else {
             $arr = ['msg' => __($this->TRANS . '.' . 'storeMessageError'), 'status' => false];
